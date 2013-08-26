@@ -1,0 +1,15 @@
+README.txt
+setup.cfg
+setup.py
+edeposit/__init__.py
+edeposit.user.egg-info/PKG-INFO
+edeposit.user.egg-info/SOURCES.txt
+edeposit.user.egg-info/dependency_links.txt
+edeposit.user.egg-info/entry_points.txt
+edeposit.user.egg-info/namespace_packages.txt
+edeposit.user.egg-info/not-zip-safe
+edeposit.user.egg-info/paster_plugins.txt
+edeposit.user.egg-info/requires.txt
+edeposit.user.egg-info/top_level.txt
+edeposit/user/__init__.py
+edeposit/user/tests.py
