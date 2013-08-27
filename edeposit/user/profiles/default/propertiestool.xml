@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<object name="portal_properties" meta_type="Plone Properties Tool">
+ <object name="site_properties" meta_type="Plone Property Sheet">
+  <property name="user_registration_fields" type="lines">
+   <element value="email"/>
+   <element value="fullname"/>
+   <element value="username"/>
+   <element value="password"/>
+   <element value="description"/>
+   <element value="mail_me"/>
+   <element value="home_page"/>
+   <element value="location"/>
+   <element value="portrait"/>
+   <element value="firstname"/>
+   <element value="lastname"/>
+   <element value="street"/>
+   <element value="city"/>
+   <element value="country"/>
+   <element value="phone"/>
+   <element value="accept"/>
+  </property>
+ </object>
+</object>

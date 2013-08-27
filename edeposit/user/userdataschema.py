@@ -4,6 +4,7 @@ from zope import schema
 from plone.app.users.userdataschema import IUserDataSchemaProvider
 from plone.app.users.userdataschema import IUserDataSchema
 from edeposit.user import MessageFactory as _
+from Products.CMFDefault.formlib.schema import FileUpload
 
 def validateAccept(value):
     if not value == True:
@@ -59,6 +60,14 @@ class IEnhancedUserDataSchema(IUserDataSchema):
                       default=u"Leave your phone number so we can reach you."),
         required=False,
         )
+
+    agreement = FileUpload(title=_(u'label_', default=u'Agreement'),
+                           description=_(u'help_agreement',
+                                         default=u'To add or change the agreement: click the '
+                                         '"Browse" button; select a file of agreement. '
+                                         'Accepted file format is PDF'),
+                           required=False)
+
     accept = schema.Bool(
         title=_(u'label_accept', default=u'Accept terms of use'),
         description=_(u'help_accept',

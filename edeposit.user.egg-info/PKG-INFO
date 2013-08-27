@@ -2,9 +2,9 @@ Metadata-Version: 1.1
 Name: edeposit.user
 Version: 1.0
 Summary: User Metadata for project E-Deposit
-Home-page: http://svn.plone.org/svn/collective/
-Author: UNKNOWN
-Author-email: UNKNOWN
+Home-page: https://github.com/jstavel/edeposit.user
+Author: Jan Stavel
+Author-email: stavel.jan@gmail.com
 License: GPL
 Description: Introduction
         ============

@@ -15,9 +15,9 @@ setup(name='edeposit.user',
         "Programming Language :: Python",
         ],
       keywords='',
-      author='',
-      author_email='',
-      url='http://svn.plone.org/svn/collective/',
+      author='Jan Stavel',
+      author_email='stavel.jan@gmail.com',
+      url='https://github.com/jstavel/edeposit.user',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['edeposit'],
@@ -27,12 +27,15 @@ setup(name='edeposit.user',
           'setuptools',
           # -*- Extra requirements: -*-
       ],
+      extras_require = {
+        'test': ['plone.app.testing',]
+      },
       entry_points="""
       # -*- Entry points: -*-
 
       [z3c.autoinclude.plugin]
       target = plone
       """,
-      setup_requires=["PasteScript"],
-      paster_plugins=["ZopeSkel"],
+      #setup_requires=["PasteScript"],
+      #paster_plugins=["ZopeSkel"],
       )

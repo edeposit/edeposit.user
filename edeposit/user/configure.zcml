@@ -9,11 +9,10 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="edeposit.user"
+      title="E-Deposit users"
       directory="profiles/default"
       description="Installs the edeposit.user package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
   <!-- -*- extra stuff goes here -*- -->
-  
 </configure>
