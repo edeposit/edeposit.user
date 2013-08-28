@@ -13,5 +13,6 @@ edeposit.user.egg-info/requires.txt
 edeposit.user.egg-info/top_level.txt
 edeposit/user/__init__.py
 edeposit/user/adapter.py
+edeposit/user/agreement_file.py
 edeposit/user/tests.py
 edeposit/user/userdataschema.py

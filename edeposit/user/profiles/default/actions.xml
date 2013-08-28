@@ -9,33 +9,21 @@
       <property name="link_target"/><property name="icon_expr"/>
       <property name="available_expr">python:member is None</property>
       <property name="permissions">
-	<element value="Add portal member"/>
-      </property>
-      <property name="visible">False</property>
-    </object>
-
-    <object name="join_without_agreement" meta_type="CMF Action" i18n:domain="edeposit.user">
-      <property name="title" i18n:translate="">Register without agreement</property>
-      <property name="description" i18n:translate=""></property>
-      <property name="url_expr">string:$portal_url/@@register</property>
-      <property name="icon_expr"></property>
-      <property name="available_expr">python:member is None</property>
-      <property name="permissions">
 	<element value="Public, everyone can access"/>
       </property>
       <property name="visible">True</property>
-    </object>    
-
-    <object name="join_with_agreement" meta_type="CMF Action" i18n:domain="edeposit.user">
-      <property name="title" i18n:translate="">Register with agreement</property>
+    </object>
+    <object name="mystuff" meta_type="CMF Action" i18n:domain="plone">
+      <property name="title" i18n:translate="">My Folder</property>
       <property name="description" i18n:translate=""></property>
       <property
-	  name="url_expr">string:$portal_url/@@register</property>
+	  name="url_expr">string:${portal/portal_membership/getHomeUrl}</property>
       <property name="link_target"></property>
       <property name="icon_expr"></property>
-      <property name="available_expr">python:member is None</property>
+      <property
+	  name="available_expr">python:(member is not None) and (portal.portal_membership.getHomeFolder() is not None) </property>
       <property name="permissions">
-	<element value="Public, everyone can access"/>
+	<element value="View"/>
       </property>
       <property name="visible">True</property>
     </object>

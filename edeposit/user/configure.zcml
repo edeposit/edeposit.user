@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
@@ -14,5 +15,17 @@
       description="Installs the edeposit.user package"
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
-  <!-- -*- extra stuff goes here -*- -->
+
+    <class class=".agreement_file.AgreementFile">
+        <implements interface=".agreement_file.IAgreementFile" />
+    </class>
+
+    <browser:page
+        for=".agreement_file.IAgreementFile"
+        name="sampleview"
+        class=".agreement_file.SampleView"
+        template="agreement_file_templates/sampleview.pt"
+        permission="zope2.View"
+        />
+
 </configure>

@@ -19,7 +19,7 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
         return self.context.getProperty('street', '')
     def set_street(self, value):
         return self.context.setMemberProperties({'street': value})
-    city = property(get_street, set_street)
+    street = property(get_street, set_street)
 
     def get_city(self):
         return self.context.getProperty('city', '')
@@ -44,4 +44,10 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
     def set_accept(self, value):
         return self.context.setMemberProperties({'accept': value})
     accept = property(get_accept, set_accept)
+
+    def get_agreement(self):
+        return self.context.getProperty('agreement', '')
+    def set_agreement(self, value):
+        return self.context.setMemberProperties({'agreement': value})
+    agreement = property(get_agreement, set_agreement)
 
