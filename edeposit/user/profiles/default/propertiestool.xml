@@ -11,13 +11,11 @@
    <element value="home_page"/>
    <element value="location"/>
    <element value="portrait"/>
-   <element value="firstname"/>
-   <element value="lastname"/>
    <element value="street"/>
    <element value="city"/>
    <element value="country"/>
    <element value="phone"/>
-   <element value="accept"/>
+   <element value="producent"/>
   </property>
  </object>
 </object>

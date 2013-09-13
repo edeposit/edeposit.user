@@ -7,7 +7,8 @@
     i18n_domain="edeposit.user">
 
   <five:registerPackage package="." initialize=".initialize" />
-
+  <include package=".browser" />
+  
   <genericsetup:registerProfile
       name="default"
       title="E-Deposit users"
@@ -16,16 +17,26 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
-    <class class=".agreement_file.AgreementFile">
-        <implements interface=".agreement_file.IAgreementFile" />
-    </class>
+  <browser:resourceDirectory
+      name="edeposit.user"
+      directory="static"
+      />
 
-    <browser:page
-        for=".agreement_file.IAgreementFile"
-        name="sampleview"
-        class=".agreement_file.SampleView"
-        template="agreement_file_templates/sampleview.pt"
-        permission="zope2.View"
-        />
-
+  <class class=".agreement_file.AgreementFile">
+    <implements interface=".agreement_file.IAgreementFile" />
+  </class>
+  
+  <browser:page
+      for=".agreement_file.IAgreementFile"
+      name="sampleview"
+      class=".agreement_file.SampleView"
+      template="agreement_file_templates/sampleview.pt"
+      permission="zope2.View"
+      />
+  
+  <subscriber 
+      for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
+      handler=".postlogin.logged_in_handler"
+      />
+  
 </configure>

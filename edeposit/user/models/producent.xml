@@ -1,0 +1,45 @@
+<model xmlns:security="http://namespaces.plone.org/supermodel/security" 
+       xmlns:lingua="http://namespaces.plone.org/supermodel/lingua" 
+       xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" 
+       xmlns:form="http://namespaces.plone.org/supermodel/form" 
+       xmlns="http://namespaces.plone.org/supermodel/schema">
+  <schema>
+    <field name="home_page" type="zope.schema.TextLine">
+      <description>Fill a home page we can find a producent at.</description>
+      <title>home_page</title>
+      <required>False</required>
+    </field>
+    
+    <field name="location" type="zope.schema.TextLine">
+      <description>Your location - either city and country - or in a company setting, where your office is located</description>
+      <title>location</title>
+      <required>False</required>
+    </field>
+    
+    <field name="street" type="zope.schema.TextLine">
+      <description>Fill a street with number.</description>
+      <title>street</title>
+      <required>True</required>
+    </field>
+    <field name="city" type="zope.schema.TextLine">
+      <description>Fill a city</description>
+      <title>City</title>
+      <required>True</required>
+    </field>
+    <field name="country" type="zope.schema.TextLine">
+      <description>Fill a country</description>
+      <title>Country</title>
+      <required>True</required>
+    </field>
+    <field name="contact" type="zope.schema.TextLine">
+      <description>Fill a phone, email or name of a person we can contact.</description>
+      <title>Contact</title>
+      <required>False</required>
+    </field>
+    <field name="agreement" type="plone.namedfile.field.NamedBlobFile">
+      <description>Upload file with agreement between National Library and you.</description>
+      <title>agreement</title>
+      <required>False</required>
+    </field>
+  </schema>
+</model>

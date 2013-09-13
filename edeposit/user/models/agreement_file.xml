@@ -4,7 +4,7 @@
        xmlns:marshal="http://namespaces.plone.org/supermodel/marshal"
        >
   <schema>
-    <field name="file" 
+    <field name="agreement" 
 	   marshal:primary="true" 
 	   type="plone.namedfile.field.NamedBlobFile">
       <description/>

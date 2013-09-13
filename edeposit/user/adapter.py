@@ -39,15 +39,8 @@ class EnhancedUserDataPanelAdapter(UserDataPanelAdapter):
         return self.context.setMemberProperties({'phone': value})
     phone = property(get_phone, set_phone)
 
-    def get_accept(self):
-        return self.context.getProperty('accept', '')
-    def set_accept(self, value):
-        return self.context.setMemberProperties({'accept': value})
-    accept = property(get_accept, set_accept)
-
-    def get_agreement(self):
-        return self.context.getProperty('agreement', '')
-    def set_agreement(self, value):
-        return self.context.setMemberProperties({'agreement': value})
-    agreement = property(get_agreement, set_agreement)
-
+    def get_producent(self):
+        return self.context.getProperty('producent', '')
+    def set_producent(self, value):
+        return self.context.setMemberProperties({'producent': value})
+    producent = property(get_producent, set_producent)

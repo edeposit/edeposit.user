@@ -5,5 +5,9 @@
       <role name="Anonymous" />
       <role name="Site Administrator"/>
     </permission>
+    <permission name="List portal members"  acquire="True">
+      <role name="Manager" />
+      <role name="Site Administrator"/>
+    </permission>
   </permissions>
 </rolemap>

@@ -1,0 +1,25 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:grok="http://namespaces.zope.org/grok"
+    i18n_domain="plone">
+      
+    <!-- Register components configured using Python directives -->
+    <!-- <grok:grok package="." /> -->
+
+    <browser:page
+       for="*"
+       name="register-with-producent"
+       class=".register.RegistrationForm"
+       permission="zope2.View"
+       />
+
+    <!-- Join form definition -->
+    <!-- <browser:page -->
+    <!--   name="register-with-producent" -->
+    <!--   for="plone.app.layout.navigation.interfaces.INavigationRoot" -->
+    <!--   class=".register.RegistrationForm" -->
+    <!--   permission="cmf.AddPortalMember" -->
+    <!--   /> -->
+</configure>
