@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: edeposit.user
-Version: 1.0
+Version: 1.0.0
 Summary: User Metadata for project E-Deposit
 Home-page: https://github.com/jstavel/edeposit.user
 Author: Jan Stavel
@@ -9,14 +9,12 @@ License: GPL
 Description: Introduction
         ============
         
-        
-        
         This product may contain traces of nuts.
         
         Changelog
         =========
         
-        1.0dev (unreleased)
+        1.0.0 (2013-10-13)
         -------------------
         
         - Initial release
