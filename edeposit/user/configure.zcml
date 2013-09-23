@@ -38,5 +38,12 @@
       for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
       handler=".postlogin.logged_in_handler"
       />
+
+  <subscriber
+      for=".producent.IProducent
+           zope.container.interfaces.IObjectAddedEvent
+	   "
+      handler=".handlers.added"
+      />
   
 </configure>
