@@ -14,6 +14,7 @@ edeposit.user.egg-info/top_level.txt
 edeposit/user/__init__.py
 edeposit/user/adapter.py
 edeposit/user/agreement_file.py
+edeposit/user/handlers.py
 edeposit/user/postlogin.py
 edeposit/user/producent.py
 edeposit/user/producentfolder.py

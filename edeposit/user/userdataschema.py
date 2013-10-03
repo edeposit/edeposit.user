@@ -41,8 +41,7 @@ def producent_source(context):
     brains = portal_catalog({'object_provides': IProducent.__identifier__})
 
     # Create a list of tuples (UID, Title) of results
-    terms = [ SimpleTerm(value=brain['UID'], token=brain['UID'], title=brain['Title']) for brain in brains]
-    #import pdb; pdb.set_trace()
+    terms = [ SimpleTerm(value=brain['UID'], token=brain['UID'], title=brain['Title']) for brain in brains ]
     vocab = SimpleVocabulary(terms) 
     vocab.search = search_producents
     return vocab
@@ -172,34 +171,40 @@ class IEnhancedUserDataSchema(Interface):
                       default=u"Fill in the country you live in."),
         required=False,
         )
-
     form.fieldset(
-        'producent_info',
-        label = _(u"Producent's Info"),
-        fields = ['new_producent',
-                  'producent',
-                  'producent_title',
-                  'producent_home_page',
-                  'producent_location',
-                  'producent_contact',
-                  'producent_agreement',]
-        )
-    form.fieldset(
-        'producent_address',
-        label = _(u"Producent's Address"),
-        fields = [  'producent_street',
-                    'producent_city',
-                    'producent_country',
-                    ]
-        )
-    new_producent = schema.Bool(
-        title=_(u'label_new_producent', default=u'New producent'),
-        description=_(u'help_new_producent',
-                      default=u"Do you wan to create new producent?"),
-        required=False,
+        'producent',
+        label = _(u"Producent"),
+        fields = ['producent',
+                  ]
         )
 
-    form.widget(producent=AutocompleteFieldWidget)
+    # form.fieldset(
+    #     'producent_info',
+    #     label = _(u"Producent's Info"),
+    #     fields = ['new_producent',
+    #               'producent',
+    #               'producent_title',
+    #               'producent_home_page',
+    #               'producent_location',
+    #               'producent_contact',
+    #               'producent_agreement',]
+    #     )
+    # form.fieldset(
+    #     'producent_address',
+    #     label = _(u"Producent's Address"),
+    #     fields = [  'producent_street',
+    #                 'producent_city',
+    #                 'producent_country',
+    #                 ]
+    #     )
+    # new_producent = schema.Bool(
+    #     title=_(u'label_new_producent', default=u'New producent'),
+    #     description=_(u'help_new_producent',
+    #                   default=u"Do you wan to create new producent?"),
+    #     required=False,
+    #     )
+
+    #form.widget(producent=AutocompleteFieldWidget)
     producent = schema.Choice(
         title=_(u'label_producent', default=u'Producent'),
         description=_(u'help_producent',
@@ -208,57 +213,57 @@ class IEnhancedUserDataSchema(Interface):
         source=producent_source,
         )
 
-    producent_title = schema.TextLine(
-        title=_(u'label_producent_title', default=u'Producent Title'),
-        description=_(u'help_producent_title',
-                      default=u"Enter full name of a producent."),
-        required=True)
+    # producent_title = schema.TextLine(
+    #     title=_(u'label_producent_title', default=u'Producent Title'),
+    #     description=_(u'help_producent_title',
+    #                   default=u"Enter full name of a producent."),
+    #     required=True)
 
-    producent_home_page = schema.TextLine(
-        title=_(u'label_producent_homepage', default=u'Home page of producent'),
-        description=_(u'help_homepage',
-                      default=u"The URL for a home page of your producent, "
-                      "if he has one."),
-        required=False)
+    # producent_home_page = schema.TextLine(
+    #     title=_(u'label_producent_homepage', default=u'Home page of producent'),
+    #     description=_(u'help_homepage',
+    #                   default=u"The URL for a home page of your producent, "
+    #                   "if he has one."),
+    #     required=False)
 
-    producent_location = schema.TextLine(
-        title=_(u'label_producent_location', default=u'Location'),
-        description=_(u'help_producent_location',
-                      default=u"Location of your producent - either city and "
-                      "country - or in a company setting, where "
-                      "your office is located."),
-        required=False)
+    # producent_location = schema.TextLine(
+    #     title=_(u'label_producent_location', default=u'Location'),
+    #     description=_(u'help_producent_location',
+    #                   default=u"Location of your producent - either city and "
+    #                   "country - or in a company setting, where "
+    #                   "your office is located."),
+    #     required=False)
 
-    producent_street = schema.TextLine(
-        title=_(u'label_producent_street', default=u'Street'),
-        description=_(u'help_producent_street',
-                      default=u"Fill in the street and number."),
-        required=True,
-        )
+    # producent_street = schema.TextLine(
+    #     title=_(u'label_producent_street', default=u'Street'),
+    #     description=_(u'help_producent_street',
+    #                   default=u"Fill in the street and number."),
+    #     required=True,
+    #     )
 
-    producent_city = schema.TextLine(
-        title=_(u'label_producent_city', default=u'City'),
-        description=_(u'help_producent_city',
-                      default=u"Fill in the city your producent sits in."),
-        required=True,
-        )
+    # producent_city = schema.TextLine(
+    #     title=_(u'label_producent_city', default=u'City'),
+    #     description=_(u'help_producent_city',
+    #                   default=u"Fill in the city your producent sits in."),
+    #     required=True,
+    #     )
 
-    producent_country = schema.TextLine(
-        title=_(u'label_producent_country', default=u'Country'),
-        description=_(u'help_producent_country',
-                      default=u"Fill in the country your producent lives in."),
-        required=True,
-        )
-
-    producent_contact = schema.TextLine(
-        title=_(u'label_producent_contact', default=u'Contact'),
-        description=_(u'help_producent_contact',
-                      default=u"Fill a phone, email or name of a person we can contact."),
-        required=False)
+    # producent_country = schema.TextLine(
+    #     title=_(u'label_producent_country', default=u'Country'),
+    #     description=_(u'help_producent_country',
+    #                   default=u"Fill in the country your producent lives in."),
+    #     required=True,
+    #     )
     
-    producent_agreement = NamedBlobFile( title=_(u"Agreement with National Library Prague and producent"), 
-                                         description=_(u"Fill in with signed agreement file."), 
-                                         required=False )
+    # producent_contact = schema.TextLine(
+    #     title=_(u'label_producent_contact', default=u'Contact'),
+    #     description=_(u'help_producent_contact',
+    #                   default=u"Fill a phone, email or name of a person we can contact."),
+    #     required=False)
+    
+    # producent_agreement = NamedBlobFile( title=_(u"Agreement with National Library Prague and producent"), 
+    #                                      description=_(u"Fill in with signed agreement file."), 
+    #                                      required=False )
 
 
 
@@ -268,16 +273,15 @@ class EnhancedUserData(namedtuple("EnhancedUser",
                                    'fullname','email','home_page',
                                    'location','phone','street',
                                    'city','country',
-                                   'new_producent',
                                    'producent',
-                                   'producent_title',
-                                   'producent_home_page',
-                                   'producent_location',
-                                   'producent_contact',
-                                   'producent_street',
-                                   'producent_city',
-                                   'producent_country',
-                                   'producent_agreement',
+                                   # 'producent_title',
+                                   # 'producent_home_page',
+                                   # 'producent_location',
+                                   # 'producent_contact',
+                                   # 'producent_street',
+                                   # 'producent_city',
+                                   # 'producent_country',
+                                   # 'producent_agreement',
                                    ])):
     implements(IEnhancedUserDataSchema)
 

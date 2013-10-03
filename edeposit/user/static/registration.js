@@ -1,13 +1,13 @@
 jQuery.fn.edepositRegistration = function(){
 	var producent_fields = Array(
-		'#formfield-form-widgets-producent_title',
-		'#formfield-form-widgets-producent_home_page',
-		'#formfield-form-widgets-producent_location',
-		'#formfield-form-widgets-producent_contact',
-		'#formfield-form-widgets-producent_agreement',
-		'#formfield-form-widgets-producent_street',
-		'#formfield-form-widgets-producent_city',
-		'#formfield-form-widgets-producent_country'
+		'#formfield-form-widgets-producent-title',
+		'#formfield-form-widgets-producent-home_page',
+		'#formfield-form-widgets-producent-location',
+		'#formfield-form-widgets-producent-contact',
+		'#formfield-form-widgets-producent-agreement',
+		'#formfield-form-widgets-producent-street',
+		'#formfield-form-widgets-producent-city',
+		'#formfield-form-widgets-producent-country'
 	);
 	var producent_fieldsets = Array(
 		'#fieldset-3',
@@ -45,8 +45,8 @@ jQuery.fn.edepositRegistration = function(){
 			};
 			return this;
 		};
-		edepositRegistration.find('#form-widgets-new_producent-0').change(this.checkNewProducent);
-		this.checkNewProducent(edepositRegistration.find('#form-widgets-new_producent-0'));
+		edepositRegistration.find('#form-widgets-producent-new_producent-0').change(this.checkNewProducent);
+		this.checkNewProducent(edepositRegistration.find('#form-widgets-producent-new_producent-0'));
 		return this;
 	});
 };
