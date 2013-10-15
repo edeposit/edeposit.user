@@ -6,8 +6,10 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="edeposit.user">
 
+
   <five:registerPackage package="." initialize=".initialize" />
   <include package=".browser" />
+  <include file="permissions.zcml"/>
   
   <genericsetup:registerProfile
       name="default"

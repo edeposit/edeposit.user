@@ -19,6 +19,9 @@ from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.namedfile.field import NamedBlobFile
 from collections import namedtuple
 
+class PasswordPairInvalid(schema.ValidationError):
+    __doc__ = _(u'Passwords are not the same.')
+
 def search_producents(query_string):
     portal_catalog = api.portal.get_tool('portal_catalog')
     brains = portal_catalog({'object_provides': IProducent.__identifier__})
@@ -104,7 +107,7 @@ class IEnhancedUserDataSchema(Interface):
     def passwordsMatch(data):
         if data.password == data.password_ctl:
             return True
-        raise Invalid(_(u"Passwords must be the same."))
+        raise PasswordPairInvalid
     
     form.fieldset(
         'personalinfo',

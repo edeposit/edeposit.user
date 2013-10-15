@@ -1,10 +1,13 @@
+from zope import schema
+import copy
+
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.z3cform.templates import ZopeTwoFormTemplateFactory
 import plone.app.users.browser.register
-from Products.Five import BrowserView
+from zope.publisher.browser import BrowserView
 from z3c.form.browser.radio import RadioFieldWidget
 from plone.directives import form, dexterity
-from edeposit.user.userdataschema import IEnhancedUserDataSchema, EnhancedUserData
+
 #from five import grok
 from Products.CMFCore.interfaces import ISiteRoot
 from plone.app.layout.navigation.interfaces import INavigationRoot
@@ -16,18 +19,15 @@ from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import adapts
 from plone.z3cform.fieldsets import extensible
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from edeposit.user.userdataschema import IEnhancedUserDataSchema, EnhancedUserData
 from edeposit.user.producent import IProducent
-from zope import schema
-import copy
+from edeposit.user.producentfolder import IProducentFolder
+
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError
 
 class RegisteredView(BrowserView):
-    template = ViewPageTemplateFile('registered.pt')
-
-@form.validator(field=IEnhancedUserDataSchema['username'])
-def isUnique(value):
-    if api.user.get(username=value):
-        raise Invalid("Your username is already used. Fill in another username.")
-    return True
+    pass
+    #template = ViewPageTemplateFile('registered.pt')
 
 class RegistrationForm(form.SchemaForm):
     label = _(u"Registration")
@@ -47,21 +47,59 @@ class RegistrationForm(form.SchemaForm):
     def handleRegister(self, action):
         data, errors = self.extractData()
         if errors:
-            self.status = self.formErorrsMessage
+            self.status = self.formErrorsMessage
             return
 
-        self.context['Members'].invokeFactory('EnhancedUserData', **data)
+        properties = dict([ (key,data[key]) for key in schema.getFieldNames(IEnhancedUserDataSchema) if key not in ['password','username','password_ctl']])
 
-        IStatusMessage(self.request).addStatusMessage(
-            "Registered! Soon you will receive email.",
-            'info')
-        self.request.response.redirect(self.context.absolute_url())
+        if api.user.get(username=data['username']):
+            print "username"
+            raise ActionExecutionError(Invalid(_('Username is already used. Fill in another username.')))
+
+        user = api.user.create(username=data['username'],
+                               password=data['password'],
+                               properties = properties)
+        roles_for_user = []
+        api.user.grant_roles(user=user,
+                             roles=roles_for_user)
+        producent_properties = dict([ (key,data['producent.'+key]) for key in schema.getFieldNames(IProducent) ])
+        if data.get('producent.new_producent',None):
+            portal_catalog = api.portal.get_tool('portal_catalog')
+            brains = portal_catalog({'object_provides': IProducentFolder.__identifier__})
+            if brains:
+                producentFolder = brains[0].getObject()
+                import pdb; pdb.set_trace()
+                # portal_types = api.portal.get_tool('portal_types')
+                # new_content_item = type_info._constructInstance(,id, title=data['producent.title'], **producent_properties)
+
+                api.content.create(container=producentFolder, 
+                                   type='edeposit.user.producent',
+                                   title=data['producent.title'],
+                                   **producent_properties)
+                pass
+            pass
+        self.status="Registered!"
+
+@form.validator(field=IEnhancedUserDataSchema['username'])
+def isUnique(value):
+    print "user is already used validation"
+    if api.user.get(username=value):
+        raise Invalid("Your username is already used. Fill in another username.")
+    return True
 
 class INewProducent(Interface):
     new_producent = schema.Bool(
         title=_(u'label_new_producent', default=u'New producent'),
         description=_(u'help_new_producent',
                       default=u"Do you wan to create new producent?"),
+        required=False,
+        )
+
+class IProducentTitle(Interface):
+    title = schema.ASCIILine(
+        title=_(u'label_producent_title', default=u'Producent title'),
+        description=_(u'help_title_producent',
+                      default=_(u"Fill in title of new producent.")),
         required=False,
         )
 
@@ -77,6 +115,8 @@ class RegistrationFormExtender(extensible.FormExtender):
         self.add(field.Fields(INewProducent,prefix="producent"), group="producent")
         self.move('producent.new_producent', before='producent')
         self.add(field.Fields(IProducent,prefix="producent"), group="producent")
+        self.add(field.Fields(IProducentTitle,prefix="producent"), group="producent")
+        self.move('producent.title', before='producent.home_page')
         producentFields = [gg for gg in self.form.groups if 'producent' in gg.__name__][0].fields           
         if 'form.widgets.producent.new_producent' in self.request.form \
                 and 'selected' in self.request.form['form.widgets.producent.new_producent']:

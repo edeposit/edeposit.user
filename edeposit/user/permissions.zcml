@@ -1,0 +1,9 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="edeposit.user">
+  <permission
+      id="edeposit.AddProducent"
+      title="E-Deposit: Add Producent"
+      />
+</configure>

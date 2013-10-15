@@ -19,6 +19,14 @@
 	factory=".register.RegistrationFormExtender"
 	provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
 
+    <browser:page
+	name="register-with-producent-successed"
+	for="*"
+	template="registered.pt"
+	class=".register.RegisteredView"
+	permission="zope2.View"
+	/>
+
     <!-- Join form definition -->
     <!-- <browser:page -->
     <!--   name="register-with-producent" -->
