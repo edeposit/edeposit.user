@@ -1,7 +1,9 @@
 <?xml version="1.0"?>
-<site>
-  <property name="title">E-Deposit Site</property>
-  <property name="description">Welcome to E-Deposit</property>
+<site  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+       i18n:domain="edeposit.user"
+>
+  <property name="title" i18n:translate="">E-Deposit Site</property>
+  <property name="description" i18n:translate="">Welcome to E-Deposit</property>
   <property name="selectable_views" type="lines">
     <element value="folder_listing"/>
     <element value="news_listing"/>
