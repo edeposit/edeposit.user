@@ -2,13 +2,15 @@
 <model xmlns="http://namespaces.plone.org/supermodel/schema"
        xmlns:form="http://namespaces.plone.org/supermodel/form"
        xmlns:marshal="http://namespaces.plone.org/supermodel/marshal"
+       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+       i18n:domain="edeposit.user" 
        >
   <schema>
     <field name="agreement" 
 	   marshal:primary="true" 
 	   type="plone.namedfile.field.NamedBlobFile">
       <description/>
-      <title>agreement</title>
+      <title i18n:translate="">Agreement</title>
     </field>
   </schema>
 </model>

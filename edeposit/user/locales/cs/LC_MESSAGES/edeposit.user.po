@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-17 15:20+0000\n"
+"POT-Creation-Date: 2013-10-18 13:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,10 +19,27 @@ msgstr ""
 msgid "Address"
 msgstr "Adresa"
 
+#: edeposit/user/models/agreement_file.xml
+#: edeposit/user/models/producent.xml
+msgid "Agreement"
+msgstr "Smlouva"
+
 #: edeposit/user/producent.py:38
 #: edeposit/user/profiles/default/actions.xml
 msgid "Agreement with National Library"
 msgstr "Smlouva s Národní knihovnou"
+
+#: edeposit/user/models/producent.xml
+msgid "City"
+msgstr "Město"
+
+#: edeposit/user/models/producent.xml
+msgid "Contact"
+msgstr "Kontakt"
+
+#: edeposit/user/models/producent.xml
+msgid "Country"
+msgstr "Země"
 
 #: edeposit/user/profiles/default/types/edeposit.user.agreementfile.xml
 msgid "E-Deposit - file with agreement for producent"
@@ -44,6 +61,30 @@ msgstr "E-Deposit - producent"
 msgid "E-Deposit Site"
 msgstr "E-Deposit"
 
+#: edeposit/user/models/producent.xml
+msgid "Fill a city"
+msgstr "Doplňte město"
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a country"
+msgstr "Doplňte zemi"
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a home page we can find a producent at."
+msgstr "Doplňte adresu web stránky, na které můžeme producenta najít."
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a phone, email or name of a person we can contact."
+msgstr "Doplňte telefon, email, nebo jméno osoby. Abychom se mohli na producenta obrátit."
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a street with number."
+msgstr "Doplňte ulici a číslo domu."
+
+#: edeposit/user/models/producent.xml
+msgid "Home page"
+msgstr "Domovská stránka"
+
 #: edeposit/user/userdataschema.py:81
 msgid "Login"
 msgstr "Přihlášení"
@@ -63,19 +104,23 @@ msgstr "Doplňte informace o uživateli a producentovi."
 #: edeposit/user/profiles/default/types/edeposit.user.producent.xml
 #: edeposit/user/userdataschema.py:179
 msgid "Producent"
-msgstr "Producent"
+msgstr "E-Deposit - Producent"
 
 #: edeposit/user/profiles/default/types/edeposit.user.producentfolder.xml
 msgid "Producent Folder"
-msgstr "Složka producentů"
+msgstr "E-Deposit - Složka producentů"
 
 #: edeposit/user/browser/register.py:33
 msgid "Registration"
 msgstr "Registrace"
 
-#: edeposit/user/handlers.py:11
-msgid "Registration of ePublications"
-msgstr "Ohlášení ePublikace"
+#: edeposit/user/models/producent.xml
+msgid "Street"
+msgstr "Ulice"
+
+#: edeposit/user/models/producent.xml
+msgid "Upload file with agreement between National Library and you."
+msgstr "Uložte soubor se smlouvou mezi Vámi a Národní knihovnou."
 
 #: edeposit/user/browser/register.py:57
 msgid "Username is already used. Fill in another username."
@@ -85,6 +130,10 @@ msgstr "Uživatelské jméno už existuje. Použijte jiné uživatelské jméno.
 msgid "Welcome to E-Deposit"
 msgstr "Vítejte na stránách projektu E-Deposit!"
 
+#: edeposit/user/models/producent.xml
+msgid "Your location - either city and country - or in a company setting, where your office is located"
+msgstr "Vaše lokace - buď město, země nebo v případě společnosti, lokaci sídla firmy."
+
 #. Default: "Fill in the city you live in."
 #: edeposit/user/userdataschema.py:166
 msgid "help_city"
@@ -93,7 +142,7 @@ msgstr "Doplňte město, ve kterém žijete."
 #. Default: "Re-enter the password. Make sure the passwords are identical."
 #: edeposit/user/userdataschema.py:103
 msgid "help_confirm_password"
-msgstr "Zopakujte heslo. Obě musí být identická."
+msgstr "Zopakujte heslo. Obě se musí shodovat."
 
 #. Default: "Fill in the country you live in."
 #: edeposit/user/userdataschema.py:173
@@ -219,4 +268,8 @@ msgstr "Ulice"
 #: edeposit/user/userdataschema.py:86
 msgid "label_user_name"
 msgstr "Uživatelské jméno"
+
+#: edeposit/user/models/producent.xml
+msgid "location"
+msgstr "Lokalita"
 
