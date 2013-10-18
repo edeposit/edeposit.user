@@ -9,11 +9,23 @@
     <!-- <grok:grok package="." /> -->
 
     <browser:page
-       for="*"
-       name="register-with-producent"
-       class=".register.RegistrationForm"
-       permission="zope2.View"
-       />
+	for="*"
+	name="register-with-producent"
+	class=".register.RegistrationForm"
+	permission="zope2.View"
+	/>
+
+    <adapter
+	factory=".register.RegistrationFormExtender"
+	provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+
+    <browser:page
+	name="register-with-producent-successed"
+	for="*"
+	template="registered.pt"
+	class=".register.RegisteredView"
+	permission="zope2.View"
+	/>
 
     <!-- Join form definition -->
     <!-- <browser:page -->

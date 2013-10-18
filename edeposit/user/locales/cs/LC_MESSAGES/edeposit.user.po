@@ -1,0 +1,275 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-10-18 13:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: edeposit/user/producent.py:34
+#: edeposit/user/userdataschema.py:154
+msgid "Address"
+msgstr "Adresa"
+
+#: edeposit/user/models/agreement_file.xml
+#: edeposit/user/models/producent.xml
+msgid "Agreement"
+msgstr "Smlouva"
+
+#: edeposit/user/producent.py:38
+#: edeposit/user/profiles/default/actions.xml
+msgid "Agreement with National Library"
+msgstr "Smlouva s Národní knihovnou"
+
+#: edeposit/user/models/producent.xml
+msgid "City"
+msgstr "Město"
+
+#: edeposit/user/models/producent.xml
+msgid "Contact"
+msgstr "Kontakt"
+
+#: edeposit/user/models/producent.xml
+msgid "Country"
+msgstr "Země"
+
+#: edeposit/user/profiles/default/types/edeposit.user.agreementfile.xml
+msgid "E-Deposit - file with agreement for producent"
+msgstr "E-Deposit - soubor se smlouvou pro producenty"
+
+#: edeposit/user/profiles/default/types/edeposit.user.producentfolder.xml
+msgid "E-Deposit - folder for producents"
+msgstr "E-Deposit - složka producentů"
+
+#: edeposit/user/profiles/default/types/edeposit.user.agreementfile.xml
+msgid "E-Deposit Agreement File"
+msgstr "E-Deposit - soubor se smlouvou"
+
+#: edeposit/user/profiles/default/types/edeposit.user.producent.xml
+msgid "E-Deposit Producent"
+msgstr "E-Deposit - producent"
+
+#: edeposit/user/profiles/default/property.xml
+msgid "E-Deposit Site"
+msgstr "E-Deposit"
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a city"
+msgstr "Doplňte město"
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a country"
+msgstr "Doplňte zemi"
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a home page we can find a producent at."
+msgstr "Doplňte adresu web stránky, na které můžeme producenta najít."
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a phone, email or name of a person we can contact."
+msgstr "Doplňte telefon, email, nebo jméno osoby. Abychom se mohli na producenta obrátit."
+
+#: edeposit/user/models/producent.xml
+msgid "Fill a street with number."
+msgstr "Doplňte ulici a číslo domu."
+
+#: edeposit/user/models/producent.xml
+msgid "Home page"
+msgstr "Domovská stránka"
+
+#: edeposit/user/userdataschema.py:81
+msgid "Login"
+msgstr "Přihlášení"
+
+#: edeposit/user/userdataschema.py:23
+msgid "Passwords are not the same."
+msgstr "Hesla se neshodují."
+
+#: edeposit/user/userdataschema.py:114
+msgid "Personal Info"
+msgstr "Osobní informace"
+
+#: edeposit/user/browser/register.py:34
+msgid "Please fill informations about user and producent."
+msgstr "Doplňte informace o uživateli a producentovi."
+
+#: edeposit/user/profiles/default/types/edeposit.user.producent.xml
+#: edeposit/user/userdataschema.py:179
+msgid "Producent"
+msgstr "E-Deposit - Producent"
+
+#: edeposit/user/profiles/default/types/edeposit.user.producentfolder.xml
+msgid "Producent Folder"
+msgstr "E-Deposit - Složka producentů"
+
+#: edeposit/user/browser/register.py:33
+msgid "Registration"
+msgstr "Registrace"
+
+#: edeposit/user/models/producent.xml
+msgid "Street"
+msgstr "Ulice"
+
+#: edeposit/user/models/producent.xml
+msgid "Upload file with agreement between National Library and you."
+msgstr "Uložte soubor se smlouvou mezi Vámi a Národní knihovnou."
+
+#: edeposit/user/browser/register.py:57
+msgid "Username is already used. Fill in another username."
+msgstr "Uživatelské jméno už existuje. Použijte jiné uživatelské jméno."
+
+#: edeposit/user/profiles/default/property.xml
+msgid "Welcome to E-Deposit"
+msgstr "Vítejte na stránách projektu E-Deposit!"
+
+#: edeposit/user/models/producent.xml
+msgid "Your location - either city and country - or in a company setting, where your office is located"
+msgstr "Vaše lokace - buď město, země nebo v případě společnosti, lokaci sídla firmy."
+
+#. Default: "Fill in the city you live in."
+#: edeposit/user/userdataschema.py:166
+msgid "help_city"
+msgstr "Doplňte město, ve kterém žijete."
+
+#. Default: "Re-enter the password. Make sure the passwords are identical."
+#: edeposit/user/userdataschema.py:103
+msgid "help_confirm_password"
+msgstr "Zopakujte heslo. Obě se musí shodovat."
+
+#. Default: "Fill in the country you live in."
+#: edeposit/user/userdataschema.py:173
+msgid "help_country"
+msgstr "Doplňte zemi, ve které žijete."
+
+#. Default: "Enter full name, e.g. John Smith."
+#: edeposit/user/userdataschema.py:120
+msgid "help_full_name_creation"
+msgstr "Doplňte celé jméno, např. Petr Sháněl"
+
+#. Default: "The URL for your external home page, if you have one."
+#: edeposit/user/userdataschema.py:132
+msgid "help_homepage"
+msgstr "URL osobních web stránek."
+
+#. Default: "Your location - either city and country - or in a company setting, where your office is located."
+#: edeposit/user/userdataschema.py:139
+msgid "help_location"
+msgstr "Vaše místo - buď město, nebo země, nebo firma, kde pracujete."
+
+#. Default: "Do you wan to create new producent?"
+#: edeposit/user/browser/register.py:93
+msgid "help_new_producent"
+msgstr "Chcete vytvořit nového producenta?"
+
+#. Default: "Enter your new password."
+#: edeposit/user/userdataschema.py:97
+msgid "help_password_creation"
+msgstr "Zadejte své nové heslo."
+
+#. Default: "Leave your phone number so we can reach you."
+#: edeposit/user/userdataschema.py:147
+msgid "help_phone"
+msgstr "Nechte nám své telefonní číslo, abychom měli na Vás kontakt."
+
+#. Default: "Fill in the producent you work for."
+#: edeposit/user/userdataschema.py:213
+msgid "help_producent"
+msgstr "Vyberte producenta, pro kterého pracujete."
+
+#. Default: "Fill in the street and number."
+#: edeposit/user/userdataschema.py:159
+msgid "help_street"
+msgstr "Doplňte ulici a číslo domu."
+
+#. Default: "Fill in title of new producent."
+#: edeposit/user/browser/register.py:101
+msgid "help_title_producent"
+msgstr "Doplňte název nového producenta."
+
+#. Default: "Enter a user name, usually something like 'jsmith'. No spaces or special characters. Usernames and passwords are case sensitive, make sure the caps lock key is not enabled. This is the name used to log in."
+#: edeposit/user/userdataschema.py:87
+msgid "help_user_name_creation_casesensitive"
+msgstr "Zadejte uživatelské jméno, např. 'pshanel'. Bez mezer, speciálních znaků. Uživatelské jméno a heslo jsou citlivé na velká písmena. Ověřte si, že nemáte zapnutý CapsLock. Toto je jméno, pod jakým se přihlašujete do systému."
+
+#. Default: "City"
+#: edeposit/user/userdataschema.py:165
+msgid "label_city"
+msgstr "Město"
+
+#. Default: "Confirm password"
+#: edeposit/user/userdataschema.py:101
+msgid "label_confirm_password"
+msgstr "Potvrďte heslo"
+
+#. Default: "Country"
+#: edeposit/user/userdataschema.py:172
+msgid "label_country"
+msgstr "Země"
+
+#. Default: "E-mail"
+#: edeposit/user/userdataschema.py:125
+msgid "label_email"
+msgstr "Email"
+
+#. Default: "Full Name"
+#: edeposit/user/userdataschema.py:119
+msgid "label_full_name"
+msgstr "Plné jméno"
+
+#. Default: "Home page"
+#: edeposit/user/userdataschema.py:131
+msgid "label_homepage"
+msgstr "Domovská stránka"
+
+#. Default: "Location"
+#: edeposit/user/userdataschema.py:138
+msgid "label_location"
+msgstr "Místo"
+
+#. Default: "New producent"
+#: edeposit/user/browser/register.py:92
+msgid "label_new_producent"
+msgstr "Nový producent"
+
+#. Default: "Password"
+#: edeposit/user/userdataschema.py:96
+msgid "label_password"
+msgstr "Heslo"
+
+#. Default: "Telephone number"
+#: edeposit/user/userdataschema.py:146
+msgid "label_phone"
+msgstr "Telefonní číslo"
+
+#. Default: "Producent"
+#: edeposit/user/userdataschema.py:212
+msgid "label_producent"
+msgstr "Producent"
+
+#. Default: "Producent title"
+#: edeposit/user/browser/register.py:100
+msgid "label_producent_title"
+msgstr "Název producenta"
+
+#. Default: "Street"
+#: edeposit/user/userdataschema.py:158
+msgid "label_street"
+msgstr "Ulice"
+
+#. Default: "User Name"
+#: edeposit/user/userdataschema.py:86
+msgid "label_user_name"
+msgstr "Uživatelské jméno"
+
+#: edeposit/user/models/producent.xml
+msgid "location"
+msgstr "Lokalita"
+
