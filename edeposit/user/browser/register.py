@@ -53,7 +53,6 @@ class RegistrationForm(form.SchemaForm):
         properties = dict([ (key,data[key]) for key in schema.getFieldNames(IEnhancedUserDataSchema) if key not in ['password','username','password_ctl']])
 
         if api.user.get(username=data['username']):
-            print "username"
             raise ActionExecutionError(Invalid(_('Username is already used. Fill in another username.')))
 
         user = api.user.create(username=data['username'],
@@ -64,19 +63,21 @@ class RegistrationForm(form.SchemaForm):
                              roles=roles_for_user)
         producent_properties = dict([ (key,data['producent.'+key]) for key in schema.getFieldNames(IProducent) ])
         if data.get('producent.new_producent',None):
+            #import pdb; pdb.set_trace()
             portal_catalog = api.portal.get_tool('portal_catalog')
             brains = portal_catalog({'object_provides': IProducentFolder.__identifier__})
             if brains:
                 producentFolder = brains[0].getObject()
-                import pdb; pdb.set_trace()
-                # portal_types = api.portal.get_tool('portal_types')
-                # new_content_item = type_info._constructInstance(,id, title=data['producent.title'], **producent_properties)
-
-                api.content.create(container=producentFolder, 
-                                   type='edeposit.user.producent',
-                                   title=data['producent.title'],
-                                   **producent_properties)
+                producent = api.content.create(container=producentFolder, 
+                                               type='edeposit.user.producent',
+                                               title=data['producent.title'],
+                                               **producent_properties)
+                from plone.uuid.interfaces import IUUID
+                user.producent = IUUID(producent)
                 pass
+            pass
+        else:
+            user.producent = data['producent']
             pass
         self.status="Registered!"
 
