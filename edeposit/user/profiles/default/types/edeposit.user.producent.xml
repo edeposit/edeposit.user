@@ -13,6 +13,8 @@
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
     <element value="edeposit.content.epublicationfolder"/>
+    <element value="edeposit.content.eperiodicalfolder"/>
+    <element value="edeposit.content.bookfolder"/>
   </property>
   <property name="allow_discussion">False</property>
 
