@@ -63,7 +63,6 @@ class RegistrationForm(form.SchemaForm):
                              roles=roles_for_user)
         producent_properties = dict([ (key,data['producent.'+key]) for key in schema.getFieldNames(IProducent) ])
         if data.get('producent.new_producent',None):
-            #import pdb; pdb.set_trace()
             portal_catalog = api.portal.get_tool('portal_catalog')
             brains = portal_catalog({'object_provides': IProducentFolder.__identifier__})
             if brains:
@@ -72,12 +71,12 @@ class RegistrationForm(form.SchemaForm):
                                                type='edeposit.user.producent',
                                                title=data['producent.title'],
                                                **producent_properties)
-                from plone.uuid.interfaces import IUUID
-                user.producent = IUUID(producent)
+                plone.api.user.grant_roles(user=user,obj=producent,roles=['E-Deposit: Assigned Producent',])
                 pass
             pass
         else:
-            user.producent = data['producent']
+            producent = plone.api.content.get(UID=data['producent'])
+            plone.api.user.grant_roles(user=user,obj=producent,roles=['E-Deposit: Assigned Producent',])
             pass
         self.status="Registered!"
 

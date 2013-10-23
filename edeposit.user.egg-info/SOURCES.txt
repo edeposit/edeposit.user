@@ -17,6 +17,8 @@ edeposit/user/agreement_file.py
 edeposit/user/handlers.py
 edeposit/user/postlogin.py
 edeposit/user/producent.py
+edeposit/user/producentadministrator.py
+edeposit/user/producentadministratorfolder.py
 edeposit/user/producentfolder.py
 edeposit/user/tests.py
 edeposit/user/userdataschema.py
