@@ -24,10 +24,20 @@ from edeposit.user.producent import IProducent
 from edeposit.user.producentfolder import IProducentFolder
 
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError
+import os.path
+import logging
+
+# Logger output for this module
+logger = logging.getLogger(__name__)
+
+class PostLoginView(BrowserView):
+    def update(self):
+        portal = api.portal.get()
+        dashboard_url = os.path.join(portal.absolute_url(),'producenti')
+        return self.request.redirect(dashboard_url)
 
 class RegisteredView(BrowserView):
     pass
-    #template = ViewPageTemplateFile('registered.pt')
 
 class RegistrationForm(form.SchemaForm):
     label = _(u"Registration")
@@ -57,28 +67,30 @@ class RegistrationForm(form.SchemaForm):
 
         user = api.user.create(username=data['username'],
                                password=data['password'],
-                               properties = properties)
-        roles_for_user = []
-        api.user.grant_roles(user=user,
-                             roles=roles_for_user)
+                               properties = properties,
+                               )
         producent_properties = dict([ (key,data['producent.'+key]) for key in schema.getFieldNames(IProducent) ])
         if data.get('producent.new_producent',None):
             portal_catalog = api.portal.get_tool('portal_catalog')
             brains = portal_catalog({'object_provides': IProducentFolder.__identifier__})
             if brains:
+                plone.api.group.add_user(groupname="Producents", user=user)
                 producentFolder = brains[0].getObject()
-                producent = api.content.create(container=producentFolder, 
-                                               type='edeposit.user.producent',
-                                               title=data['producent.title'],
-                                               **producent_properties)
-                plone.api.user.grant_roles(user=user,obj=producent,roles=['E-Deposit: Assigned Producent',])
+                with api.env.adopt_user(user=user):
+                    producent = api.content.create(container=producentFolder,type='edeposit.user.producent', title=data['producent.title'],**producent_properties)
+                    plone.api.user.grant_roles(user=user,obj=producent, roles=['E-Deposit: Assigned Producent',])
+                    plone.api.content.transition(obj=producent, transition="submit")
                 pass
             pass
         else:
-            producent = plone.api.content.get(UID=data['producent'])
-            plone.api.user.grant_roles(user=user,obj=producent,roles=['E-Deposit: Assigned Producent',])
+            if data['producent']:
+                plone.api.group.add_user(groupname="Producents", user=user)
+                producent = plone.api.content.get(UID=data['producent'])
+                plone.api.user.grant_roles(user=user,obj=producent,roles=['E-Deposit: Assigned Producent',])
             pass
         self.status="Registered!"
+        self.request.response.redirect(os.path.join(api.portal.get().absolute_url(),"@@register-with-producent-successed"))
+
 
 @form.validator(field=IEnhancedUserDataSchema['username'])
 def isUnique(value):
@@ -126,38 +138,4 @@ class RegistrationFormExtender(extensible.FormExtender):
                 field_copy = copy.copy(ff.field)
                 field_copy.required = False
                 ff.field = field_copy
-
-# continue for RegistrationForm
-
-    # def add(self,object):
-    #     print "add"
-    #     properties = dict([ (key,getattr(object,key)) for key in ['fullname','location','email','city','home_page','phone','street','country']])
-    #     if not object.new_producent and object.producent:
-    #         properties['producent'] = object.producent
-    #         pass
-    #     producent_properties = dict([ (key.replace('producent_',''), getattr(object,key)) \
-    #                                       for key in ['producent_title',
-    #                                                   'producent_home_page',
-    #                                                   'producent_location',
-    #                                                   'producent_street',
-    #                                                   'producent_city',
-    #                                                   'producent_country',
-    #                                                   'producent_contact',
-    #                                                   'producent_agreement',
-    #                                                   ]
-    #                                   ])
-    #     if object.new_producent:
-    #         pass
-
-    #     user = api.user.create(username=object.username,
-    #                            password=object.password,
-    #                            properties = properties)
-    #     import pdb; pdb.set_trace()
-    #     roles = ['E-Deposit: Producent with Agreement',
-    #              'E-Deposit: Producent without Agreement'
-    #              ]
-    #     api.user.grant_roles(username=object.username,
-    #                          roles = roles)
-    #     pass
-
 

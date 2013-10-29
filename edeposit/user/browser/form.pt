@@ -12,6 +12,17 @@
     <div class="edeposit-user-registration">
       <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
       <div id="content-core">
+        <p>
+        Vyplněním těchto údajů získáte přístup k aplikaci Národní
+        knihovny, která umožňuje ukládání vašich elektronických publikací, 
+        jejich dlouhodobou ochranu a šíření podle Vašich instrukcí.
+        </p>
+        <p>
+        Pro využívání základních funkcí systému postačí vyplnit 
+        tento online formulář. Dalším krokem je uzavření 
+        písemné smlouvy, která umožní další funkčnosti 
+        včetně řízené distribuce vašich e-publikací.
+        </p>
 	<metal:block use-macro="context/@@ploneform-macros/titlelessform" />
       </div>
     </div>

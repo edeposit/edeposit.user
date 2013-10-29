@@ -25,22 +25,30 @@ import os.path
 logger = logging.getLogger(__name__)
 
 #: Site root relative path where we look for the folder with an edit access
-CUSTOM_USER_FOLDERS = "dashboard"
 
-def redirect_to_edit_access_folder(user):
+def redirect_to_proper_dashboard_folder(user):
     portal = api.portal.get()
     request = getattr(portal, "REQUEST", None)
+    logger.debug("redirect to proper dashboard folder")
     if not request:
         # HTTP request is not present e.g.
         # when doing unit testing / calling scripts from command line
         return False
-    request.response.redirect(os.path.join(portal.absolute_url(),
-                                           "dashboard"))
+    
+    # dashboard_url = os.path.join(portal.absolute_url(),
+    #                              'nastenka-pro-producenty')
+
+    dashboard_url = os.path.join(portal.absolute_url(),'producenti')
+    logger.debug("redirect to: %s" % (dashboard_url,))
+    request.response.redirect(dashboard_url, lock=True)
     return True
 
 def logged_in_handler(event):
     """
     Listen to the event and perform the action accordingly.
     """
+    logger.debug("logged in handler")
+    logger.debug("current user: %s" % (api.user.get_current(),))
+    logger.debug("roles for user: %s" % ("|".join(api.user.get_roles())))
     user = event.object
-    redirect_to_edit_access_folder(user)
+    redirect_to_proper_dashboard_folder(user)
