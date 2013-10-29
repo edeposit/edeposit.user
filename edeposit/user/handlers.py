@@ -63,6 +63,21 @@ def addedProducentFolder(context,event):
                                  ],
                           roles = ['E-Deposit: Producent','E-Deposit: Acquisitor'],
                           ),
+                    dict( contexts=[context,],
+                          name = "producents-waiting-for-approving",
+                          title=_(u"Producents waiting for approving"),
+                          query=[{'i': 'portal_type', 
+                                  'o': 'plone.app.querystring.operation.selection.is', 
+                                  'v': ['edeposit.user.producent',] },
+                                 {'i': 'review_state',
+                                  'o': 'plone.app.querystring.operation.selection.is',
+                                  'v': ['waitingForApproving',]},
+                                 {'i': 'path', 
+                                  'o': 'plone.app.querystring.operation.string.relativePath', 
+                                  'v': '../'}
+                                 ],
+                          roles = ['E-Deposit: Producent','E-Deposit: Acquisitor'],
+                          ),
 
                     dict( contexts=[portal],
                           name = "ePublications-in-declarating",
@@ -95,4 +110,4 @@ def addedProducentFolder(context,event):
                     title=collection['title'],
                     query=collection['query']
                     )
-                api.group.grant_roles(groupname="Producents", roles=['Reader'], obj=content)
+                api.group.grant_roles(groupname="Producents", roles=['Reader']+collection['roles'], obj=content)
