@@ -1,0 +1,22 @@
+<configure 
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="edeposit.user">
+  <!-- Ensure Plone's portlets ZCML has already been processed; without
+       this, we may get a permission lookup error
+  -->
+  <include package="plone.app.portlets" />
+  <!-- -*- extra stuff goes here -*- -->
+
+  <plone:portlet
+      name="edeposit.user.portlets.registeringOfEContent"
+      interface=".registeringofecontent.IregisteringOfEContent"
+      assignment=".registeringofecontent.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".registeringofecontent.Renderer"
+      addview=".registeringofecontent.AddForm"
+      editview=".registeringofecontent.EditForm"
+      />
+
+</configure>

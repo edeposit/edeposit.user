@@ -38,7 +38,7 @@ def redirect_to_proper_dashboard_folder(user):
     # dashboard_url = os.path.join(portal.absolute_url(),
     #                              'nastenka-pro-producenty')
 
-    dashboard_url = os.path.join(portal.absolute_url(),'producenti')
+    dashboard_url = os.path.join(portal.absolute_url(),'dashboard')
     logger.debug("redirect to: %s" % (dashboard_url,))
     request.response.redirect(dashboard_url, lock=True)
     return True

@@ -4,6 +4,18 @@
    i18n:domain="edeposit.user"
    >
   <object name="user">
+    <object name="login" meta_type="CMF Action" i18n:domain="plone">
+      <property name="title" i18n:translate="">Log in</property>
+      <property name="description" i18n:translate=""/>
+      <property name="url_expr">string:${globals_view/navigationRootUrl}/login/?came_from=${globals_view/navigationRootUrl}/dashboard</property>
+      <property name="link_target"/>
+      <property name="icon_expr"/>
+      <property name="available_expr">python:member is None</property>
+      <property name="permissions">
+	<element value="View"/>
+      </property>
+      <property name="visible">True</property>
+    </object>
     <object name="join" meta_type="CMF Action" i18n:domain="plone">
       <property name="title" i18n:translate="">Register</property>
       <property name="description" i18n:translate=""/>

@@ -4,7 +4,7 @@ from zope import schema
 
 from plone.app.users.userdataschema import IUserDataSchemaProvider
 from plone.app.users.userdataschema import IUserDataSchema
-from edeposit.user import MessageFactory as _
+
 from Products.CMFDefault.exceptions import EmailAddressInvalid
 
 from zope.schema.interfaces import IContextSourceBinder
@@ -18,6 +18,8 @@ from plone.directives import form
 from plone.formwidget.contenttree import ObjPathSourceBinder
 from plone.namedfile.field import NamedBlobFile
 from collections import namedtuple
+
+from edeposit.user import MessageFactory as _
 
 class PasswordPairInvalid(schema.ValidationError):
     __doc__ = _(u'Passwords are not the same.')

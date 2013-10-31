@@ -56,4 +56,8 @@
       handler=".handlers.addedProducentFolder"
       />
 
+  <!-- -*- extra stuff goes here -*- -->
+  <include package=".portlets" />
+  
+
 </configure>

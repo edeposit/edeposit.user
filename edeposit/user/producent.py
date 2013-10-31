@@ -16,7 +16,6 @@ from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
 
-
 # Interface class; used to define content-type schema.
 
 class IProducent(model.Schema, IImageScaleTraversable):
