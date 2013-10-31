@@ -25,3 +25,8 @@ edeposit/user/userdataschema.py
 edeposit/user/browser/__init__.py
 edeposit/user/browser/ajax.py
 edeposit/user/browser/register.py
+edeposit/user/portlets/__init__.py
+edeposit/user/portlets/registeringofecontent.py
+edeposit/user/tests/__init__.py
+edeposit/user/tests/base_registeringofecontent.py
+edeposit/user/tests/test_registeringofecontent.py

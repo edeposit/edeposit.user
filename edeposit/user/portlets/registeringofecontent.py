@@ -82,14 +82,14 @@ class Renderer(base.Renderer):
         username = user.getName()
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         brains = portal_catalog({'object_provides': IProducent.__identifier__})
-        
+
         def userIsAssignedProducent(brain):
-            local_roles = brain.get_local_roles
-            user_roles = frozenset(itertools.chain(*[ bb[1] for bb in local_roles if bb[0] == username ]))
+            local_roles = brain.get_local_roles()
+            user_roles = frozenset(itertools.chain(*[ bb[1] for bb in (local_roles or []) if bb[0] == username ]))
             return 'E-Deposit: Assigned Producent' in user_roles
 
         producentInfos = [ {'path': brain.getPath(), 'UID': brain['UID'] , 'title': brain['Title'] } 
-                           for brain in brains  if userIsAssignedProducent(brain)
+                           for brain in (brains or []) if userIsAssignedProducent(brain)
                            ]
         
         #/edeposit/producenti/jeste-jeden-od-anonyma/epublications/++add++edeposit.content.epublication
@@ -106,11 +106,11 @@ class Renderer(base.Renderer):
                 url = os.path.join(path,"++add++%s"% (item_portal_type,))
                 return {'desc': brain['Title'], 'href': url}
             
-            return map(getRegistrationPath, brains)
+            return map(getRegistrationPath, brains or [])
         
         return [ {'name': producentInfo['title'],         
                   'links': getRegisteringPaths(producentInfo['path'])} for
-                 producentInfo in producentInfos]
+                 producentInfo in (producentInfos or [])]
         
 # NOTE: If this portlet does not have any configurable parameters, you can
 # inherit from NullAddForm and remove the form_fields variable.
