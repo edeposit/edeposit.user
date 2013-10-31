@@ -84,7 +84,7 @@ class Renderer(base.Renderer):
         brains = portal_catalog({'object_provides': IProducent.__identifier__})
 
         def userIsAssignedProducent(brain):
-            local_roles = brain.get_local_roles()
+            local_roles = brain.get_local_roles
             user_roles = frozenset(itertools.chain(*[ bb[1] for bb in (local_roles or []) if bb[0] == username ]))
             return 'E-Deposit: Assigned Producent' in user_roles
 
