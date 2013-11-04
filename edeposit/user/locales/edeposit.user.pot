@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-10-18 13:24+0000\n"
+"POT-Creation-Date: 2013-11-04 11:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,48 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: edeposit.user\n"
 
-#: edeposit/user/producent.py:34
-#: edeposit/user/userdataschema.py:154
+#: edeposit/user/producent.py:73
+#: edeposit/user/producentadministrator.py:80
+#: edeposit/user/userdataschema.py:156
 msgid "Address"
 msgstr ""
 
+#: edeposit/user/agreement_file.py:33
 #: edeposit/user/models/agreement_file.xml
 #: edeposit/user/models/producent.xml
 msgid "Agreement"
 msgstr ""
 
-#: edeposit/user/producent.py:38
+#: edeposit/user/producent.py:77
 #: edeposit/user/profiles/default/actions.xml
 msgid "Agreement with National Library"
 msgstr ""
 
+#: edeposit/user/handlers.py:53
+msgid "Approved producents"
+msgstr ""
+
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:48
 msgid "City"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:60
 msgid "Contact"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:54
 msgid "Country"
+msgstr ""
+
+#: edeposit/user/profiles/default/types/edeposit.user.producentadministrator.xml
+msgid "E-Deposit - Producent Administrator"
+msgstr ""
+
+#: edeposit/user/profiles/default/types/edeposit.user.producentadministratorfolder.xml
+msgid "E-Deposit - Producent Administrator's Folder"
 msgstr ""
 
 #: edeposit/user/profiles/default/types/edeposit.user.agreementfile.xml
@@ -64,48 +81,65 @@ msgstr ""
 msgid "E-Deposit Site"
 msgstr ""
 
+#: edeposit/user/portlets/registeringofecontent.py:64
+msgid "E-Deposit: Registering of any eContent"
+msgstr ""
+
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:49
 msgid "Fill a city"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:55
 msgid "Fill a country"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:32
 msgid "Fill a home page we can find a producent at."
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:61
 msgid "Fill a phone, email or name of a person we can contact."
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:43
 msgid "Fill a street with number."
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:31
 msgid "Home page"
 msgstr ""
 
-#: edeposit/user/userdataschema.py:81
+#: edeposit/user/userdataschema.py:83
 msgid "Login"
 msgstr ""
 
-#: edeposit/user/userdataschema.py:23
+#: edeposit/user/userdataschema.py:25
 msgid "Passwords are not the same."
 msgstr ""
 
-#: edeposit/user/userdataschema.py:114
+#: edeposit/user/producentadministrator.py:40
+#: edeposit/user/userdataschema.py:116
 msgid "Personal Info"
 msgstr ""
 
-#: edeposit/user/browser/register.py:34
+#: edeposit/user/browser/register.py:44
 msgid "Please fill informations about user and producent."
 msgstr ""
 
+#: edeposit/user/browser/post-login.pt:20
+#: edeposit/user/browser/registered.pt:20
+msgid "Pokud chcete využít možnosti řízené distribuce Vašich knih, navštivte Národní knihovnu a sepište smlouvu."
+msgstr ""
+
+#: edeposit/user/producentadministrator.py:105
 #: edeposit/user/profiles/default/types/edeposit.user.producent.xml
-#: edeposit/user/userdataschema.py:179
+#: edeposit/user/userdataschema.py:181
 msgid "Producent"
 msgstr ""
 
@@ -113,19 +147,42 @@ msgstr ""
 msgid "Producent Folder"
 msgstr ""
 
-#: edeposit/user/browser/register.py:33
+#: edeposit/user/profiles/default/types/edeposit.user.producentadministrator.xml
+msgid "ProducentAdministrator"
+msgstr ""
+
+#: edeposit/user/profiles/default/types/edeposit.user.producentadministratorfolder.xml
+msgid "ProducentAdministratorFolder"
+msgstr ""
+
+#: edeposit/user/handlers.py:38
+msgid "Producents in declaring"
+msgstr ""
+
+#: edeposit/user/handlers.py:68
+msgid "Producents waiting for approving"
+msgstr ""
+
+#: edeposit/user/browser/register.py:43
 msgid "Registration"
 msgstr ""
 
+#: edeposit/user/portlets/registeringofecontent.pt:8
+msgid "Registration of eContent"
+msgstr ""
+
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:42
 msgid "Street"
 msgstr ""
 
+#: edeposit/user/agreement_file.py:34
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:67
 msgid "Upload file with agreement between National Library and you."
 msgstr ""
 
-#: edeposit/user/browser/register.py:57
+#: edeposit/user/browser/register.py:66
 msgid "Username is already used. Fill in another username."
 msgstr ""
 
@@ -134,145 +191,176 @@ msgid "Welcome to E-Deposit"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:37
 msgid "Your location - either city and country - or in a company setting, where your office is located"
 msgstr ""
 
+#: edeposit/user/handlers.py:84
+msgid "ePublications in declaring"
+msgstr ""
+
+#: edeposit/user/handlers.py:90
+msgid "ePublications waiting for preparing of acquisition"
+msgstr ""
+
+#: edeposit/user/handlers.py:96
+msgid "ePublications with errors"
+msgstr ""
+
 #. Default: "Fill in the city you live in."
-#: edeposit/user/userdataschema.py:166
+#: edeposit/user/producentadministrator.py:92
+#: edeposit/user/userdataschema.py:168
 msgid "help_city"
 msgstr ""
 
 #. Default: "Re-enter the password. Make sure the passwords are identical."
-#: edeposit/user/userdataschema.py:103
+#: edeposit/user/userdataschema.py:105
 msgid "help_confirm_password"
 msgstr ""
 
 #. Default: "Fill in the country you live in."
-#: edeposit/user/userdataschema.py:173
+#: edeposit/user/producentadministrator.py:99
+#: edeposit/user/userdataschema.py:175
 msgid "help_country"
 msgstr ""
 
 #. Default: "Enter full name, e.g. John Smith."
-#: edeposit/user/userdataschema.py:120
+#: edeposit/user/producentadministrator.py:46
+#: edeposit/user/userdataschema.py:122
 msgid "help_full_name_creation"
 msgstr ""
 
 #. Default: "The URL for your external home page, if you have one."
-#: edeposit/user/userdataschema.py:132
+#: edeposit/user/producentadministrator.py:58
+#: edeposit/user/userdataschema.py:134
 msgid "help_homepage"
 msgstr ""
 
 #. Default: "Your location - either city and country - or in a company setting, where your office is located."
-#: edeposit/user/userdataschema.py:139
+#: edeposit/user/producentadministrator.py:65
+#: edeposit/user/userdataschema.py:141
 msgid "help_location"
 msgstr ""
 
 #. Default: "Do you wan to create new producent?"
-#: edeposit/user/browser/register.py:93
+#: edeposit/user/browser/register.py:106
 msgid "help_new_producent"
 msgstr ""
 
 #. Default: "Enter your new password."
-#: edeposit/user/userdataschema.py:97
+#: edeposit/user/userdataschema.py:99
 msgid "help_password_creation"
 msgstr ""
 
 #. Default: "Leave your phone number so we can reach you."
-#: edeposit/user/userdataschema.py:147
+#: edeposit/user/producentadministrator.py:73
+#: edeposit/user/userdataschema.py:149
 msgid "help_phone"
 msgstr ""
 
 #. Default: "Fill in the producent you work for."
-#: edeposit/user/userdataschema.py:213
+#: edeposit/user/producentadministrator.py:139
+#: edeposit/user/userdataschema.py:215
 msgid "help_producent"
 msgstr ""
 
 #. Default: "Fill in the street and number."
-#: edeposit/user/userdataschema.py:159
+#: edeposit/user/producentadministrator.py:85
+#: edeposit/user/userdataschema.py:161
 msgid "help_street"
 msgstr ""
 
 #. Default: "Fill in title of new producent."
-#: edeposit/user/browser/register.py:101
+#: edeposit/user/browser/register.py:114
 msgid "help_title_producent"
 msgstr ""
 
 #. Default: "Enter a user name, usually something like 'jsmith'. No spaces or special characters. Usernames and passwords are case sensitive, make sure the caps lock key is not enabled. This is the name used to log in."
-#: edeposit/user/userdataschema.py:87
+#: edeposit/user/userdataschema.py:89
 msgid "help_user_name_creation_casesensitive"
 msgstr ""
 
 #. Default: "City"
-#: edeposit/user/userdataschema.py:165
+#: edeposit/user/producentadministrator.py:91
+#: edeposit/user/userdataschema.py:167
 msgid "label_city"
 msgstr ""
 
 #. Default: "Confirm password"
-#: edeposit/user/userdataschema.py:101
+#: edeposit/user/userdataschema.py:103
 msgid "label_confirm_password"
 msgstr ""
 
 #. Default: "Country"
-#: edeposit/user/userdataschema.py:172
+#: edeposit/user/producentadministrator.py:98
+#: edeposit/user/userdataschema.py:174
 msgid "label_country"
 msgstr ""
 
 #. Default: "E-mail"
-#: edeposit/user/userdataschema.py:125
+#: edeposit/user/producentadministrator.py:51
+#: edeposit/user/userdataschema.py:127
 msgid "label_email"
 msgstr ""
 
 #. Default: "Full Name"
-#: edeposit/user/userdataschema.py:119
+#: edeposit/user/producentadministrator.py:45
+#: edeposit/user/userdataschema.py:121
 msgid "label_full_name"
 msgstr ""
 
 #. Default: "Home page"
-#: edeposit/user/userdataschema.py:131
+#: edeposit/user/producentadministrator.py:57
+#: edeposit/user/userdataschema.py:133
 msgid "label_homepage"
 msgstr ""
 
 #. Default: "Location"
-#: edeposit/user/userdataschema.py:138
+#: edeposit/user/producentadministrator.py:64
+#: edeposit/user/userdataschema.py:140
 msgid "label_location"
 msgstr ""
 
 #. Default: "New producent"
-#: edeposit/user/browser/register.py:92
+#: edeposit/user/browser/register.py:105
 msgid "label_new_producent"
 msgstr ""
 
 #. Default: "Password"
-#: edeposit/user/userdataschema.py:96
+#: edeposit/user/userdataschema.py:98
 msgid "label_password"
 msgstr ""
 
 #. Default: "Telephone number"
-#: edeposit/user/userdataschema.py:146
+#: edeposit/user/producentadministrator.py:72
+#: edeposit/user/userdataschema.py:148
 msgid "label_phone"
 msgstr ""
 
 #. Default: "Producent"
-#: edeposit/user/userdataschema.py:212
+#: edeposit/user/producentadministrator.py:138
+#: edeposit/user/userdataschema.py:214
 msgid "label_producent"
 msgstr ""
 
 #. Default: "Producent title"
-#: edeposit/user/browser/register.py:100
+#: edeposit/user/browser/register.py:113
 msgid "label_producent_title"
 msgstr ""
 
 #. Default: "Street"
-#: edeposit/user/userdataschema.py:158
+#: edeposit/user/producentadministrator.py:84
+#: edeposit/user/userdataschema.py:160
 msgid "label_street"
 msgstr ""
 
 #. Default: "User Name"
-#: edeposit/user/userdataschema.py:86
+#: edeposit/user/userdataschema.py:88
 msgid "label_user_name"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
+#: edeposit/user/producent.py:36
 msgid "location"
 msgstr ""
 
