@@ -87,6 +87,7 @@ class RegistrationForm(form.SchemaForm):
                 plone.api.group.add_user(groupname="Producents", user=user)
                 producent = plone.api.content.get(UID=data['producent'])
                 plone.api.user.grant_roles(user=user,obj=producent,roles=['E-Deposit: Assigned Producent',])
+                producent.reindexObject()
             pass
         self.status="Registered!"
         self.request.response.redirect(os.path.join(api.portal.get().absolute_url(),"@@register-with-producent-successed"))
