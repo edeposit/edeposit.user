@@ -29,7 +29,14 @@ class IAgreementFile(model.Schema, IImageScaleTraversable):
     # If you want a model-based interface, edit
     # models/agreement_file.xml to define the content type.
 
-    model.load("models/agreement_file.xml")
+    agreement = NamedBlobFile(
+        title=_(u'Agreement'),
+        description = _(u'Upload file with agreement between National Library and you.'),
+        required = False,
+        )        
+
+    model.primary('agreement')
+    #model.load("models/agreement_file.xml")
 
 
 # Custom content-type class; objects created for this content type will

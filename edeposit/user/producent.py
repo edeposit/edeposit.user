@@ -27,8 +27,48 @@ class IProducent(model.Schema, IImageScaleTraversable):
     # line below and delete the matching file in the models sub-directory.
     # If you want a model-based interface, edit
     # models/producent.xml to define the content type.
+    home_page = schema.TextLine(
+        title = _(u'Home page'),
+        description = _(u'Fill a home page we can find a producent at.'),
+        required = False,
+        )
+    location = schema.TextLine(
+        title = _(u'location'),
+        description = _(u'Your location - either city and country - or in a company setting, where your office is located'),
+        required = False,
+        )
 
-    model.load("models/producent.xml")
+    street = schema.TextLine(
+        title = _(u'Street'),
+        description = _(u'Fill a street with number.'),
+        required = True,
+        )
+
+    city = schema.TextLine(
+        title=_(u'City'),
+        description = _(u'Fill a city'),
+        required = True,
+        )
+    
+    country = schema.TextLine(
+        title=_(u'Country'),
+        description = _(u'Fill a country'),
+        required = True,
+        )
+    
+    contact = schema.TextLine(
+        title=_(u'Contact'),
+        description = _(u'Fill a phone, email or name of a person we can contact.'),
+        required = False,
+        )
+    
+    agreement = NamedBlobFile(
+        title=_(u'Agreement'),
+        description = _(u'Upload file with agreement between National Library and you.'),
+        required = False,
+        )        
+    
+    #model.load("models/producent.xml")
     model.fieldset( 'address',
                     label=_(u"Address"),
                     fields = ['street','city','country']
