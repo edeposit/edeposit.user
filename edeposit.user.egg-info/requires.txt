@@ -2,3 +2,4 @@ setuptools
 
 [test]
 plone.app.testing
+plone.app.robotframework

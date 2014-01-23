@@ -6,6 +6,7 @@ from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from plone.dexterity.content import Container
+
 from plone.app.textfield import RichText
 from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
@@ -15,30 +16,24 @@ from plone.supermodel import model
 from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
+from edeposit.user.producentuser import IProducentUser
 
 # Interface class; used to define content-type schema.
 
-class IProducentAdministratorFolder(model.Schema, IImageScaleTraversable):
+class IProducentEditor(IProducentUser):
     """
-    E-Deposit - Producent Administrator's Folder
+    E-Deposit Producent Editor
     """
-
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/producentadministratorfolder.xml to define the content type.
-
-    model.load("models/producentadministratorfolder.xml")
-
 
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering
 # in separate view classes.
 
-class ProducentAdministratorFolder(Container):
+class ProducentEditor(Container):
 
     # Add your class methods and properties here
+    pass
 
 
 # View class

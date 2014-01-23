@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
-<object name="edeposit.user.producentadministratorfolder"
+<object name="edeposit.user.producentuser"
    meta_type="Dexterity FTI"
    i18n:domain="edeposit.user" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
   <!-- Basic metadata -->
-  <property name="title" i18n:translate="">ProducentAdministratorFolder</property>
+  <property name="title" i18n:translate="">ProducentUser</property>
   <property name="description"
-    i18n:translate="">E-Deposit - Producent Administrator's Folder</property>
+    i18n:translate="">E-Deposit Producent User</property>
   <property name="icon_expr">string:${portal_url}/folder_icon.png</property>
-  <property name="factory">edeposit.user.producentadministratorfolder</property>
+  <property name="factory">edeposit.user.producentuser</property>
   <property name="global_allow">False</property>
   <property name="filter_content_types">False</property>
   <property name="allowed_content_types" />
   <property name="allow_discussion">False</property>
 
   <!-- schema and class used for content items -->
-  <property name="schema">edeposit.user.producentadministratorfolder.IProducentAdministratorFolder</property>
-  <property name="klass">edeposit.user.producentadministratorfolder.ProducentAdministratorFolder</property>
+  <property name="schema">edeposit.user.producentuser.IProducentUser</property>
+  <property name="klass">edeposit.user.producentuser.ProducentUser</property>
 
   <property name="behaviors">
      <element value="plone.app.content.interfaces.INameFromTitle" />

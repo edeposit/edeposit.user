@@ -25,6 +25,14 @@
       directory="static"
       />
 
+  <!-- Register the import step -->
+  <genericsetup:importStep
+      name="edeposit.user"
+      title="edeposit.user special import handlers"
+      description="E-Deposit User"
+      handler="edeposit.user.setuphandlers.setupVarious"
+      />
+  
   <class class=".agreement_file.AgreementFile">
     <implements interface=".agreement_file.IAgreementFile" />
   </class>
@@ -57,7 +65,43 @@
       />
 
   <!-- -*- extra stuff goes here -*- -->
+    <class class=".producenteditor.ProducentEditor">
+        <implements interface=".producenteditor.IProducentEditor" />
+    </class>
+
+    <browser:page
+        for=".producenteditor.IProducentEditor"
+        name="sampleview"
+        class=".producenteditor.SampleView"
+        template="producenteditor_templates/sampleview.pt"
+        permission="zope2.View"
+        />
+
+    <class class=".producentadministrator.ProducentAdministrator">
+        <implements interface=".producentadministrator.IProducentAdministrator" />
+    </class>
+
+    <browser:page
+        for=".producentadministrator.IProducentAdministrator"
+        name="sampleview"
+        class=".producentadministrator.SampleView"
+        template="producentadministrator_templates/sampleview.pt"
+        permission="zope2.View"
+        />
+
+    <class class=".producentuser.ProducentUser">
+        <implements interface=".producentuser.IProducentUser" />
+    </class>
+
+    <browser:page
+        for=".producentuser.IProducentUser"
+        name="sampleview"
+        class=".producentuser.SampleView"
+        template="producentuser_templates/sampleview.pt"
+        permission="zope2.View"
+        />
+
+        
   <include package=".portlets" />
   
-
 </configure>

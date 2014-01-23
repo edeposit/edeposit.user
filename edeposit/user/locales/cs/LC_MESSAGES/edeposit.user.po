@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-11-04 11:42+0000\n"
-"PO-Revision-Date: 2013-11-04 12:41+0100\n"
+"POT-Creation-Date: 2014-01-16 07:20+0000\n"
+"PO-Revision-Date: 2014-01-16 08:18+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: edeposit/user/producent.py:73
+#: edeposit/user/producent.py:68
 #: edeposit/user/producentadministrator.py:80
 #: edeposit/user/userdataschema.py:156
 msgid "Address"
@@ -26,7 +26,7 @@ msgstr "Adresa"
 msgid "Agreement"
 msgstr "Smlouva"
 
-#: edeposit/user/producent.py:77
+#: edeposit/user/producent.py:72
 #: edeposit/user/profiles/default/actions.xml
 msgid "Agreement with National Library"
 msgstr "Smlouva s Národní knihovnou"
@@ -36,17 +36,17 @@ msgid "Approved producents"
 msgstr "Schvlánení producenti"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:48
+#: edeposit/user/producent.py:43
 msgid "City"
 msgstr "Město"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:60
+#: edeposit/user/producent.py:55
 msgid "Contact"
 msgstr "Kontakt"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:54
+#: edeposit/user/producent.py:49
 msgid "Country"
 msgstr "Země"
 
@@ -83,32 +83,32 @@ msgid "E-Deposit: Registering of any eContent"
 msgstr "Ohlášení ePublikací, ePeriodik, knih"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:49
+#: edeposit/user/producent.py:44
 msgid "Fill a city"
 msgstr "Doplňte město"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:55
+#: edeposit/user/producent.py:50
 msgid "Fill a country"
 msgstr "Doplňte zemi"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:32
+#: edeposit/user/producent.py:27
 msgid "Fill a home page we can find a producent at."
 msgstr "Doplňte adresu web stránky, na které můžeme producenta najít."
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:61
+#: edeposit/user/producent.py:56
 msgid "Fill a phone, email or name of a person we can contact."
 msgstr "Doplňte telefon, email, nebo jméno osoby. Abychom se mohli na producenta obrátit."
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:43
+#: edeposit/user/producent.py:38
 msgid "Fill a street with number."
 msgstr "Doplňte ulici a číslo domu."
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:31
+#: edeposit/user/producent.py:26
 msgid "Home page"
 msgstr "Domovská stránka"
 
@@ -160,35 +160,35 @@ msgstr "Rozpracovaní producenti"
 msgid "Producents waiting for approving"
 msgstr "Producenti čekající na schválení"
 
+#: edeposit/user/browser/register.py:56
+msgid "Register"
+msgstr "Registrovat"
+
 #: edeposit/user/browser/register.py:43
-msgid "Registration"
-msgstr "Registrace"
+msgid "Registration of a producent"
+msgstr "Registrace producenta"
 
 #: edeposit/user/portlets/registeringofecontent.pt:8
 msgid "Registration of eContent"
 msgstr "Ohlášení ePublikace, ePeriodika, knihy"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:42
+#: edeposit/user/producent.py:37
 msgid "Street"
 msgstr "Ulice"
 
 #: edeposit/user/agreement_file.py:34
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:67
+#: edeposit/user/producent.py:62
 msgid "Upload file with agreement between National Library and you."
 msgstr "Uložte soubor se smlouvou mezi Vámi a Národní knihovnou."
-
-#: edeposit/user/browser/register.py:66
-msgid "Username is already used. Fill in another username."
-msgstr "Uživatelské jméno už existuje. Použijte jiné uživatelské jméno."
 
 #: edeposit/user/profiles/default/property.xml
 msgid "Welcome to E-Deposit"
 msgstr "Vítejte na stránách projektu E-Deposit!"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:37
+#: edeposit/user/producent.py:32
 msgid "Your location - either city and country - or in a company setting, where your office is located"
 msgstr "Vaše lokace - buď město, země nebo v případě společnosti, lokaci sídla firmy."
 
@@ -239,11 +239,6 @@ msgstr "URL osobních web stránek."
 msgid "help_location"
 msgstr "Vaše místo - buď město, nebo země, nebo firma, kde pracujete."
 
-#. Default: "Do you wan to create new producent?"
-#: edeposit/user/browser/register.py:106
-msgid "help_new_producent"
-msgstr "Chcete vytvořit nového producenta?"
-
 #. Default: "Enter your new password."
 #: edeposit/user/userdataschema.py:99
 msgid "help_password_creation"
@@ -266,11 +261,6 @@ msgstr "Vyberte producenta, pro kterého pracujete."
 #: edeposit/user/userdataschema.py:161
 msgid "help_street"
 msgstr "Doplňte ulici a číslo domu."
-
-#. Default: "Fill in title of new producent."
-#: edeposit/user/browser/register.py:114
-msgid "help_title_producent"
-msgstr "Doplňte název nového producenta."
 
 #. Default: "Enter a user name, usually something like 'jsmith'. No spaces or special characters. Usernames and passwords are case sensitive, make sure the caps lock key is not enabled. This is the name used to log in."
 #: edeposit/user/userdataschema.py:89
@@ -318,11 +308,6 @@ msgstr "Domovská stránka"
 msgid "label_location"
 msgstr "Místo"
 
-#. Default: "New producent"
-#: edeposit/user/browser/register.py:105
-msgid "label_new_producent"
-msgstr "Nový producent"
-
 #. Default: "Password"
 #: edeposit/user/userdataschema.py:98
 msgid "label_password"
@@ -340,11 +325,6 @@ msgstr "Telefonní číslo"
 msgid "label_producent"
 msgstr "Producent"
 
-#. Default: "Producent title"
-#: edeposit/user/browser/register.py:113
-msgid "label_producent_title"
-msgstr "Název producenta"
-
 #. Default: "Street"
 #: edeposit/user/producentadministrator.py:84
 #: edeposit/user/userdataschema.py:160
@@ -357,7 +337,7 @@ msgid "label_user_name"
 msgstr "Uživatelské jméno"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:36
+#: edeposit/user/producent.py:31
 msgid "location"
 msgstr "Lokalita"
 

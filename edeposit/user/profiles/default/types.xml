@@ -2,5 +2,8 @@
 <object name="portal_types" meta_type="Plone Types Tool">
   <object name="edeposit.user.agreementfile" meta_type="Dexterity FTI" />
   <object name="edeposit.user.producent" meta_type="Dexterity FTI" />
+  <object name="edeposit.user.producentuser" meta_type="Dexterity FTI" />
+  <object name="edeposit.user.producentadministrator" meta_type="Dexterity FTI" />
+  <object name="edeposit.user.producenteditor" meta_type="Dexterity FTI" />
   <object name="edeposit.user.producentfolder" meta_type="Dexterity FTI" />
 </object>

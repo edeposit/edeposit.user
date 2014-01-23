@@ -19,7 +19,11 @@ edeposit/user/postlogin.py
 edeposit/user/producent.py
 edeposit/user/producentadministrator.py
 edeposit/user/producentadministratorfolder.py
+edeposit/user/producenteditor.py
 edeposit/user/producentfolder.py
+edeposit/user/producentuser.py
+edeposit/user/setuphandlers.py
+edeposit/user/testing.py
 edeposit/user/tests.py
 edeposit/user/userdataschema.py
 edeposit/user/browser/__init__.py

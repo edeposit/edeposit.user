@@ -14,7 +14,6 @@ from plone.namedfile.interfaces import IImageScaleTraversable
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 from five import grok
-from .producent import IProducent
 from plone import api
 from z3c.formwidget.query.interfaces import IQuerySource
 from plone.formwidget.autocomplete import AutocompleteFieldWidget
@@ -27,85 +26,93 @@ from plone.supermodel import model
 from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
+from edeposit.user.producentuser import IProducentUser
 
+def checkEmailAddress(value):
+    reg_tool = api.portal.get_tool(name='portal_registration')
+    if value and reg_tool.isValidEmail(value):
+        pass
+    else:
+        raise EmailAddressInvalid
+    return True
 
 # Interface class; used to define content-type schema.
 
-class IProducentAdministrator(model.Schema, IImageScaleTraversable):
+class IProducentAdministrator(IProducentUser):
     """
     E-Deposit - Producent Administrator
     """
-    form.fieldset(
-        'personalinfo',
-        label = _(u"Personal Info"),
-        fields = ['fullname','email','home_page','location','phone']
-        )
+    # form.fieldset(
+    #     'personalinfo',
+    #     label = _(u"Personal Info"),
+    #     fields = ['fullname','email','home_page','location','phone']
+    #     )
 
-    fullname = schema.TextLine(
-        title=_(u'label_full_name', default=u'Full Name'),
-        description=_(u'help_full_name_creation',
-                      default=u"Enter full name, e.g. John Smith."),
-        required=False)
+    # fullname = schema.TextLine(
+    #     title=_(u'label_full_name', default=u'Full Name'),
+    #     description=_(u'help_full_name_creation',
+    #                   default=u"Enter full name, e.g. John Smith."),
+    #     required=False)
 
-    email = schema.ASCIILine(
-        title=_(u'label_email', default=u'E-mail'),
-        description=u'',
-        required=True,
-        constraint=checkEmailAddress)
+    # email = schema.ASCIILine(
+    #     title=_(u'label_email', default=u'E-mail'),
+    #     description=u'',
+    #     required=True,
+    #     constraint=checkEmailAddress)
 
-    home_page = schema.TextLine(
-        title=_(u'label_homepage', default=u'Home page'),
-        description=_(u'help_homepage',
-                      default=u"The URL for your external home page, "
-                      "if you have one."),
-        required=False)
+    # home_page = schema.TextLine(
+    #     title=_(u'label_homepage', default=u'Home page'),
+    #     description=_(u'help_homepage',
+    #                   default=u"The URL for your external home page, "
+    #                   "if you have one."),
+    #     required=False)
 
-    location = schema.TextLine(
-        title=_(u'label_location', default=u'Location'),
-        description=_(u'help_location',
-                      default=u"Your location - either city and "
-                      "country - or in a company setting, where "
-                      "your office is located."),
-        required=False)
+    # location = schema.TextLine(
+    #     title=_(u'label_location', default=u'Location'),
+    #     description=_(u'help_location',
+    #                   default=u"Your location - either city and "
+    #                   "country - or in a company setting, where "
+    #                   "your office is located."),
+    #     required=False)
 
-    phone = schema.TextLine(
-        title=_(u'label_phone', default=u'Telephone number'),
-        description=_(u'help_phone',
-                      default=u"Leave your phone number so we can reach you."),
-        required=False,
-        )
+    # phone = schema.TextLine(
+    #     title=_(u'label_phone', default=u'Telephone number'),
+    #     description=_(u'help_phone',
+    #                   default=u"Leave your phone number so we can reach you."),
+    #     required=False,
+    #     )
 
-    form.fieldset(
-        'address',
-        label = _(u"Address"),
-        fields = ['street','city','country']
-        )
-    street = schema.TextLine(
-        title=_(u'label_street', default=u'Street'),
-        description=_(u'help_street',
-                      default=u"Fill in the street and number."),
-        required=False,
-        )
+    # form.fieldset(
+    #     'address',
+    #     label = _(u"Address"),
+    #     fields = ['street','city','country']
+    #     )
+    # street = schema.TextLine(
+    #     title=_(u'label_street', default=u'Street'),
+    #     description=_(u'help_street',
+    #                   default=u"Fill in the street and number."),
+    #     required=False,
+    #     )
 
-    city = schema.TextLine(
-        title=_(u'label_city', default=u'City'),
-        description=_(u'help_city',
-                      default=u"Fill in the city you live in."),
-        required=False,
-        )
+    # city = schema.TextLine(
+    #     title=_(u'label_city', default=u'City'),
+    #     description=_(u'help_city',
+    #                   default=u"Fill in the city you live in."),
+    #     required=False,
+    #     )
 
-    country = schema.TextLine(
-        title=_(u'label_country', default=u'Country'),
-        description=_(u'help_country',
-                      default=u"Fill in the country you live in."),
-        required=False,
-        )
-    form.fieldset(
-        'producent',
-        label = _(u"Producent"),
-        fields = ['producent',
-                  ]
-        )
+    # country = schema.TextLine(
+    #     title=_(u'label_country', default=u'Country'),
+    #     description=_(u'help_country',
+    #                   default=u"Fill in the country you live in."),
+    #     required=False,
+    #     )
+    # form.fieldset(
+    #     'producent',
+    #     label = _(u"Producent"),
+    #     fields = ['producent',
+    #               ]
+    #     )
 
     # form.fieldset(
     #     'producent_info',
@@ -134,13 +141,13 @@ class IProducentAdministrator(model.Schema, IImageScaleTraversable):
     #     )
 
     #form.widget(producent=AutocompleteFieldWidget)
-    producent = schema.Choice(
-        title=_(u'label_producent', default=u'Producent'),
-        description=_(u'help_producent',
-                      default=u"Fill in the producent you work for."),
-        required=False,
-        source=producent_source,
-        )
+    # producent = schema.Object(
+    #     title=_(u'label_producent', default=u'Producent'),
+    #     description=_(u'help_producent',
+    #                   default=u"Fill in the producent you work for."),
+    #     required=False,
+    #     schema=IProducent
+    #     )
 
     # producent_title = schema.TextLine(
     #     title=_(u'label_producent_title', default=u'Producent Title'),
@@ -204,7 +211,6 @@ class IProducentAdministrator(model.Schema, IImageScaleTraversable):
 # in separate view classes.
 
 class ProducentAdministrator(Container):
-
     # Add your class methods and properties here
     pass
 

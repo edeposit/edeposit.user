@@ -23,7 +23,7 @@
         písemné smlouvy, která umožní další funkčnosti 
         včetně řízené distribuce vašich e-publikací.
         </p>
-	<metal:block use-macro="context/@@ploneform-macros/titlelessform" />
+	<metal:block use-macro="context/@@ploneform-macros/titlelessform"/>
       </div>
     </div>
   </metal:block>

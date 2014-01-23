@@ -12,9 +12,9 @@
 	permission="zope2.View"
 	/>
 
-    <adapter
-	factory=".register.RegistrationFormExtender"
-	provides="plone.z3cform.fieldsets.interfaces.IFormExtender" />
+    <!-- <adapter -->
+    <!--     factory=".register.RegistrationFormExtender" -->
+    <!--     provides="plone.z3cform.fieldsets.interfaces.IFormExtender" /> -->
 
     <browser:page
 	name="register-with-producent-successed"
@@ -39,4 +39,8 @@
     <!--   class=".register.RegistrationForm" -->
     <!--   permission="cmf.AddPortalMember" -->
     <!--   /> -->
+
+    <adapter factory=".register.ProducentAdministratorFactory" 
+       name="edeposit.user.producentadministrator.IProducentAdministrator" /> 
+
 </configure>

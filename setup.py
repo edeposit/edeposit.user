@@ -25,10 +25,13 @@ setup(name='edeposit.user',
       zip_safe=False,
       install_requires=[
           'setuptools',
+          'collective.documentviewer',
           # -*- Extra requirements: -*-
       ],
       extras_require = {
-        'test': ['plone.app.testing',]
+        'test': ['plone.app.testing',
+                 'plone.app.robotframework',
+             ]
       },
       entry_points="""
       # -*- Entry points: -*-

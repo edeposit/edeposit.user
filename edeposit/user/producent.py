@@ -15,6 +15,7 @@ from plone.supermodel import model
 from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
+from .producentadministrator import IProducentAdministrator
 
 # Interface class; used to define content-type schema.
 
@@ -22,11 +23,6 @@ class IProducent(model.Schema, IImageScaleTraversable):
     """
     E-Deposit Producent
     """
-
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/producent.xml to define the content type.
     home_page = schema.TextLine(
         title = _(u'Home page'),
         description = _(u'Fill a home page we can find a producent at.'),

@@ -110,4 +110,4 @@ def addedProducentFolder(context,event):
                     title=collection['title'],
                     query=collection['query']
                     )
-                api.group.grant_roles(groupname="Producents", roles=['Reader'], obj=content)
+                #api.group.grant_roles(groupname="Producents", roles=['Reader'], obj=content)
