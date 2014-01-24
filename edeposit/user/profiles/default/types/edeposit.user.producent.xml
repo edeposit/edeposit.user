@@ -6,7 +6,7 @@
   <!-- Basic metadata -->
   <property name="title" i18n:translate="">Producent</property>
   <property name="description"
-    i18n:translate="">E-Deposit Producent</property>
+    i18n:translate="">E-Deposit - Producent</property>
   <property name="icon_expr">string:${portal_url}/document_icon.png</property>
   <property name="factory">edeposit.user.producent</property>
   <property name="global_allow">False</property>
@@ -15,8 +15,8 @@
     <element value="edeposit.content.epublicationfolder"/>
     <element value="edeposit.content.eperiodicalfolder"/>
     <element value="edeposit.content.bookfolder"/>
-    <element value="edeposit.user.producentadministrator"/>
-    <element value="edeposit.user.producenteditor"/>
+    <element value="edeposit.user.producentadministratorfolder"/>
+    <element value="edeposit.user.producenteditorfolder"/>
   </property>
   <property name="allow_discussion">False</property>
 

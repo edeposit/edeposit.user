@@ -1,18 +1,18 @@
 <rolemap>
   <permissions>
-    <permission name="Add portal member" acquire="False">
-      <role name="Manager" />
-      <role name="Anonymous" />
-      <role name="Site Administrator"/>
-    </permission>
-    <permission name="E-Deposit: Add Producent" acquire="False">
-      <role name="Manager" />
-      <role name="Anonymous" />
-      <role name="Site Administrator"/>
-    </permission>
-    <permission name="List portal members"  acquire="True">
-      <role name="Manager" />
-      <role name="Site Administrator"/>
-    </permission>
+  <!--   <permission name="Add portal member" acquire="False"> -->
+  <!--     <role name="Manager" /> -->
+  <!--     <role name="Anonymous" /> -->
+  <!--     <role name="Site Administrator"/> -->
+  <!--   </permission> -->
+  <!--   <permission name="E-Deposit: Add Producent" acquire="False"> -->
+  <!--     <role name="Manager" /> -->
+  <!--     <role name="Anonymous" /> -->
+  <!--     <role name="Site Administrator"/> -->
+  <!--   </permission> -->
+  <!--   <permission name="List portal members"  acquire="True"> -->
+  <!--     <role name="Manager" /> -->
+  <!--     <role name="Site Administrator"/> -->
+  <!--   </permission> -->
   </permissions>
 </rolemap>

@@ -18,6 +18,8 @@ def added(context,event):
     context.invokeFactory('edeposit.content.epublicationfolder','epublications', title=u"Ohlášení ePublikací")
     context.invokeFactory('edeposit.content.eperiodicalfolder','eperiodicals', title=u"Ohlášování ePeriodik")
     context.invokeFactory('edeposit.content.bookfolder','books', title=u"Ohlášení tištěných knih")
+    context.invokeFactory('edeposit.user.producentadministratorfolder','administrators',title=u"Administrátoři")
+    context.invokeFactory('edeposit.user.producenteditorfolder','editors',title=u"Editoři")
 
 def addedProducentFolder(context,event):
     portal = api.portal.get()

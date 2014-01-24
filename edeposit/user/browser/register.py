@@ -50,11 +50,6 @@ class ProducentAdministratorFactory(object):
         return ProducentAdministrator(**value)
 
 class IProducentWithAdministrators(IProducent):
-    # form.fieldset(
-    #     'producentadministrators',
-    #     label = _(u"Producent Administrators"),
-    #     fields = ['administrators',]
-    #     )
     administrators = zope.schema.List(
         title = _(u'Producent Administrators'),
         description = _(u'Fill in at least one producent administrator'),

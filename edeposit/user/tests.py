@@ -11,7 +11,6 @@ ptc.setupPloneSite()
 
 import edeposit.user
 
-
 class TestCase(ptc.PloneTestCase):
 
     class layer(PloneSite):

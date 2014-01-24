@@ -65,6 +65,30 @@
       />
 
   <!-- -*- extra stuff goes here -*- -->
+    <class class=".producenteditorfolder.ProducentEditorFolder">
+        <implements interface=".producenteditorfolder.IProducentEditorFolder" />
+    </class>
+
+    <browser:page
+        for=".producenteditorfolder.IProducentEditorFolder"
+        name="sampleview"
+        class=".producenteditorfolder.SampleView"
+        template="producenteditorfolder_templates/sampleview.pt"
+        permission="zope2.View"
+        />
+
+    <class class=".producentadministratorfolder.ProducentAdministratorFolder">
+        <implements interface=".producentadministratorfolder.IProducentAdministratorFolder" />
+    </class>
+
+    <browser:page
+        for=".producentadministratorfolder.IProducentAdministratorFolder"
+        name="sampleview"
+        class=".producentadministratorfolder.SampleView"
+        template="producentadministratorfolder_templates/sampleview.pt"
+        permission="zope2.View"
+        />
+
     <class class=".producenteditor.ProducentEditor">
         <implements interface=".producenteditor.IProducentEditor" />
     </class>

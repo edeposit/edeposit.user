@@ -11,7 +11,6 @@ from plone.app.portlets.storage import PortletAssignmentMapping
 from edeposit.user.portlets import registeringofecontent
 from edeposit.user.portlets.tests.base_registeringofecontent import TestCase
 
-
 class TestPortlet(TestCase):
 
     def afterSetUp(self):
