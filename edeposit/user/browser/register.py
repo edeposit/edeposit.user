@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from zope import schema
 import zope
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -14,6 +15,8 @@ from zope.interface import Invalid, Interface
 from edeposit.user import MessageFactory as _
 from Products.statusmessages.interfaces import IStatusMessage
 from zope.component import adapts
+from zope.component import getUtility
+from zope.component import queryUtility
 from plone.z3cform.fieldsets import extensible
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from edeposit.user.producent import IProducent
@@ -23,6 +26,8 @@ from edeposit.user.producentadministrator import IProducentAdministrator, Produc
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 import os.path
 import logging
+from plone.dexterity.utils import createContentInContainer, addContentToContainer
+from plone.i18n.normalizer.interfaces import IURLNormalizer, IIDNormalizer
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
@@ -58,6 +63,13 @@ class IProducentWithAdministrators(IProducent):
         unique = False
     )
 
+def normalizeTitle(title):
+    title = u"Cosi českého a. neobratného"
+    util = queryUtility(IIDNormalizer)
+    result = util.normalize(title)
+    result
+    return result
+
 class RegistrationForm(form.SchemaForm):
     schema = IProducentWithAdministrators
 
@@ -77,16 +89,21 @@ class RegistrationForm(form.SchemaForm):
     @button.buttonAndHandler(_(u"Register"))
     def handleRegister(self, action):
         data, errors = self.extractData()
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()        
-        # err=errors[0]
-        # err
-        # dir(err)
-        # err.widget
-        # err.error
         if errors:
             self.status = self.formErrorsMessage
             return
+        
+        producentsFolder = api.portal.getSite()['producents']
+        producent = createContentInContainer(producentsFolder, 
+                                             "edeposit.user.producent", 
+                                             **data)
+        
+        for administrator in data['administrators']:
+            addContentToContainer(producent['producent-administrators'], 
+                                  administrator,
+                                  False)
     pass
+
 
 # class RegistrationForm01(form.SchemaForm):
 #     label = _(u"Registration")

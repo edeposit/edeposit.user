@@ -26,6 +26,7 @@ setup(name='edeposit.user',
       install_requires=[
           'setuptools',
           'collective.documentviewer',
+          'z3c.unconfigure',
           # -*- Extra requirements: -*-
       ],
       extras_require = {

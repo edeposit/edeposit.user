@@ -14,7 +14,7 @@ from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 from plone.supermodel import model
 from Products.Five import BrowserView
-
+import plone.app.users
 from edeposit.user import MessageFactory as _
 
 def checkEmailAddress(value):
@@ -100,7 +100,34 @@ class IProducentUser(model.Schema, IImageScaleTraversable):
         required=False,
         )
 
+    form.fieldset(
+        'login',
+        label = _(u"Login"),
+        fields = ['username','password','password_ctl']
+        )
 
+    username = schema.ASCIILine(
+        title=_(u'label_user_name', default=u'User Name'),
+        description=_(u'help_user_name_creation_casesensitive',
+                      default=u"Enter a user name, usually something "
+                      "like 'jsmith'. "
+                      "No spaces or special characters. "
+                      "Usernames and passwords are case sensitive, "
+                      "make sure the caps lock key is not enabled. "
+                      "This is the name used to log in."))
+    
+    password = schema.Password(
+        title=_(u'label_password', default=u'Password'),
+        description=_(u'help_password_creation',
+                      default=u'Enter your new password.'))
+    
+    password_ctl = schema.Password(
+        title=_(u'label_confirm_password',
+                default=u'Confirm password'),
+        description=_(u'help_confirm_password',
+                      default=u"Re-enter the password. "
+                      "Make sure the passwords are identical."))
+    
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering

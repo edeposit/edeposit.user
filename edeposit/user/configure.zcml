@@ -8,6 +8,9 @@
 
   <i18n:registerTranslations directory="locales" />
 
+  <include package="Products.CMFPlone.exportimport"/>
+  <include package="z3c.unconfigure" file="meta.zcml" />
+
   <five:registerPackage package="." initialize=".initialize" />
   <include package=".browser" />
   <include file="permissions.zcml"/>
@@ -25,14 +28,6 @@
       directory="static"
       />
 
-  <!-- Register the import step -->
-  <genericsetup:importStep
-      name="edeposit.user"
-      title="edeposit.user special import handlers"
-      description="E-Deposit User"
-      handler="edeposit.user.setuphandlers.setupVarious"
-      />
-  
   <class class=".agreement_file.AgreementFile">
     <implements interface=".agreement_file.IAgreementFile" />
   </class>
@@ -45,10 +40,17 @@
       permission="zope2.View"
       />
   
-  <!-- <subscriber -->
-  <!--     for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent" -->
-  <!--     handler=".postlogin.logged_in_handler" -->
-  <!--     /> -->
+  <subscriber
+      for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
+      handler=".postlogin.logged_in_handler"
+      />
+
+  <subscriber
+      for=".producent.IProducentAdministrator
+           zope.container.interfaces.IObjectAddedEvent
+	   "
+      handler=".handlers.addedProducentAdministrator"
+      />
 
   <subscriber
       for=".producent.IProducent
@@ -125,7 +127,34 @@
         permission="zope2.View"
         />
 
-        
   <include package=".portlets" />
+
+  <unconfigure>
+    <genericsetup:importStep
+        name="edeposit.user"
+        title="E-Deposit content"
+        description="Import the E-Deposit structure and content."
+        handler="edeposit.user.setuphandlers.setupVarious">
+      <depends name="typeinfo"/>
+    </genericsetup:importStep>
+  </unconfigure>
+  <genericsetup:importStep
+        name="edeposit.user"
+        title="E-Deposit content"
+        description="Import the E-Deposit structure and content."
+        handler="edeposit.user.setuphandlers.setupVarious">
+      <depends name="typeinfo"/>
+    <depends name="typeinfo"/>
+    <depends name="workflow"/>
+    <depends name="catalog"/>
+  </genericsetup:importStep>
+
+  <!-- <genericsetup:importStep -->
+  <!--     name="edeposit.user" -->
+  <!--     title="edeposit.user special import handlers" -->
+  <!--     description="E-Deposit User" -->
+  <!--     handler="edeposit.user.setuphandlers.setupVarious" -->
+  <!--     /> -->
+  
   
 </configure>

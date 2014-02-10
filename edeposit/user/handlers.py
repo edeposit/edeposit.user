@@ -7,6 +7,28 @@ from plone import api
 from edeposit.user import MessageFactory as _
 from plone.dexterity.utils import createContentInContainer
 
+def addedProducentAdministrator(context, event):
+    """
+    When new administrator occurred, it is important to create user with the same username.
+    """
+    api.user.create(email=context.email, username=context.username, password=context.password)
+    producent = context.aq_parent.aq_parent
+    api.user.grant_roles(username=context.username,  
+                         obj=producent,
+                         roles=('E-Deposit: Producent Administrator',)
+    )
+    api.group.add_user(groupname="Producent Administrators",
+                       username=context.username,
+    )
+    api.group.add_user(groupname="Producent Contributors",  
+                       username=context.username,
+    )
+    api.group.add_user(groupname="Producent Editors",
+                       username=context.username,
+    )
+    producent.reindexObject()
+    pass
+
 def added(context,event):
     """When an object is added, create folder for registration of ePublications
     """
@@ -18,8 +40,8 @@ def added(context,event):
     context.invokeFactory('edeposit.content.epublicationfolder','epublications', title=u"Ohlášení ePublikací")
     context.invokeFactory('edeposit.content.eperiodicalfolder','eperiodicals', title=u"Ohlášování ePeriodik")
     context.invokeFactory('edeposit.content.bookfolder','books', title=u"Ohlášení tištěných knih")
-    context.invokeFactory('edeposit.user.producentadministratorfolder','administrators',title=u"Administrátoři")
-    context.invokeFactory('edeposit.user.producenteditorfolder','editors',title=u"Editoři")
+    context.invokeFactory('edeposit.user.producentadministratorfolder','producent-administrators',title=u"Administrátoři")
+    context.invokeFactory('edeposit.user.producenteditorfolder','producent-editors',title=u"Editoři")
 
 def addedProducentFolder(context,event):
     portal = api.portal.get()
@@ -111,5 +133,5 @@ def addedProducentFolder(context,event):
                     type='Collection', 
                     title=collection['title'],
                     query=collection['query']
-                    )
+                )
                 #api.group.grant_roles(groupname="Producents", roles=['Reader'], obj=content)

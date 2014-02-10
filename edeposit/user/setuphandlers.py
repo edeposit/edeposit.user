@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from edeposit.policy import MessageFactory as _
 from Products.CMFCore.utils import getToolByName
 from plone.dexterity.utils import createContentInContainer
@@ -8,7 +9,6 @@ def createFolders(portal):
     # optionally you can set checkConstraints=False to skip permission
     # checks
     if 'producents' not in portal.objectIds():
-        #createContentInContainer(portal,'edeposit.user.producentfolder', name='producents', title=u"Producenti")
         portal.invokeFactory('edeposit.user.producentfolder', 'producents', title=u"Producenti")
         #portal.invokeFactory('Document', 'uvodni', title=u"Uvodni strana")
     pass
@@ -20,4 +20,4 @@ def setupVarious(context):
         # Not your add-on
         return
     portal = context.getSite()
-    createFolders(portal)
+    #createFolders(portal)

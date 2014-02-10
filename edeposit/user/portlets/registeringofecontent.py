@@ -79,17 +79,18 @@ class Renderer(base.Renderer):
 
     def assignedProducents(self):
         user = api.user.get_current()
-        username = user.getName()
+        username = user.getUserName()
         portal_catalog = api.portal.get_tool(name='portal_catalog')
         brains = portal_catalog({'object_provides': IProducent.__identifier__})
 
-        def userIsAssignedProducent(brain):
-            local_roles = brain.get_local_roles
-            user_roles = frozenset(itertools.chain(*[ bb[1] for bb in (local_roles or []) if bb[0] == username ]))
-            return 'E-Deposit: Assigned Producent' in user_roles
+        def userIsAssigned(brain):
+            user_local_roles = api.user.get_roles(obj=brain.getObject())
+            return 'E-Deposit: Producent Administrator' in user_local_roles \
+                or 'E-Deposit: Producent Editor' in user_local_roles \
+                or 'E-Deposit: Producent Contributor' in user_local_roles
 
         producentInfos = [ {'path': brain.getPath(), 'UID': brain['UID'] , 'title': brain['Title'] } 
-                           for brain in (brains or []) if userIsAssignedProducent(brain)
+                           for brain in (brains or []) if userIsAssigned(brain)
                            ]
         
         #/edeposit/producenti/jeste-jeden-od-anonyma/epublications/++add++edeposit.content.epublication

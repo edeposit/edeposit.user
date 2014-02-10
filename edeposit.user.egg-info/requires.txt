@@ -1,4 +1,6 @@
 setuptools
+collective.documentviewer
+z3c.unconfigure
 
 [test]
 plone.app.testing
