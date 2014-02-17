@@ -4,7 +4,7 @@ from zope import schema
 from zope.interface import invariant, Invalid
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
+from Products.CMFDefault.exceptions import EmailAddressInvalid
 from plone.dexterity.content import Container
 from plone import api
 

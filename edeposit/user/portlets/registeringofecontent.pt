@@ -15,8 +15,7 @@
           <legend tal:content="producent/name">producent name</legend>
           <ul>
             <li tal:repeat="link producent/links">
-              <a class="external-link" title="" target="_blank"
-                 tal:attributes="href link/href" tal:content="link/desc">link</a>
+              <a class="" title="" tal:attributes="href link/href" tal:content="link/desc">link</a>
             </li>
           </ul>
         </li>

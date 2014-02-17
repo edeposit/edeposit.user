@@ -4,13 +4,29 @@
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:grok="http://namespaces.zope.org/grok"
     i18n_domain="plone">
-      
+
+  <adapter
+        for="Products.CMFCore.interfaces.IFolderish
+             Products.CMFDefault.interfaces.ICMFDefaultSkin
+             plone.dexterity.interfaces.IDexterityFTI"
+        provides="zope.publisher.interfaces.browser.IBrowserPage"
+        factory=".register.ProducentAddView"
+        name="edeposit.user.producent"
+        />
+
     <browser:page
-	for="*"
-	name="register-with-producent"
-	class=".register.RegistrationForm"
-	permission="zope2.View"
-	/>
+        for="*"
+        name="register-with-producent"
+        class=".register.RegistrationForm"
+        permission="zope2.View"
+        />
+
+    <!-- <browser:page -->
+    <!--     for="*" -->
+    <!--     name="register-with-producent" -->
+    <!--     class=".register.RegistrationForm" -->
+    <!--     permission="zope2.View" -->
+    <!--     /> -->
 
     <!-- <adapter -->
     <!--     factory=".register.RegistrationFormExtender" -->

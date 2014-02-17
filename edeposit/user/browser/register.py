@@ -6,7 +6,7 @@ from plone.z3cform.templates import ZopeTwoFormTemplateFactory
 import plone.app.users.browser.register
 from zope.publisher.browser import BrowserView
 from z3c.form.browser.radio import RadioFieldWidget
-from plone.directives import form, dexterity
+from plone.directives import form
 from Products.CMFCore.interfaces import ISiteRoot
 from plone.app.layout.navigation.interfaces import INavigationRoot
 from z3c.form import field, button
@@ -26,16 +26,86 @@ from edeposit.user.producentadministrator import IProducentAdministrator, Produc
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 import os.path
 import logging
-from plone.dexterity.utils import createContentInContainer, addContentToContainer
+from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 from plone.i18n.normalizer.interfaces import IURLNormalizer, IIDNormalizer
+from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
+from plone.supermodel import model
+from plone.dexterity.utils import getAdditionalSchemata
+from Acquisition import aq_inner, aq_base
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
 
+class IProducentAdministrators(model.Schema):
+    administrators = zope.schema.List(
+        title = _(u'Producent Administrators'),
+        description = _(u'Fill in at least one producent administrator'),
+        required = True,
+        value_type = zope.schema.Object( title=_('Producent Administrator'), schema=IProducentAdministrator ),
+        unique = False
+    )
+
+
+class ProducentAddForm(DefaultAddForm):
+    label = _(u"Registration of a producent")
+    description = _(u"Please fill informations about user and producent.")
+
+    @property
+    def additionalSchemata(self):
+        schemata = [s for s in getAdditionalSchemata(portal_type=self.portal_type)] + \
+                   [IProducentAdministrators,]
+        return schemata
+
+    def update(self):
+        DefaultAddForm.update(self)
+
+    def add(self,object):
+        DefaultAddForm.add(self,object)
+        administratorsFolder = aq_inner(object['producent-administrators'])
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+
+        for administrator in self.administrators:
+            addContentToContainer(administratorsFolder, administrator, False)
+        return addedObject
+
+    def create(self, data):
+        self.administrators = data['IProducentAdministrators.administrators']
+        del data['IProducentAdministrators.administrators']
+        createdProducent = DefaultAddForm.create(self,data)
+        return createdProducent
+
+    def getProducentsFolder(self):
+        return self.context
+
+    @button.buttonAndHandler(_(u"Register"))
+    def handleRegister(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        producentsFolder = self.getProducentsFolder()
+        # hack for title and description
+        data['title'] = data.get('IBasic.title','')
+        data['description'] = data.get('IBasic.description','')
+        producent = createContentInContainer(producentsFolder, "edeposit.user.producent", **data)
+        administratorsFolder = producent['producent-administrators']
+        for administrator in data['IProducentAdministrators.administrators']:
+            administrator.title=getattr(administrator,'fullname',None)
+            addContentToContainer(administratorsFolder, administrator, False)
+        if producent is not None:
+            # mark only as finished if we get the new object
+            self._finishedAdd = True
+            IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
+    pass
+
+class ProducentAddView(DefaultAddView):
+    form = ProducentAddForm
+
 class PostLoginView(BrowserView):
     def update(self):
         portal = api.portal.get()
-        dashboard_url = os.path.join(portal.absolute_url(),'producenti')
+        dashboard_url = os.path.join(portal.absolute_url(),'producents')
         return self.request.redirect(dashboard_url)
 
 class RegisteredView(BrowserView):
@@ -52,7 +122,8 @@ class ProducentAdministratorFactory(object):
         self.widget = widget
 
     def __call__(self, value):
-        return ProducentAdministrator(**value)
+        created=createContent('edeposit.user.producentadministrator',**value)
+        return created
 
 class IProducentWithAdministrators(IProducent):
     administrators = zope.schema.List(
@@ -70,39 +141,48 @@ def normalizeTitle(title):
     result
     return result
 
-class RegistrationForm(form.SchemaForm):
-    schema = IProducentWithAdministrators
 
-    label = _(u"Registration of a producent")
-    description = _(u"Please fill informations about user and producent.")
-
-    ignoreContext = True
-    enableCSRFProtection = True
-
+class RegistrationForm(ProducentAddForm):
+    portal_type = 'edeposit.user.producent'
     template = ViewPageTemplateFile('form.pt')
-    prefix = 'producent'
 
-    def update(self):
-        self.request.set('disable_border', True)
-        super(RegistrationForm, self).update()
+    def getProducentsFolder(self):
+        portal = api.portal.get()
+        return portal['producents']
 
-    @button.buttonAndHandler(_(u"Register"))
-    def handleRegister(self, action):
-        data, errors = self.extractData()
-        if errors:
-            self.status = self.formErrorsMessage
-            return
+# class RegistrationForm(form.SchemaForm):
+#     schema = IProducentWithAdministrators
+
+#     label = _(u"Registration of a producent")
+#     description = _(u"Please fill informations about user and producent.")
+
+#     ignoreContext = True
+#     enableCSRFProtection = True
+
+#     template = ViewPageTemplateFile('form.pt')
+#     prefix = 'producent'
+
+#     def update(self):
+#         self.request.set('disable_border', True)
+#         super(RegistrationForm, self).update()
+
+#     @button.buttonAndHandler(_(u"Register"))
+#     def handleRegister(self, action):
+#         data, errors = self.extractData()
+#         if errors:
+#             self.status = self.formErrorsMessage
+#             return
         
-        producentsFolder = api.portal.getSite()['producents']
-        producent = createContentInContainer(producentsFolder, 
-                                             "edeposit.user.producent", 
-                                             **data)
+#         producentsFolder = api.portal.getSite()['producents']
+#         producent = createContentInContainer(producentsFolder, 
+#                                              "edeposit.user.producent", 
+#                                              **data)
         
-        for administrator in data['administrators']:
-            addContentToContainer(producent['producent-administrators'], 
-                                  administrator,
-                                  False)
-    pass
+#         for administrator in data['administrators']:
+#             addContentToContainer(producent['producent-administrators'], 
+#                                   administrator,
+#                                   False)
+#     pass
 
 
 # class RegistrationForm01(form.SchemaForm):

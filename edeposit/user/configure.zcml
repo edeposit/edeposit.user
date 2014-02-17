@@ -129,15 +129,15 @@
 
   <include package=".portlets" />
 
-  <unconfigure>
-    <genericsetup:importStep
-        name="edeposit.user"
-        title="E-Deposit content"
-        description="Import the E-Deposit structure and content."
-        handler="edeposit.user.setuphandlers.setupVarious">
-      <depends name="typeinfo"/>
-    </genericsetup:importStep>
-  </unconfigure>
+  <!-- <unconfigure> -->
+  <!--   <genericsetup:importStep -->
+  <!--       name="edeposit.user" -->
+  <!--       title="E-Deposit content" -->
+  <!--       description="Import the E-Deposit structure and content." -->
+  <!--       handler="edeposit.user.setuphandlers.setupVarious"> -->
+  <!--     <depends name="typeinfo"/> -->
+  <!--   </genericsetup:importStep> -->
+  <!-- </unconfigure> -->
   <genericsetup:importStep
         name="edeposit.user"
         title="E-Deposit content"

@@ -7,6 +7,7 @@ from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
 
 from plone.dexterity.content import Container
 from plone.app.textfield import RichText
+from plone.directives import dexterity
 from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
@@ -63,7 +64,7 @@ class IProducent(model.Schema, IImageScaleTraversable):
         description = _(u'Upload file with agreement between National Library and you.'),
         required = False,
         )        
-    
+
     #model.load("models/producent.xml")
     model.fieldset( 'address',
                     label=_(u"Address"),
