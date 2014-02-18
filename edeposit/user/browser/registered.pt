@@ -21,6 +21,9 @@
       Pokud chcete využít možnosti řízené distribuce Vašich knih,
       navštivte Národní knihovnu a sepište smlouvu.
     </p>
+    <p>
+      Přihlásit se můžete jedním z vytvořených administrátorských účtů.
+    </p>
   </div>
 </metal:main>
 </body>

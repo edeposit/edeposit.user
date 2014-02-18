@@ -97,6 +97,8 @@ class ProducentAddForm(DefaultAddForm):
             # mark only as finished if we get the new object
             self._finishedAdd = True
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
+            url = "%s/%s" % (producent.absolute_url(), 'register-with-producent-successed')
+            self.request.response.redirect(url)
     pass
 
 class ProducentAddView(DefaultAddView):
