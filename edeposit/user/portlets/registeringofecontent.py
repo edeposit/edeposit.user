@@ -97,7 +97,8 @@ class Renderer(base.Renderer):
         def getRegisteringPaths(producentPath):
             brains = portal_catalog({'object_provides': [IePublicationFolder.__identifier__,
                                                          IePeriodicalFolder.__identifier__,
-                                                         IBookFolder.__identifier__],
+                                                         #IBookFolder.__identifier__
+                                                     ],
                                      'path': producentPath 
                                      })
             def getRegistrationPath(brain):
