@@ -27,7 +27,52 @@ def checkEmailAddress(value):
 
 # Interface class; used to define content-type schema.
 
-class IProducentUser(model.Schema, IImageScaleTraversable):
+class IProducentUserBasic(model.Schema, IImageScaleTraversable):
+    """ a few fields from IProducentAdministrator """
+    fullname = schema.TextLine(
+        title=_(u'label_full_name', default=u'Full Name'),
+        description=_(u'help_full_name_creation',
+                      default=u"Enter full name, e.g. John Smith."),
+        required=False)
+
+    email = schema.ASCIILine(
+        title=_(u'label_email', default=u'E-mail'),
+        description=u'',
+        required=True,
+        constraint=checkEmailAddress)
+
+    phone = schema.TextLine(
+        title=_(u'label_phone', default=u'Telephone number'),
+        description=_(u'help_phone',
+                      default=u"Leave your phone number so we can reach you."),
+        required=False,
+        )
+
+    username = schema.ASCIILine(
+        title=_(u'label_user_name', default=u'User Name'),
+        description=_(u'help_user_name_creation_casesensitive',
+                      default=u"Enter a user name, usually something "
+                      "like 'jsmith'. "
+                      "No spaces or special characters. "
+                      "Usernames and passwords are case sensitive, "
+                      "make sure the caps lock key is not enabled. "
+                      "This is the name used to log in."))
+    
+    password = schema.Password(
+        title=_(u'label_password', default=u'Password'),
+        description=_(u'help_password_creation',
+                      default=u'Enter your new password.'))
+    
+    password_ctl = schema.Password(
+        title=_(u'label_confirm_password',
+                default=u'Confirm password'),
+        description=_(u'help_confirm_password',
+                      default=u"Re-enter the password. "
+                      "Make sure the passwords are identical."))
+    pass
+
+
+class IProducentUser(IProducentUserBasic):
     """
     E-Deposit Producent User
     """
@@ -40,17 +85,17 @@ class IProducentUser(model.Schema, IImageScaleTraversable):
         fields = ['fullname','email','home_page','location','phone']
         )
 
-    fullname = schema.TextLine(
-        title=_(u'label_full_name', default=u'Full Name'),
-        description=_(u'help_full_name_creation',
-                      default=u"Enter full name, e.g. John Smith."),
-        required=False)
+    # fullname = schema.TextLine(
+    #     title=_(u'label_full_name', default=u'Full Name'),
+    #     description=_(u'help_full_name_creation',
+    #                   default=u"Enter full name, e.g. John Smith."),
+    #     required=False)
 
-    email = schema.ASCIILine(
-        title=_(u'label_email', default=u'E-mail'),
-        description=u'',
-        required=True,
-        constraint=checkEmailAddress)
+    # email = schema.ASCIILine(
+    #     title=_(u'label_email', default=u'E-mail'),
+    #     description=u'',
+    #     required=True,
+    #     constraint=checkEmailAddress)
 
     home_page = schema.TextLine(
         title=_(u'label_homepage', default=u'Home page'),
@@ -67,12 +112,12 @@ class IProducentUser(model.Schema, IImageScaleTraversable):
                       "your office is located."),
         required=False)
 
-    phone = schema.TextLine(
-        title=_(u'label_phone', default=u'Telephone number'),
-        description=_(u'help_phone',
-                      default=u"Leave your phone number so we can reach you."),
-        required=False,
-        )
+    # phone = schema.TextLine(
+    #     title=_(u'label_phone', default=u'Telephone number'),
+    #     description=_(u'help_phone',
+    #                   default=u"Leave your phone number so we can reach you."),
+    #     required=False,
+    #     )
 
     form.fieldset(
         'address',
@@ -106,27 +151,27 @@ class IProducentUser(model.Schema, IImageScaleTraversable):
         fields = ['username','password','password_ctl']
         )
 
-    username = schema.ASCIILine(
-        title=_(u'label_user_name', default=u'User Name'),
-        description=_(u'help_user_name_creation_casesensitive',
-                      default=u"Enter a user name, usually something "
-                      "like 'jsmith'. "
-                      "No spaces or special characters. "
-                      "Usernames and passwords are case sensitive, "
-                      "make sure the caps lock key is not enabled. "
-                      "This is the name used to log in."))
+    # username = schema.ASCIILine(
+    #     title=_(u'label_user_name', default=u'User Name'),
+    #     description=_(u'help_user_name_creation_casesensitive',
+    #                   default=u"Enter a user name, usually something "
+    #                   "like 'jsmith'. "
+    #                   "No spaces or special characters. "
+    #                   "Usernames and passwords are case sensitive, "
+    #                   "make sure the caps lock key is not enabled. "
+    #                   "This is the name used to log in."))
     
-    password = schema.Password(
-        title=_(u'label_password', default=u'Password'),
-        description=_(u'help_password_creation',
-                      default=u'Enter your new password.'))
+    # password = schema.Password(
+    #     title=_(u'label_password', default=u'Password'),
+    #     description=_(u'help_password_creation',
+    #                   default=u'Enter your new password.'))
     
-    password_ctl = schema.Password(
-        title=_(u'label_confirm_password',
-                default=u'Confirm password'),
-        description=_(u'help_confirm_password',
-                      default=u"Re-enter the password. "
-                      "Make sure the passwords are identical."))
+    # password_ctl = schema.Password(
+    #     title=_(u'label_confirm_password',
+    #             default=u'Confirm password'),
+    #     description=_(u'help_confirm_password',
+    #                   default=u"Re-enter the password. "
+    #                   "Make sure the passwords are identical."))
     
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific

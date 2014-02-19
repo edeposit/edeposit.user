@@ -32,19 +32,28 @@ from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
 from plone.supermodel import model
 from plone.dexterity.utils import getAdditionalSchemata
 from Acquisition import aq_inner, aq_base
+from Products.CMFDefault.exceptions import EmailAddressInvalid
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
 
+def checkEmailAddress(value):
+    reg_tool = api.portal.get_tool(name='portal_registration')
+    if value and reg_tool.isValidEmail(value):
+        pass
+    else:
+        raise EmailAddressInvalid
+    return True
+
+
 class IProducentAdministrators(model.Schema):
     administrators = zope.schema.List(
         title = _(u'Producent Administrators'),
-        description = _(u'Fill in at least one producent administrator'),
+        description = u'Přidejte alespoň jednoho administrátora',
         required = True,
         value_type = zope.schema.Object( title=_('Producent Administrator'), schema=IProducentAdministrator ),
         unique = False
     )
-
 
 class ProducentAddForm(DefaultAddForm):
     label = _(u"Registration of a producent")
@@ -58,6 +67,7 @@ class ProducentAddForm(DefaultAddForm):
 
     def update(self):
         DefaultAddForm.update(self)
+        pass
 
     def add(self,object):
         DefaultAddForm.add(self,object)
