@@ -99,6 +99,10 @@ class ProducentAddForm(DefaultAddForm):
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
             url = "%s/%s" % (producent.absolute_url(), 'register-with-producent-successed')
             self.request.response.redirect(url)
+            # import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+            # api.user.get_permissions(obj=producent)
+            # api.content.transition(obj=producent, transition="submit")
+            pass
     pass
 
 class ProducentAddView(DefaultAddView):

@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from z3c.form import group, field
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -46,7 +46,11 @@ class IProducent(model.Schema, IImageScaleTraversable):
         description = _(u'Fill a city'),
         required = True,
         )
-    
+
+    psc = schema.ASCIILine(
+        title=u'PSČ',
+        required = True,
+    )
     country = schema.TextLine(
         title=_(u'Country'),
         description = _(u'Fill a country'),
@@ -65,10 +69,9 @@ class IProducent(model.Schema, IImageScaleTraversable):
         required = False,
         )        
 
-    #model.load("models/producent.xml")
     model.fieldset( 'address',
                     label=_(u"Address"),
-                    fields = ['street','city','country']
+                    fields = ['street','city','country','psc']
                     )
     model.fieldset( 'agreement',
                     label=_(u"Agreement with National Library"),

@@ -23,6 +23,19 @@
         písemné smlouvy, která umožní další funkčnosti 
         včetně řízené distribuce vašich e-publikací.
         </p>
+        <p>
+          Značka <span class="required-mark" title="Povinné"></span> označuje povinné údaje.
+        </p>
+        <style type="text/css">
+          .required-mark:after {
+          color: #F00;
+          content: "■";
+          padding-left: 0.2em;
+          padding-left-value: 0.2em;
+          paddind-left-ltr-source: physical;
+          paddind-left-rtl-source: physical;
+          }
+        </style>
 	<metal:block use-macro="context/@@ploneform-macros/titlelessform"/>
       </div>
     </div>
