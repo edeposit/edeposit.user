@@ -6,6 +6,9 @@ from zope.interface import Interface
 from plone import api
 from edeposit.user import MessageFactory as _
 from plone.dexterity.utils import createContentInContainer
+import logging
+
+logger = logging.getLogger('edeposit.content.handlers')
 
 def addedProducentAdministrator(context, event):
     """
@@ -15,7 +18,7 @@ def addedProducentAdministrator(context, event):
     producent = context.aq_parent.aq_parent
     api.user.grant_roles(username=context.username,  
                          obj=producent,
-                         roles=('E-Deposit: Producent Administrator',)
+                         roles=('E-Deposit: Producent Administrator','Reviewer','Editor','Contributor','Reader')
     )
     api.group.add_user(groupname="Producent Administrators",
                        username=context.username,
@@ -37,11 +40,17 @@ def added(context,event):
     #                        domain='edeposit.user',
     #                        context=context, 
     #                        target_language='cs')
+    logger.debug('added producent event - creating of epublicationfolder')
     context.invokeFactory('edeposit.content.epublicationfolder','epublications', title=u"Ohlášení ePublikací")
+    logger.debug('added producent event - creating of eperiodicalfolder')
     context.invokeFactory('edeposit.content.eperiodicalfolder','eperiodicals', title=u"Ohlášování ePeriodik")
+    logger.debug('added producent event - creating of bookfolder')
     context.invokeFactory('edeposit.content.bookfolder','books', title=u"Ohlášení tištěných knih")
+    logger.debug('added producent event - creating of producentadministratorfolder')
     context.invokeFactory('edeposit.user.producentadministratorfolder','producent-administrators',title=u"Administrátoři")
+    logger.debug('added producent event - creating of producenteditorfolder')
     context.invokeFactory('edeposit.user.producenteditorfolder','producent-editors',title=u"Editoři")
+    logger.debug('added producent event finished')
 
 def addedProducentFolder(context,event):
     portal = api.portal.get()

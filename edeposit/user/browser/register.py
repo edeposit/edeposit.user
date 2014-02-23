@@ -86,10 +86,47 @@ class ProducentAddForm(DefaultAddForm):
 
     def getProducentsFolder(self):
         return self.context
+   
+    def checkPasswords(self, data, errors):
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+        return (data, errors)
+
+    # def checkPasswords(self, data):
+    #     # raise Invalid(
+    #     #     PC_("You cannot have a type as a secondary type without "
+    #     #         "having it allowed. You have selected ${types}s.",
+    #     #         mapping=dict(types=", ".join(missing))))
+    #     # error_keys = [error.field_name for error in errors
+    #     #               if hasattr(error, 'field_name')]
+    #     # if not ('password' in error_keys or 'password_ctl' in error_keys):
+    #     #     password = self.widgets['password'].getInputValue()
+    #     #     password_ctl = self.widgets['password_ctl'].getInputValue()
+    #     #     if password != password_ctl:
+    #     #         err_str = _(u'Passwords do not match.')
+    #     #         errors.append(WidgetInputError('password',
+    #     #                                        u'label_password', err_str))
+    #     #         errors.append(WidgetInputError('password_ctl',
+    #     #                                        u'label_password', err_str))
+    #     #         self.widgets['password'].error = err_str
+    #     #         self.widgets['password_ctl'].error = err_str
+    #     #         pass
+    #     #         # Password field checked against RegistrationTool
+    #     #         # Skip this check if password fields already have an error
+    #     #         if not 'password' in error_keys:
+    #     #             password = self.widgets['password'].getInputValue()
+    #     #             if password:
+    #     #                 # Use PAS to test validity
+    #     #                 err_str = registration.testPasswordValidity(password)
+    #     #                 if err_str:
+    #     #                     errors.append(WidgetInputError('password',
+    #     #                                                    u'label_password', err_str))
+    #     #                     self.widgets['password'].error = err_str
 
     @button.buttonAndHandler(_(u"Register"))
     def handleRegister(self, action):
-        data, errors = self.extractData()
+        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+
+        data, errors = self.checkPasswords(*self.extractData())
         if errors:
             self.status = self.formErrorsMessage
             return
@@ -104,15 +141,13 @@ class ProducentAddForm(DefaultAddForm):
             administrator.title=getattr(administrator,'fullname',None)
             addContentToContainer(administratorsFolder, administrator, False)
         if producent is not None:
+            wft = api.portal.get_tool('portal_workflow')
+            wft.doActionFor(producent,'submit')
             # mark only as finished if we get the new object
             self._finishedAdd = True
             IStatusMessage(self.request).addStatusMessage(_(u"Item created"), "info")
-            url = "%s/%s" % (producent.absolute_url(), 'register-with-producent-successed')
+            url = "%s/%s" % (api.portal.getSite().absolute_url(), 'register-with-producent-successed')
             self.request.response.redirect(url)
-            # import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-            # api.user.get_permissions(obj=producent)
-            # api.content.transition(obj=producent, transition="submit")
-            pass
     pass
 
 class ProducentAddView(DefaultAddView):
