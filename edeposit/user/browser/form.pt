@@ -9,6 +9,7 @@
     <script type="text/javascript">
       jQuery(function(){jQuery("div.edeposit-user-registration").edepositRegistration();});
     </script>
+    <link type="text/css" rel="stylesheet" href="http://www.janprucha.cz/edeposit-registration.css"/>
     <div class="edeposit-user-registration">
       <h1 class="documentFirstHeading" tal:content="view/label | nothing" />
       <div id="content-core">

@@ -56,6 +56,10 @@ jQuery.fn.edepositRegistration = function(){
 jQuery.fn.edepositRegistrationFormTabsHandler = function(){
 	return this.each(function(){
 		var form = jQuery(this);
+                var fieldsetsWithEmptyRequiredFields = function() {
+                        var fieldsets = form.find("fieldset");
+                        return fieldsets;
+                };
                 form.registerButton = form.find('#form-buttons-register');
                 form.continueRegistrationButton = form.find('#form-button-continueregistration')
                 var label = form.find('label[for="form-widgets-IBasic-title"]');
@@ -68,6 +72,7 @@ jQuery.fn.edepositRegistrationFormTabsHandler = function(){
 
 jQuery(document).ready(function() {
         $("#form").edepositRegistrationFormTabsHandler();
+        
 	// No overlays for IE6
 	// if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
 	// 	// Set up overlays
