@@ -65,13 +65,30 @@ jQuery.fn.edepositRegistrationFormTabsHandler = function(){
                 var label = form.find('label[for="form-widgets-IBasic-title"]');
                 label.html('Název producenta <span class="required horizontal" title="Povinné">&nbsp;</span>');
                 form.find('#fieldsetlegend-default span').html("Producent");
-                document.aux = form;
 		return this;
 	});
 };
 
+jQuery.fn.edepositFormLegends = function(){
+	return this.each(function(){
+		var form = jQuery(this);
+                var infoText = "ⓘ";
+                console.log('ahojj');
+                form.find('span.formHelp').each(function(index){
+                        var help = jQuery(this);
+                        help.attr('title',help.html());
+                        help.html(infoText);
+                        help.addClass('with-tooltip');
+                        help.removeClass('formHelp');
+                });
+		return this;
+	});
+};
+
+
 jQuery(document).ready(function() {
-        $("#form").edepositRegistrationFormTabsHandler();
+        $("#form").edepositRegistrationFormTabsHandler()
+                .edepositFormLegends();
         
 	// No overlays for IE6
 	// if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
