@@ -53,7 +53,21 @@ jQuery.fn.edepositRegistration = function(){
 	});
 };
 
+jQuery.fn.edepositRegistrationFormTabsHandler = function(){
+	return this.each(function(){
+		var form = jQuery(this);
+                form.registerButton = form.find('#form-buttons-register');
+                form.continueRegistrationButton = form.find('#form-button-continueregistration')
+                var label = form.find('label[for="form-widgets-IBasic-title"]');
+                label.html('Název producenta <span class="required horizontal" title="Povinné">&nbsp;</span>');
+                form.find('#fieldsetlegend-default span').html("Producent");
+                document.aux = form;
+		return this;
+	});
+};
+
 jQuery(document).ready(function() {
+        $("#form").edepositRegistrationFormTabsHandler();
 	// No overlays for IE6
 	// if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
 	// 	// Set up overlays
