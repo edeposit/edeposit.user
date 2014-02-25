@@ -67,7 +67,9 @@ class ProducentAddForm(DefaultAddForm):
 
     def update(self):
         DefaultAddForm.update(self)
+        self.widgets['IBasic.title'].label=u"Producent"
         #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
+
         # bb=filter(lambda ii: 'continueregistration' in ii[0], self.buttons.items())
         # bb and bb[0][1].title = _"Pokračovat v registraci"
         pass

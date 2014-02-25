@@ -62,9 +62,6 @@ jQuery.fn.edepositRegistrationFormTabsHandler = function(){
                 };
                 form.registerButton = form.find('#form-buttons-register');
                 form.continueRegistrationButton = form.find('#form-button-continueregistration')
-                var label = form.find('label[for="form-widgets-IBasic-title"]');
-                label.html('Název producenta <span class="required horizontal" title="Povinné">&nbsp;</span>');
-                form.find('#fieldsetlegend-default span').html("Producent");
 		return this;
 	});
 };
@@ -73,7 +70,6 @@ jQuery.fn.edepositFormLegends = function(){
 	return this.each(function(){
 		var form = jQuery(this);
                 var infoText = "ⓘ";
-                console.log('ahojj');
                 form.find('span.formHelp').each(function(index){
                         var help = jQuery(this);
                         help.attr('title',help.html());
