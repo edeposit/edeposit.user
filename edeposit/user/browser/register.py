@@ -58,6 +58,7 @@ class IProducentAdministrators(model.Schema):
 class ProducentAddForm(DefaultAddForm):
     label = _(u"Registration of a producent")
     description = _(u"Please fill informations about user and producent.")
+    default_fieldset_label = u"Producent"
 
     @property
     def additionalSchemata(self):
@@ -67,9 +68,7 @@ class ProducentAddForm(DefaultAddForm):
 
     def update(self):
         DefaultAddForm.update(self)
-        self.widgets['IBasic.title'].label=u"Producent"
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-
+        self.widgets['IBasic.title'].label=u"Název producenta"
         # bb=filter(lambda ii: 'continueregistration' in ii[0], self.buttons.items())
         # bb and bb[0][1].title = _"Pokračovat v registraci"
         pass
