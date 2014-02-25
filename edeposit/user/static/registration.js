@@ -84,7 +84,7 @@ jQuery.fn.edepositFormLegends = function(){
 jQuery.fn.edepositFormLoadStyle = function(){
 	return this.each(function(){
 		var form = jQuery(this);
-                if( form.attr('action').contains('++add++edeposit.content.epublication')){
+                if( form.attr('action').indexOf('++add++edeposit.content.epublication') != -1){
                         $('head').append('<link rel="stylesheet" href="http://www.janprucha.cz/edeposit-registration.css" type="text/css" />');
                 };
 		return this;
