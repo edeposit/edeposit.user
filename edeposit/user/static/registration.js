@@ -81,10 +81,21 @@ jQuery.fn.edepositFormLegends = function(){
 	});
 };
 
+jQuery.fn.edepositFormLoadStyle = function(){
+	return this.each(function(){
+		var form = jQuery(this);
+                if( form.attr('action').contains('++add++edeposit.content.epublication')){
+                        $('head').append('<link rel="stylesheet" href="http://www.janprucha.cz/edeposit-registration.css" type="text/css" />');
+                };
+		return this;
+	});
+};
+
 
 jQuery(document).ready(function() {
         $("#form").edepositRegistrationFormTabsHandler()
-                .edepositFormLegends();
+                .edepositFormLegends()
+                .edepositFormLoadStyle();
         
 	// No overlays for IE6
 	// if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
