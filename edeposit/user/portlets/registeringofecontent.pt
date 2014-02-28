@@ -12,7 +12,10 @@
     <dd class="portletItem odd">
       <ul>
         <li tal:repeat="producent view/assignedProducents">
-          <legend tal:content="producent/name">producent name</legend>
+          <legend>
+            <a tal:attributes="href producent/path"
+               tal:content="producent/name">producent name</a>
+          </legend>
           <ul>
             <li tal:repeat="link producent/links">
               <a class="" title="" tal:attributes="href link/href" tal:content="link/desc">link</a>

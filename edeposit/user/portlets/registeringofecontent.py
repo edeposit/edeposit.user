@@ -111,6 +111,7 @@ class Renderer(base.Renderer):
             return map(getRegistrationPath, brains or [])
         
         return [ {'name': producentInfo['title'],         
+                  'path': producentInfo['path'],
                   'links': getRegisteringPaths(producentInfo['path'])} for
                  producentInfo in (producentInfos or [])]
         
