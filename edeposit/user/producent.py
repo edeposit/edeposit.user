@@ -33,20 +33,17 @@ class IProducent(model.Schema, IImageScaleTraversable):
         title = _(u'location'),
         description = _(u'Your location - either city and country - or in a company setting, where your office is located'),
         required = False,
-        )
-
+    )
     street = schema.TextLine(
-        title = _(u'Street'),
+        title = u"Ulice, číslo",
         description = _(u'Fill a street with number.'),
         required = True,
-        )
-
+    )
     city = schema.TextLine(
         title=_(u'City'),
         description = _(u'Fill a city'),
         required = True,
-        )
-
+    )
     psc = schema.ASCIILine(
         title=u'PSČ',
         required = True,
@@ -55,29 +52,26 @@ class IProducent(model.Schema, IImageScaleTraversable):
         title=_(u'Country'),
         description = _(u'Fill a country'),
         required = True,
-        )
-    
+    )
     contact = schema.TextLine(
         title=_(u'Contact'),
         description = _(u'Fill a phone, email or name of a person we can contact.'),
         required = False,
-        )
-    
+    )
     agreement = NamedBlobFile(
         title=_(u'Agreement'),
         description = _(u'Upload file with agreement between National Library and you.'),
         required = False,
-        )        
-
+    )        
     model.fieldset( 'address',
                     label=_(u"Address"),
                     fields = ['street','city','country','psc']
-                    )
+    )
     model.fieldset( 'agreement',
                     label=_(u"Agreement with National Library"),
                     fields = ['agreement',]
-                    )
-
+    )
+    
 # Custom content-type class; objects created for this content type will
 # be instances of this class. Use this class to add content-type specific
 # methods and properties. Put methods that are mainly useful for rendering

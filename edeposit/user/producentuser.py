@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from plone.directives import form
 from z3c.form import group, field
 from zope import schema
@@ -32,10 +33,10 @@ def checkEmailAddress(value):
 class IProducentUserBasic(model.Schema, IImageScaleTraversable):
     """ a few fields from IProducentAdministrator """
     fullname = schema.TextLine(
-        title=_(u'label_full_name', default=u'Full Name'),
+        title=u"Příjmení a jméno",
         description=_(u'help_full_name_creation',
                       default=u"Enter full name, e.g. John Smith."),
-        required=False)
+        required=True)
 
     email = schema.ASCIILine(
         title=_(u'label_email', default=u'E-mail'),
@@ -47,7 +48,7 @@ class IProducentUserBasic(model.Schema, IImageScaleTraversable):
         title=_(u'label_phone', default=u'Telephone number'),
         description=_(u'help_phone',
                       default=u"Leave your phone number so we can reach you."),
-        required=False,
+        required=True,
         )
 
     username = schema.ASCIILine(
@@ -117,7 +118,7 @@ class IProducentUser(IProducentUserBasic):
     form.fieldset(
         'personalinfo',
         label = _(u"Personal Info"),
-        fields = ['fullname','email','home_page','location','phone']
+        fields = ['fullname','email','phone']
         )
 
     # fullname = schema.TextLine(
@@ -132,20 +133,20 @@ class IProducentUser(IProducentUserBasic):
     #     required=True,
     #     constraint=checkEmailAddress)
 
-    home_page = schema.TextLine(
-        title=_(u'label_homepage', default=u'Home page'),
-        description=_(u'help_homepage',
-                      default=u"The URL for your external home page, "
-                      "if you have one."),
-        required=False)
+    # home_page = schema.TextLine(
+    #     title=_(u'label_homepage', default=u'Home page'),
+    #     description=_(u'help_homepage',
+    #                   default=u"The URL for your external home page, "
+    #                   "if you have one."),
+    #     required=False)
 
-    location = schema.TextLine(
-        title=_(u'label_location', default=u'Location'),
-        description=_(u'help_location',
-                      default=u"Your location - either city and "
-                      "country - or in a company setting, where "
-                      "your office is located."),
-        required=False)
+    # location = schema.TextLine(
+    #     title=_(u'label_location', default=u'Location'),
+    #     description=_(u'help_location',
+    #                   default=u"Your location - either city and "
+    #                   "country - or in a company setting, where "
+    #                   "your office is located."),
+    #     required=False)
 
     # phone = schema.TextLine(
     #     title=_(u'label_phone', default=u'Telephone number'),
@@ -154,31 +155,31 @@ class IProducentUser(IProducentUserBasic):
     #     required=False,
     #     )
 
-    form.fieldset(
-        'address',
-        label = _(u"Address"),
-        fields = ['street','city','country']
-        )
-    street = schema.TextLine(
-        title=_(u'label_street', default=u'Street'),
-        description=_(u'help_street',
-                      default=u"Fill in the street and number."),
-        required=False,
-        )
+    # form.fieldset(
+    #     'address',
+    #     label = _(u"Address"),
+    #     fields = ['street','city','country']
+    #     )
+    # street = schema.TextLine(
+    #     title=u"Ulice a číslo",
+    #     description=_(u'help_street',
+    #                   default=u"Fill in the street and number."),
+    #     required=False,
+    #     )
 
-    city = schema.TextLine(
-        title=_(u'label_city', default=u'City'),
-        description=_(u'help_city',
-                      default=u"Fill in the city you live in."),
-        required=False,
-        )
+    # city = schema.TextLine(
+    #     title=_(u'label_city', default=u'City'),
+    #     description=_(u'help_city',
+    #                   default=u"Fill in the city you live in."),
+    #     required=False,
+    #     )
 
-    country = schema.TextLine(
-        title=_(u'label_country', default=u'Country'),
-        description=_(u'help_country',
-                      default=u"Fill in the country you live in."),
-        required=False,
-        )
+    # country = schema.TextLine(
+    #     title=_(u'label_country', default=u'Country'),
+    #     description=_(u'help_country',
+    #                   default=u"Fill in the country you live in."),
+    #     required=False,
+    #     )
 
     form.fieldset(
         'login',
