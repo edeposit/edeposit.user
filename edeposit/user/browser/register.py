@@ -9,7 +9,7 @@ from z3c.form.browser.radio import RadioFieldWidget
 from plone.directives import form
 from Products.CMFCore.interfaces import ISiteRoot
 from plone.app.layout.navigation.interfaces import INavigationRoot
-from z3c.form import field, button
+from z3c.form import field, button, validator
 from plone import api
 from zope.interface import Invalid, Interface
 from edeposit.user import MessageFactory as _
@@ -23,7 +23,7 @@ from edeposit.user.producent import IProducent
 from edeposit.user.producentuser import IProducentUser
 from edeposit.user.producentfolder import IProducentFolder
 from edeposit.user.producentadministrator import IProducentAdministrator, ProducentAdministrator
-from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 import os.path
 import logging
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
@@ -33,18 +33,10 @@ from plone.supermodel import model
 from plone.dexterity.utils import getAdditionalSchemata
 from Acquisition import aq_inner, aq_base
 from Products.CMFDefault.exceptions import EmailAddressInvalid
+from zope.interface import invariant, Invalid
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
-
-def checkEmailAddress(value):
-    reg_tool = api.portal.get_tool(name='portal_registration')
-    if value and reg_tool.isValidEmail(value):
-        pass
-    else:
-        raise EmailAddressInvalid
-    return True
-
 
 class IProducentAdministrators(model.Schema):
     administrators = zope.schema.List(
@@ -52,7 +44,8 @@ class IProducentAdministrators(model.Schema):
         description = u'Přidejte alespoň jednoho administrátora',
         required = True,
         value_type = zope.schema.Object( title=_('Producent Administrator'), schema=IProducentAdministrator ),
-        unique = False
+        unique = False,
+        min_length = 1,
     )
 
 class ProducentAddForm(DefaultAddForm):
@@ -66,18 +59,13 @@ class ProducentAddForm(DefaultAddForm):
                    [IProducentAdministrators,]
         return schemata
 
-    def update(self):
-        DefaultAddForm.update(self)
+    def updateWidgets(self):
+        super(ProducentAddForm, self).updateWidgets()
         self.widgets['IBasic.title'].label=u"Název producenta"
-        # bb=filter(lambda ii: 'continueregistration' in ii[0], self.buttons.items())
-        # bb and bb[0][1].title = _"Pokračovat v registraci"
-        pass
 
     def add(self,object):
         DefaultAddForm.add(self,object)
         administratorsFolder = aq_inner(object['producent-administrators'])
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-
         for administrator in self.administrators:
             addContentToContainer(administratorsFolder, administrator, False)
         return addedObject
@@ -90,49 +78,50 @@ class ProducentAddForm(DefaultAddForm):
 
     def getProducentsFolder(self):
         return self.context
+
+    def validatePasswordsUsername(self, data, errors):
+        if('form.widgets.IProducentAdministrators.administrators' in [err.widget.name for err in errors]):
+            return data, errors
+        def getErrorView(widget,error):
+            view = zope.component.getMultiAdapter( (error, 
+                                                    self.request, 
+                                                    widget, 
+                                                    widget.field, 
+                                                    widget.form, 
+                                                    self.context), 
+                                                   IErrorViewSnippet)
+            view.update()
+            widget.error = view
+            return view
+
+        def getErrors(adata, awidget):
+            password, password_ctl = adata.password, adata.password_ctl
+            errors = []
+            if password != password_ctl:
+                widget_password = awidget.subform.widgets['password']
+                widget_password_ctl = awidget.subform.widgets['password_ctl']
+                error = zope.interface.Invalid('hesla se musi shodovat')
+                errors = (getErrorView(widget_password, Invalid('hesla se musi shodovat')), 
+                                  getErrorView(widget_password_ctl, Invalid(u'hesla se musí shodovat')))
+
+            if api.user.get(username=adata.username):
+                widget_username = awidget.subform.widgets['username']
+                errors += (getErrorView(widget_username, Invalid(u"toto uživatelské jméno je už obsazeno, zvolte jiné")),)
+            return errors
+
+        newErrorViews =  [ getErrors(adata,awidget) and getErrorView(awidget, Invalid(u"problém v údajích administrátora"))
+                           for adata,awidget in zip(data['IProducentAdministrators.administrators'],
+                                                    self.widgets['IProducentAdministrators.administrators'].widgets)]
+        
+        return data, errors + tuple([err for err in newErrorViews if err])
    
-    def checkPasswords(self, data, errors):
-        #import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-        return (data, errors)
-
-    # def checkPasswords(self, data):
-    #     # raise Invalid(
-    #     #     PC_("You cannot have a type as a secondary type without "
-    #     #         "having it allowed. You have selected ${types}s.",
-    #     #         mapping=dict(types=", ".join(missing))))
-    #     # error_keys = [error.field_name for error in errors
-    #     #               if hasattr(error, 'field_name')]
-    #     # if not ('password' in error_keys or 'password_ctl' in error_keys):
-    #     #     password = self.widgets['password'].getInputValue()
-    #     #     password_ctl = self.widgets['password_ctl'].getInputValue()
-    #     #     if password != password_ctl:
-    #     #         err_str = _(u'Passwords do not match.')
-    #     #         errors.append(WidgetInputError('password',
-    #     #                                        u'label_password', err_str))
-    #     #         errors.append(WidgetInputError('password_ctl',
-    #     #                                        u'label_password', err_str))
-    #     #         self.widgets['password'].error = err_str
-    #     #         self.widgets['password_ctl'].error = err_str
-    #     #         pass
-    #     #         # Password field checked against RegistrationTool
-    #     #         # Skip this check if password fields already have an error
-    #     #         if not 'password' in error_keys:
-    #     #             password = self.widgets['password'].getInputValue()
-    #     #             if password:
-    #     #                 # Use PAS to test validity
-    #     #                 err_str = registration.testPasswordValidity(password)
-    #     #                 if err_str:
-    #     #                     errors.append(WidgetInputError('password',
-    #     #                                                    u'label_password', err_str))
-    #     #                     self.widgets['password'].error = err_str
-
     @button.buttonAndHandler(_("ContinueRegistration"))
     def handleContinueRegistration(self, action):
         pass
 
     @button.buttonAndHandler(_(u"Register"))
     def handleRegister(self, action):
-        data, errors = self.checkPasswords(*self.extractData())
+        data, errors = self.validatePasswordsUsername(*self.extractData())
         if errors:
             self.status = self.formErrorsMessage
             return
@@ -169,8 +158,8 @@ class RegisteredView(BrowserView):
     pass
 
 class ProducentAdministratorFactory(object):
-    adapts(Interface, Interface, Interface, Interface)
     zope.interface.implements(IObjectFactory)
+    adapts(Interface, Interface, Interface, Interface)
     
     def __init__(self, context, request, form, widget):
         self.context = context
@@ -195,7 +184,6 @@ def normalizeTitle(title):
     title = u"Cosi českého a. neobratného"
     util = queryUtility(IIDNormalizer)
     result = util.normalize(title)
-    result
     return result
 
 
@@ -206,6 +194,7 @@ class RegistrationForm(ProducentAddForm):
     def getProducentsFolder(self):
         portal = api.portal.get()
         return portal['producents']
+
 
 # class RegistrationForm(form.SchemaForm):
 #     schema = IProducentWithAdministrators

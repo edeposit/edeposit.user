@@ -75,8 +75,12 @@ class IProducentUserBasic(model.Schema, IImageScaleTraversable):
 
     # @invariant
     # def checkPasswords(data):
-    #     import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-    #     data
+    #     password, password_ctl = getattr(data,'password',None),getattr(data,'password_ctl',None)
+    #     if password and password_ctl:
+    #         if password != password_ctl:
+    #             raise Invalid("hesla se musí shodovat")
+    #     pass
+        
     #     # raise Invalid(
     #     #     PC_("You cannot have a type as a secondary type without "
     #     #         "having it allowed. You have selected ${types}s.",
@@ -107,7 +111,7 @@ class IProducentUserBasic(model.Schema, IImageScaleTraversable):
     #     #                                                    u'label_password', err_str))
     #     #                     self.widgets['password'].error = err_str
 
-
+    
 class IProducentUser(IProducentUserBasic):
     """
     E-Deposit Producent User

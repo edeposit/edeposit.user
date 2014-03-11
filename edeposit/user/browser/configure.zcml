@@ -57,6 +57,6 @@
     <!--   /> -->
 
     <adapter factory=".register.ProducentAdministratorFactory" 
-       name="edeposit.user.producentadministrator.IProducentAdministrator" /> 
+       name="edeposit.user.producentadministrator.IProducentAdministrator" />
 
 </configure>
