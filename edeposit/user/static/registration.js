@@ -93,9 +93,10 @@ jQuery.fn.edepositFormLoadStyle = function(){
 
 
 jQuery(document).ready(function() {
-        $("#form").edepositRegistrationFormTabsHandler()
-                .edepositFormLegends()
+        $("#form").edepositFormLegends();
+        /*        .edepositRegistrationFormTabsHandler()
                 .edepositFormLoadStyle();
+        */
         
 	// No overlays for IE6
 	// if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
