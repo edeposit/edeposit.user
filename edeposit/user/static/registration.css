@@ -1,0 +1,52 @@
+form#form.rowlike {max-width: 1000px  ;}
+#content label{color: #000000 !important;line-height: 1.9em;}
+div#content div.edeposit-user-registration div#content-core form#form.rowlike ul.formTabs{border-left: 2px solid #BBBBBB;border-right: 2px solid #BBBBBB;border-top: 2px solid #BBBBBB;}
+#content ul.formTabs{background-color: #efefef;border-left: 2px solid #BBBBBB;border-right: 2px solid #BBBBBB;border-top: 2px solid #BBBBBB;}
+#content-views li.selected a, #content-views li a:hover, #content li.formTab a.selected, #content li.formTab a:hover, #content-core li.formTab a.selected, #content-core li.formTab a:hover {background: none repeat scroll 0 0 #FCFCFC !important;border-top-left-radius: 0.5em !important;border-top-right-radius: 0.5em !important;color: #000000 important;}
+#content form#form.rowlike fieldset{background: none repeat scroll 0 0 #FCFCFC;border-left: 2px solid #BBBBBB;border-right: 2px solid #BBBBBB;border-bottom: 2px solid #BBBBBB;-webkit-border-bottom-right-radius: 10px;-webkit-border-bottom-left-radius: 10px;-moz-border-radius-bottomright: 10px;-moz-border-radius-bottomleft: 10px;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;padding: 20px 10px 10px 10px;margin: 0 0 0 0;}
+span.required-mark:after,#content li.formTab a.required span:after,#content-core li.formTab a.required span:after,div.field span.required:after{content: "*" !important;}
+div.field {clear: none;float: left;margin: 0;min-height: 80px;padding: 0;width: 49%;}
+div#visual-portal-wrapper div#portal-columns.row div#portal-column-content.cell div div#content div.edeposit-user-registration div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IBasic-description.field textarea#form-widgets-IBasic-description.textarea-widget{height: auto;}
+#formfield-form-widgets-IProducentAdministrators-administrators{background: #EFEFEF;padding: 10px;-webkit-border-radius: 10px;-moz-border-radius: 10px;border-radius: 10px;}
+#formfield-form-widgets-IAdministrator-administrator, 
+#formfield-form-widgets-IProducentEditors-editor1, 
+#formfield-form-widgets-IProducentEditors-editor2, 
+#formfield-form-widgets-IProducentEditors-editor3 {
+    background: #EFEFEF !important;
+    padding: 10px !important;
+    -webkit-border-radius: 10px !important;
+    -moz-border-radius: 10px !important;
+    border-radius: 10px !important;
+}
+#formfield-form-widgets-IProducentEditors-editor1, #formfield-form-widgets-IProducentEditors-editor2, #formfield-form-widgets-IProducentEditors-editor3 {
+    margin-bottom: 1em !important;
+}
+#formfield-form-widgets-IAdministrator-administrator > .fieldErrorBox,
+#formfield-form-widgets-IProducentEditors-editor1 > .fieldErrorBox, 
+#formfield-form-widgets-IProducentEditors-editor2 > .fieldErrorBox, 
+#formfield-form-widgets-IProducentEditors-editor3 > .fieldErrorBox {
+    display: none;
+}
+#content form#form.rowlike fieldset .field textarea,
+#content form#form.rowlike fieldset .field input[type="text"]{width: 80%;}
+#content form input{border: 1px solid #CCCCCC !important;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3pxt;height: 24px;line-height: 24px;padding: 0 0 0 10px;}
+input.date-widget{width:auto !important;}
+#content select{height: 24px !important;line-height: 24px !important;width: 80%;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;border: 1px solid #CCCCCC !important;}
+body.template-edeposit-content-epublication div#visual-portal-wrapper div#portal-columns.row div#portal-column-content.cell div div#content div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-datum_pro_copyright.field select#form-widgets-datum_pro_copyright-month.date-widget{width:auto !important;}
+div#content div.edeposit-user-registration div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IProducentAdministrators-administrators.field{width: 96%;float:left;clear: both;}
+dl.error{-webkit-border-radius: 3px !important;-moz-border-radius: 3px !important;border-radius: 3px !important;}
+div#content div.field.error{border: none !important;font-weight: bold !important;-webkit-border-radius: 3px !important;-moz-border-radius: 3px !important;border-radius: 3px !important;padding: 0;margin: 0;}
+dl.portalMessage, div.attention, div.caution, div.danger, div.error, div.hint, div.important, div.note, div.tip, div.warning {font-size: 100%  !important ;}
+div.fieldErrorBox {background: transparent !important;border: medium none !important;color: #FF0000 !important;margin: 0 !important;padding: 0 !important;}
+dl.portalMessage, div.attention, div.caution, div.danger, div.error, div.hint, div.important, div.note, div.tip, div.warning {background: transparent !important;border: medium none !important;font-size: 100% !important;margin: 0 !important;}
+.multi-widget-checkbox {background: none repeat scroll 0 0 #0000FF !important;border: 2px solid #FF0000 !important;display: block !important;height: auto !important;margin-left: 0 !important;margin-right: 0 !important;width: auto !important;float:left;position: absolute;top: 25px;left: 9px;}
+div#content form div.multi-widget-field{position:relative;width:auto;float:left;clear: both;margin: 0 0 1em 0 !important;padding: 0 0 0 30px !important;background-color: #E5E5E5 !important;border: 1px solid #BBBBBB !important;-webkit-border-radius: 3px !important;-moz-border-radius: 3px !important;border-radius: 3px !important;}
+div#portal-column-content.cell div div#content div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IBasic-title.field input#form-widgets-IBasic-title.text-widget,div#portal-column-content.cell div div#content div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IBasic-description.field textarea#form-widgets-IBasic-description.textarea-widget{color: #000000 !important;font-family: "Lucida Grande",Arial,FreeSans !important;font-size: 100% !important;font-weight: normal !important;letter-spacing: normal !important;line-height: 24px;}
+div#portal-column-content.cell div div#content div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IBasic-description.field textarea#form-widgets-IBasic-description.textarea-widget{height: 70px;}
+div#content  form#form.rowlike input.button-field{padding: 0 10px !important;border: 2px solid #D9B421 !important;-webkit-border-radius: 3px !important;-moz-border-radius: 3px !important;border-radius: 3px !important;background: white !important ;margin: 10px 5px 0 0 !important;}
+input.button-field:hover{border: 2px solid #00BA25 !important;}
+div#content form#form.rowlike div.multi-widget-buttons {margin: 0px;  }
+div#content div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IAuthors-authors.field div.multi-widget div.multi-widget-field,
+div#content div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IOriginalFiles-originalFiles.field div.multi-widget div.multi-widget-field{min-width: 423px !important;margin-bottom: 1em !important;  }
+div#content  input#form-widgets-agreement-input { padding: 0;-webkit-border-radius: 3px !important;-moz-border-radius: 3px !important;border-radius: 3px !important; }
+div#content div#content-core form#form.rowlike fieldset#fieldset-default.formPanel div#formfield-form-widgets-IOriginalFiles-originalFiles.field div.multi-widget div#formfield-form-widgets-IOriginalFiles-originalFiles-0.multi-widget-field div.object-widget div#formfield-form-widgets-IOriginalFiles-originalFiles-0-widgets-file.object-widget-field span#form-widgets-IOriginalFiles-originalFiles-0-widgets-file.named-file-widget input#form-widgets-IOriginalFiles-originalFiles-0-widgets-file-input {padding: 0 !important;  border: none !important;}
