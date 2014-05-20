@@ -16,7 +16,6 @@ from plone.supermodel import model
 from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
-from .producentadministrator import IProducentAdministrator
 
 # Interface class; used to define content-type schema.
 
@@ -53,11 +52,11 @@ class IProducent(model.Schema, IImageScaleTraversable):
         description = _(u'Fill a country'),
         required = True,
     )
-    contact = schema.TextLine(
-        title=_(u'Contact'),
-        description = _(u'Fill a phone, email or name of a person we can contact.'),
-        required = False,
-    )
+    # contact = schema.TextLine(
+    #     title=_(u'Contact'),
+    #     description = _(u'Fill a phone, email or name of a person we can contact.'),
+    #     required = False,
+    # )
     agreement = NamedBlobFile(
         title=_(u'Agreement'),
         description = _(u'Upload file with agreement between National Library and you.'),

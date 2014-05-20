@@ -46,10 +46,17 @@
       />
 
   <subscriber
-      for=".producent.IProducentAdministrator
+      for=".producentadministrator.IProducentAdministrator
            zope.container.interfaces.IObjectAddedEvent
 	   "
       handler=".handlers.addedProducentAdministrator"
+      />
+
+  <subscriber
+      for=".producenteditor.IProducentEditor
+           zope.container.interfaces.IObjectAddedEvent
+	   "
+      handler=".handlers.addedProducentEditor"
       />
 
   <subscriber

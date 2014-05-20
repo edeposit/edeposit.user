@@ -14,22 +14,55 @@ def addedProducentAdministrator(context, event):
     """
     When new administrator occurred, it is important to create user with the same username.
     """
+    print "added producent administrator event handling"
     api.user.create(email=context.email, username=context.username, password=context.password)
     producent = context.aq_parent.aq_parent
     api.user.grant_roles(username=context.username,  
                          obj=producent,
-                         roles=('E-Deposit: Producent Administrator','Reviewer','Editor','Contributor','Reader')
+                         roles=('E-Deposit: Producent Administrator',
+                                'E-Deposit: Producent Editor',
+                                'Reviewer','Editor','Contributor','Reader')
     )
     api.group.add_user(groupname="Producent Administrators",
                        username=context.username,
     )
-    api.group.add_user(groupname="Producent Contributors",  
+    api.group.add_user(groupname="Producent Contributors",
                        username=context.username,
     )
     api.group.add_user(groupname="Producent Editors",
                        username=context.username,
     )
     producent.reindexObject()
+    pass
+
+def addedProducentEditor(context, event):
+    """
+    When new editor occurred, it is important to create user with the same username.
+    """
+    print "added producent editor event handling"
+    api.user.create(email=context.email, username=context.username, password=context.password)
+    producent = context.aq_parent.aq_parent
+    api.user.grant_roles(username=context.username,  
+                         obj=producent,
+                         roles=('E-Deposit: Producent Editor',
+                                'Reader')
+                     )
+    api.group.add_user(groupname="Producent Editors",
+                       username=context.username,
+                   )
+    api.group.add_user(groupname="Producent Contributors",
+                       username=context.username,
+                   )
+    epublications = producent['epublications']
+    api.user.grant_roles(username=context.username,
+                         obj = epublications,
+                         roles=('E-Deposit: Producent Editor','Contributor')
+                     )
+    producent.reindexObject()
+    # permissions = filter(lambda pair: pair[1], api.user.get_permissions(username=context.username, obj=producent).items())
+    # print permissions
+    # permissions = filter(lambda pair: pair[1], api.user.get_permissions(username=context.username, obj=epublications).items())
+    # print permissions
     pass
 
 def added(context,event):
@@ -116,21 +149,33 @@ def addedProducentFolder(context,event):
                           name = "ePublications-in-declarating",
                           title=_(u"ePublications in declaring"),
                           query= queryForStates('declaration'),
-                          roles = ['E-Deposit: Producent','E-Deposit: Acquisitor'],
+                          roles = ['E-Deposit: Producent Administrator','E-Deposit: Acquisitor'],
                           ),
                     dict( contexts=[portal],
                           name = "ePublications-waiting-for-approving",
                           title = _(u"ePublications waiting for preparing of acquisition"),
                           query= queryForStates('waitingForApproving'),
-                          roles = ['E-Deposit: Producent','E-Deposit: Acquisitor'],
+                          roles = ['E-Deposit: Producent Administrator','E-Deposit: Acquisitor'],
                           ),
                     dict( contexts=[portal],
                           name  = "ePublications-with-errors",
                           title = _(u"ePublications with errors"),
                           query = queryForStates('declarationWithError'),
-                          roles = ['E-Deposit: Producent','E-Deposit: Acquisitor'],
+                          roles = ['E-Deposit: Producent Administrator','E-Deposit: Acquisitor'],
+                          ),
+                    dict( contexts=[portal],
+                          name  = "ePublications-waiting-for-RIV-reviewing",
+                          title = _(u"ePublications waiting for RIV to be reviewed"),
+                          query=[{'i': 'portal_type', 
+                                  'o': 'plone.app.querystring.operation.selection.is', 
+                                  'v': ['edeposit.content.epublication',] },
+                                 {'i': 'offerToRIV', 
+                                  'o': 'plone.app.querystring.operation.selection.is', 
+                                  'v': [True]}
+                             ],
+                          roles = ['E-Deposit: RIV Reviewer','E-Deposit: Acquisitor'],
                           )
-                    ]
+    ]
 
     for collection in collections:
         name = collection['name']

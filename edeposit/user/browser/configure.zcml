@@ -59,4 +59,7 @@
     <adapter factory=".register.ProducentAdministratorFactory" 
        name="edeposit.user.producentadministrator.IProducentAdministrator" />
 
+    <adapter factory=".register.ProducentEditorFactory" 
+       name="edeposit.user.producenteditor.IProducentEditor" />
+
 </configure>

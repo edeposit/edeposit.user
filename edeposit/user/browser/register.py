@@ -23,9 +23,11 @@ from edeposit.user.producent import IProducent
 from edeposit.user.producentuser import IProducentUser
 from edeposit.user.producentfolder import IProducentFolder
 from edeposit.user.producentadministrator import IProducentAdministrator, ProducentAdministrator
+from edeposit.user.producenteditor import IProducentEditor, ProducentEditor
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 import os.path
 import logging
+import string
 from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 from plone.i18n.normalizer.interfaces import IURLNormalizer, IIDNormalizer
 from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
@@ -48,6 +50,37 @@ class IProducentAdministrators(model.Schema):
         min_length = 1,
     )
 
+class IAdministrator(model.Schema):
+    administrator = zope.schema.Object(
+        title = _(u'Producent Administrator'),
+        description = u"správce přidává editory, upravuje informace o producentovi.",
+        required = True,
+        schema=IProducentAdministrator,
+    )
+
+class IProducentEditors(model.Schema):
+    model.fieldset('editors',
+                   label = _(u'Producent Editors'),
+                   fields = ['editor1','editor2','editor3']
+
+    )
+    editor1 = zope.schema.Object(
+        title = _(u'Producent Editor'),
+        required = False,
+        schema=IProducentEditor,
+    )
+    editor2 = zope.schema.Object(
+        title = _(u'Producent Editor'),
+        required = False,
+        schema=IProducentEditor,
+    )
+    editor3 = zope.schema.Object(
+        title = _(u'Producent Editor'),
+        required = False,
+        schema=IProducentEditor,
+    )
+
+
 class ProducentAddForm(DefaultAddForm):
     label = _(u"Registration of a producent")
     description = _(u"Please fill informations about user and producent.")
@@ -55,33 +88,38 @@ class ProducentAddForm(DefaultAddForm):
 
     @property
     def additionalSchemata(self):
-        schemata = [s for s in getAdditionalSchemata(portal_type=self.portal_type)] + \
-                   [IProducentAdministrators,]
+        schemata =       [IAdministrator,] +\
+                         [s for s in getAdditionalSchemata(portal_type=self.portal_type)] +\
+                         [IProducentEditors,]
         return schemata
 
     def updateWidgets(self):
         super(ProducentAddForm, self).updateWidgets()
         self.widgets['IBasic.title'].label=u"Název producenta"
 
-    def add(self,object):
-        DefaultAddForm.add(self,object)
-        administratorsFolder = aq_inner(object['producent-administrators'])
-        for administrator in self.administrators:
-            addContentToContainer(administratorsFolder, administrator, False)
-        return addedObject
-
-    def create(self, data):
-        self.administrators = data['IProducentAdministrators.administrators']
-        del data['IProducentAdministrators.administrators']
-        createdProducent = DefaultAddForm.create(self,data)
-        return createdProducent
-
     def getProducentsFolder(self):
         return self.context
 
-    def validatePasswordsUsername(self, data, errors):
-        if('form.widgets.IProducentAdministrators.administrators' in [err.widget.name for err in errors]):
-            return data, errors
+    def extractData(self):
+        data, errors = super(ProducentAddForm,self).extractData()
+
+        # remove errors for editors than was not used anymore
+        def notEditorError(error):
+            name = error.widget.name
+            return '.IProducentEditors.' not in name
+        
+        def existedEditorError(error):
+            """
+            editor error is necessary just in a case data for editor exists.
+            Arguments:
+            - `error`: editor error
+            """
+            name = error.widget.name
+            fieldName = '.'.join(string.split(name,'.')[2:])
+            return fieldName in data.keys()
+            
+        newErrors = filter(lambda error: notEditorError(error) or existedEditorError(error), errors)
+        
         def getErrorView(widget,error):
             view = zope.component.getMultiAdapter( (error, 
                                                     self.request, 
@@ -108,20 +146,27 @@ class ProducentAddForm(DefaultAddForm):
                 widget_username = awidget.subform.widgets['username']
                 errors += (getErrorView(widget_username, Invalid(u"toto uživatelské jméno je už obsazeno, zvolte jiné")),)
             return errors
+            
 
-        newErrorViews =  [ getErrors(adata,awidget) and getErrorView(awidget, Invalid(u"problém v údajích administrátora"))
-                           for adata,awidget in zip(data['IProducentAdministrators.administrators'],
-                                                    self.widgets['IProducentAdministrators.administrators'].widgets)]
-        
-        return data, errors + tuple([err for err in newErrorViews if err])
-   
-    @button.buttonAndHandler(_("ContinueRegistration"))
-    def handleContinueRegistration(self, action):
-        pass
+        names = filter(lambda key: data.get(key,None), ['IAdministrator.administrator',
+                                                   'IProducentEditors.editor1',
+                                                   'IProducentEditors.editor2',
+                                                   'IProducentEditors.editor3',
+                                               ])
+
+        def getWidget(name):
+            widget = self.widgets.get(name,None) \
+                     or filter(lambda widget: widget, map(lambda group: group.widgets.get(name,None), self.groups))[0]
+            return widget
+
+        newErrorViews =  map(lambda key: getErrors(data[key], getWidget(key)), names)
+        return data, newErrors + tuple(filter (lambda errView: errView, newErrorViews))
+
 
     @button.buttonAndHandler(_(u"Register"))
     def handleRegister(self, action):
-        data, errors = self.validatePasswordsUsername(*self.extractData())
+        print "handle registrer"
+        data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
             return
@@ -130,11 +175,23 @@ class ProducentAddForm(DefaultAddForm):
         # hack for title and description
         data['title'] = data.get('IBasic.title','')
         data['description'] = data.get('IBasic.description','')
+
         producent = createContentInContainer(producentsFolder, "edeposit.user.producent", **data)
+
         administratorsFolder = producent['producent-administrators']
-        for administrator in data['IProducentAdministrators.administrators']:
-            administrator.title=getattr(administrator,'fullname',None)
-            addContentToContainer(administratorsFolder, administrator, False)
+        administrator = data['IAdministrator.administrator']
+        administrator.title = getattr(administrator,'fullname',None)
+        addContentToContainer(administratorsFolder, administrator, False)
+
+        editorsFolder = producent['producent-editors']
+        for editor in filter(lambda item: item, 
+                             map(lambda key: data.get(key,None),  ['IProducentEditors.editor1',
+                                                              'IProducentEditors.editor2',
+                                                              'IProducentEditors.editor3',])):
+            print "adding editor"
+            editor.title=getattr(editor,'fullname',None)
+            addContentToContainer(editorsFolder, editor, False)
+
         if producent is not None:
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(producent,'submit')
@@ -169,6 +226,20 @@ class ProducentAdministratorFactory(object):
 
     def __call__(self, value):
         created=createContent('edeposit.user.producentadministrator',**value)
+        return created
+
+class ProducentEditorFactory(object):
+    zope.interface.implements(IObjectFactory)
+    adapts(Interface, Interface, Interface, Interface)
+    
+    def __init__(self, context, request, form, widget):
+        self.context = context
+        self.request = request
+        self.form = form
+        self.widget = widget
+
+    def __call__(self, value):
+        created=createContent('edeposit.user.producenteditor',**value)
         return created
 
 class IProducentWithAdministrators(IProducent):
