@@ -59,10 +59,6 @@ def addedProducentEditor(context, event):
                          roles=('E-Deposit: Producent Editor','Contributor')
                      )
     producent.reindexObject()
-    # permissions = filter(lambda pair: pair[1], api.user.get_permissions(username=context.username, obj=producent).items())
-    # print permissions
-    # permissions = filter(lambda pair: pair[1], api.user.get_permissions(username=context.username, obj=epublications).items())
-    # print permissions
     pass
 
 def added(context,event):

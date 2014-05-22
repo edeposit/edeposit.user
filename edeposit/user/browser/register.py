@@ -21,9 +21,9 @@ from plone.z3cform.fieldsets import extensible
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
 from edeposit.user.producent import IProducent
 from edeposit.user.producentuser import IProducentUser
+from edeposit.user.producenteditor import IProducentEditor, ProducentEditor
 from edeposit.user.producentfolder import IProducentFolder
 from edeposit.user.producentadministrator import IProducentAdministrator, ProducentAdministrator
-from edeposit.user.producenteditor import IProducentEditor, ProducentEditor
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 import os.path
 import logging
@@ -36,6 +36,7 @@ from plone.dexterity.utils import getAdditionalSchemata
 from Acquisition import aq_inner, aq_base
 from Products.CMFDefault.exceptions import EmailAddressInvalid
 from zope.interface import invariant, Invalid
+from itertools import chain
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
@@ -58,27 +59,113 @@ class IAdministrator(model.Schema):
         schema=IProducentAdministrator,
     )
 
-class IProducentEditors(model.Schema):
-    model.fieldset('editors',
-                   label = _(u'Producent Editors'),
-                   fields = ['editor1','editor2','editor3']
+def checkEmailAddress(value):
+    reg_tool = api.portal.get_tool(name='portal_registration')
+    if value and reg_tool.isValidEmail(value):
+        pass
+    else:
+        raise EmailAddressInvalid
+    return True
 
+# Interface class; used to define content-type schema.
+class IEditor(model.Schema):
+    """ a few fields from IProducentAdministrator """
+    model.fieldset('editor',
+                   label = _(u'Producent Editor'),
+                   fields = ['fullname',
+                             'email',
+                             'phone',
+                             'username',
+                             'password',
+                             'password_ctl',
+                         ]
     )
-    editor1 = zope.schema.Object(
-        title = _(u'Producent Editor'),
-        required = False,
-        schema=IProducentEditor,
+
+    fullname = schema.TextLine(
+        title=u"Příjmení a jméno",
+        description=_(u'help_full_name_creation',
+                      default=u"Enter full name, e.g. John Smith."),
+        required=False)
+
+    email = schema.ASCIILine(
+        title=_(u'label_email', default=u'E-mail'),
+        description=u'',
+        required=False,
     )
-    editor2 = zope.schema.Object(
-        title = _(u'Producent Editor'),
-        required = False,
-        schema=IProducentEditor,
+
+    phone = schema.TextLine(
+        title=_(u'label_phone', default=u'Telephone number'),
+        description=_(u'help_phone',
+                      default=u"Leave your phone number so we can reach you."),
+        required=False,
     )
-    editor3 = zope.schema.Object(
-        title = _(u'Producent Editor'),
-        required = False,
-        schema=IProducentEditor,
+    
+    username = schema.ASCIILine(
+        title=_(u'label_user_name', default=u'User Name'),
+        description=_(u'help_user_name_creation_casesensitive',
+                      default=u"Enter a user name, usually something "
+                      "like 'jsmith'. "
+                      "No spaces or special characters. "
+                      "Usernames and passwords are case sensitive, "
+                      "make sure the caps lock key is not enabled. "
+                      "This is the name used to log in."),
+        required=False,
     )
+    
+    password = schema.Password(
+        title=_(u'label_password', default=u'Password'),
+        description=_(u'help_password_creation',
+                      default=u'Enter your new password.'),
+        required=False,
+    )
+    
+    password_ctl = schema.Password(
+        title=_(u'label_confirm_password',
+                default=u'Confirm password'),
+        description=_(u'help_confirm_password',
+                      default=u"Re-enter the password. "
+                      "Make sure the passwords are identical."),
+        required=False,
+    )
+
+    # @invariant
+    # def checkPasswords(data):
+    #     password, password_ctl = getattr(data,'password',None),getattr(data,'password_ctl',None)
+    #     if password and password_ctl:
+    #         if password != password_ctl:
+    #             raise Invalid("hesla se musí shodovat")
+    #     pass
+        
+    #     # raise Invalid(
+    #     #     PC_("You cannot have a type as a secondary type without "
+    #     #         "having it allowed. You have selected ${types}s.",
+    #     #         mapping=dict(types=", ".join(missing))))
+    #     # error_keys = [error.field_name for error in errors
+    #     #               if hasattr(error, 'field_name')]
+    #     # if not ('password' in error_keys or 'password_ctl' in error_keys):
+    #     #     password = self.widgets['password'].getInputValue()
+    #     #     password_ctl = self.widgets['password_ctl'].getInputValue()
+    #     #     if password != password_ctl:
+    #     #         err_str = _(u'Passwords do not match.')
+    #     #         errors.append(WidgetInputError('password',
+    #     #                                        u'label_password', err_str))
+    #     #         errors.append(WidgetInputError('password_ctl',
+    #     #                                        u'label_password', err_str))
+    #     #         self.widgets['password'].error = err_str
+    #     #         self.widgets['password_ctl'].error = err_str
+    #     #         pass
+    #     #         # Password field checked against RegistrationTool
+    #     #         # Skip this check if password fields already have an error
+    #     #         if not 'password' in error_keys:
+    #     #             password = self.widgets['password'].getInputValue()
+    #     #             if password:
+    #     #                 # Use PAS to test validity
+    #     #                 err_str = registration.testPasswordValidity(password)
+    #     #                 if err_str:
+    #     #                     errors.append(WidgetInputError('password',
+    #     #                                                    u'label_password', err_str))
+    #     #                     self.widgets['password'].error = err_str
+
 
 
 class ProducentAddForm(DefaultAddForm):
@@ -89,8 +176,8 @@ class ProducentAddForm(DefaultAddForm):
     @property
     def additionalSchemata(self):
         schemata =       [IAdministrator,] +\
-                         [s for s in getAdditionalSchemata(portal_type=self.portal_type)] +\
-                         [IProducentEditors,]
+                         [IEditor,] +\
+                         [s for s in getAdditionalSchemata(portal_type=self.portal_type)]
         return schemata
 
     def updateWidgets(self):
@@ -102,65 +189,43 @@ class ProducentAddForm(DefaultAddForm):
 
     def extractData(self):
         data, errors = super(ProducentAddForm,self).extractData()
+        # def getErrors(adata, awidget):
+        #     password, password_ctl = adata.password, adata.password_ctl
+        #     errors = []
+        #     print "get errors"
+        #     if password != password_ctl:
+        #         print "password does not pass"
+        #         print awidget.name
+        #         widget_password = awidget.subform.widgets['password']
+        #         widget_password_ctl = awidget.subform.widgets['password_ctl']
+        #         error = zope.interface.Invalid('hesla se musi shodovat')
+        #         errors = (getErrorView(widget_password, Invalid('hesla se musi shodovat')),
+        #                           getErrorView(widget_password_ctl, Invalid(u'hesla se musí shodovat')))
 
-        # remove errors for editors than was not used anymore
-        def notEditorError(error):
-            name = error.widget.name
-            return '.IProducentEditors.' not in name
-        
-        def existedEditorError(error):
-            """
-            editor error is necessary just in a case data for editor exists.
-            Arguments:
-            - `error`: editor error
-            """
-            name = error.widget.name
-            fieldName = '.'.join(string.split(name,'.')[2:])
-            return fieldName in data.keys()
+        #     if api.user.get(username=adata.username):
+        #         widget_username = awidget.subform.widgets['username']
+        #         errors += (getErrorView(widget_username, 
+        #                                 Invalid(u"toto uživatelské jméno je už obsazeno, zvolte jiné")),)
+        #     return errors
             
-        newErrors = filter(lambda error: notEditorError(error) or existedEditorError(error), errors)
-        
-        def getErrorView(widget,error):
-            view = zope.component.getMultiAdapter( (error, 
-                                                    self.request, 
-                                                    widget, 
-                                                    widget.field, 
-                                                    widget.form, 
-                                                    self.context), 
-                                                   IErrorViewSnippet)
-            view.update()
-            widget.error = view
-            return view
+        # names = filter(lambda key: data.get(key,None), ['IAdministrator.administrator',
+        #                                            'IProducentEditors.editor1',
+        #                                            'IProducentEditors.editor2',
+        #                                            'IProducentEditors.editor3',
+        #                                        ])
+        # def chainErrorViews(listOfList):
+        #     for errorViews in listOfList:
+        #         for errorView in errorViews:
+        #             yield errorView
 
-        def getErrors(adata, awidget):
-            password, password_ctl = adata.password, adata.password_ctl
-            errors = []
-            if password != password_ctl:
-                widget_password = awidget.subform.widgets['password']
-                widget_password_ctl = awidget.subform.widgets['password_ctl']
-                error = zope.interface.Invalid('hesla se musi shodovat')
-                errors = (getErrorView(widget_password, Invalid('hesla se musi shodovat')), 
-                                  getErrorView(widget_password_ctl, Invalid(u'hesla se musí shodovat')))
+        # def getWidget(name):
+        #     widget = self.widgets.get(name,None) \
+        #              or filter(lambda widget: widget, map(lambda group: group.widgets.get(name,None), self.groups))[0]
+        #     return widget
 
-            if api.user.get(username=adata.username):
-                widget_username = awidget.subform.widgets['username']
-                errors += (getErrorView(widget_username, Invalid(u"toto uživatelské jméno je už obsazeno, zvolte jiné")),)
-            return errors
-            
-
-        names = filter(lambda key: data.get(key,None), ['IAdministrator.administrator',
-                                                   'IProducentEditors.editor1',
-                                                   'IProducentEditors.editor2',
-                                                   'IProducentEditors.editor3',
-                                               ])
-
-        def getWidget(name):
-            widget = self.widgets.get(name,None) \
-                     or filter(lambda widget: widget, map(lambda group: group.widgets.get(name,None), self.groups))[0]
-            return widget
-
-        newErrorViews =  map(lambda key: getErrors(data[key], getWidget(key)), names)
-        return data, newErrors + tuple(filter (lambda errView: errView, newErrorViews))
+        # newErrorViews = filter(lambda errView: errView, 
+        #                        chainErrorViews(map(lambda key: getErrors(data[key], getWidget(key)), names)))
+        return data, errors
 
 
     @button.buttonAndHandler(_(u"Register"))
@@ -168,8 +233,14 @@ class ProducentAddForm(DefaultAddForm):
         print "handle registrer"
         data, errors = self.extractData()
         if errors:
+            print "all errors views names", map(lambda err: err.widget.name, errors)
+            print self.formErrorsMessage
+            print "self.widgets.errors", self.widgets.errors
             self.status = self.formErrorsMessage
             return
+
+        editorFields = ['fullname','email','phone','username','password','password_ctl']
+        editorValues = map(lambda key: data.get('IEditor.'+key,None), editorFields)
 
         producentsFolder = self.getProducentsFolder()
         # hack for title and description
@@ -178,19 +249,29 @@ class ProducentAddForm(DefaultAddForm):
 
         producent = createContentInContainer(producentsFolder, "edeposit.user.producent", **data)
 
+        if filter(lambda value: value, editorValues):
+            print "chceme vytvorit editora"
+            if False in map(lambda value: bool(value), editorValues):
+                raise ActionExecutionError(
+                    Invalid(u"Některé položky u editora nejsou vyplněny. Buď vyplňte editorovi všechny položky, nebo je všechny smažte."))
+                
+            editorData = dict(zip(editorFields, editorValues))
+            if editorData['password'] != editorData['password_ctl']:
+                raise ActionExecutionError(
+                    Invalid(u"U editora se neshodují zadaná hesla. Vyplňte hesla znovu."))
+            if api.user.get(username=editorData['username']):
+                raise ActionExecutionError(
+                    Invalid(u"Uživatelské jméno u editora je již obsazené. Zadejte editorovi jiné uživatelské jméno."))
+
+            editorsFolder = producent['producent-editors']
+            editorData['title'] = editorData['fullname']
+            editor = createContentInContainer(editorsFolder, "edeposit.user.producenteditor", **editorData)
+
+
         administratorsFolder = producent['producent-administrators']
         administrator = data['IAdministrator.administrator']
         administrator.title = getattr(administrator,'fullname',None)
         addContentToContainer(administratorsFolder, administrator, False)
-
-        editorsFolder = producent['producent-editors']
-        for editor in filter(lambda item: item, 
-                             map(lambda key: data.get(key,None),  ['IProducentEditors.editor1',
-                                                              'IProducentEditors.editor2',
-                                                              'IProducentEditors.editor3',])):
-            print "adding editor"
-            editor.title=getattr(editor,'fullname',None)
-            addContentToContainer(editorsFolder, editor, False)
 
         if producent is not None:
             wft = api.portal.get_tool('portal_workflow')
@@ -239,6 +320,7 @@ class ProducentEditorFactory(object):
         self.widget = widget
 
     def __call__(self, value):
+        print "producent editor factory", value
         created=createContent('edeposit.user.producenteditor',**value)
         return created
 
