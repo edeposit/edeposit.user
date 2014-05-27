@@ -109,10 +109,15 @@ class Renderer(base.Renderer):
                 return {'desc': brain['Title'], 'href': url}
             
             return map(getRegistrationPath, brains or [])
-        
+
+        def getOriginalFileContributingPath(producentPath):
+            url = os.path.join(producentPath,"originalfile-contributing")
+            return [{'desc': _("Original file contributing"), 'href': url}]
+            
         return [ {'name': producentInfo['title'],         
                   'path': producentInfo['path'],
-                  'links': getRegisteringPaths(producentInfo['path'])} for
+                  'links': getRegisteringPaths(producentInfo['path']) +\
+                  getOriginalFileContributingPath(producentInfo['path'])} for
                  producentInfo in (producentInfos or [])]
         
 # NOTE: If this portlet does not have any configurable parameters, you can

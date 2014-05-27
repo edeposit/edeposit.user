@@ -252,16 +252,13 @@ class ProducentAddForm(DefaultAddForm):
         if filter(lambda value: value, editorValues):
             print "chceme vytvorit editora"
             if False in map(lambda value: bool(value), editorValues):
-                raise ActionExecutionError(
-                    Invalid(u"Některé položky u editora nejsou vyplněny. Buď vyplňte editorovi všechny položky, nebo je všechny smažte."))
+                raise ActionExecutionError(Invalid(u"Některé položky u editora nejsou vyplněny. Buď vyplňte editorovi všechny položky, nebo je všechny smažte."))
                 
             editorData = dict(zip(editorFields, editorValues))
             if editorData['password'] != editorData['password_ctl']:
-                raise ActionExecutionError(
-                    Invalid(u"U editora se neshodují zadaná hesla. Vyplňte hesla znovu."))
+                raise ActionExecutionError(Invalid(u"U editora se neshodují zadaná hesla. Vyplňte hesla znovu."))
             if api.user.get(username=editorData['username']):
-                raise ActionExecutionError(
-                    Invalid(u"Uživatelské jméno u editora je již obsazené. Zadejte editorovi jiné uživatelské jméno."))
+                raise ActionExecutionError(Invalid(u"Uživatelské jméno u editora je již obsazené. Zadejte editorovi jiné uživatelské jméno."))
 
             editorsFolder = producent['producent-editors']
             editorData['title'] = editorData['fullname']
