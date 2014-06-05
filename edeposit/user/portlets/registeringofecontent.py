@@ -111,7 +111,9 @@ class Renderer(base.Renderer):
             return map(getRegistrationPath, brains or [])
 
         def getOriginalFileContributingPath(producentPath):
-            url = os.path.join(producentPath,"originalfile-contributing")
+            url = os.path.join(producentPath,
+                               "epublications",
+                               "originalfile-contribute")
             return [{'desc': _("Original file contributing"), 'href': url}]
             
         return [ {'name': producentInfo['title'],         

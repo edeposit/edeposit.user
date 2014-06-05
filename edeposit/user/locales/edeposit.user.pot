@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-04-24 12:37+0000\n"
+"POT-Creation-Date: 2014-05-28 11:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: edeposit.user\n"
 
-#: edeposit/user/producent.py:67
+#: edeposit/user/producent.py:66
 #: edeposit/user/userdataschema.py:156
 msgid "Address"
 msgstr ""
@@ -28,17 +28,17 @@ msgstr ""
 msgid "Agreement"
 msgstr ""
 
-#: edeposit/user/producent.py:71
+#: edeposit/user/producent.py:70
 #: edeposit/user/profiles/default/actions.xml
 msgid "Agreement with National Library"
 msgstr ""
 
-#: edeposit/user/handlers.py:86
+#: edeposit/user/handlers.py:115
 msgid "Approved producents"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:43
+#: edeposit/user/producent.py:42
 msgid "City"
 msgstr ""
 
@@ -46,12 +46,8 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: edeposit/user/browser/register.py:155
-msgid "ContinueRegistration"
-msgstr ""
-
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:52
+#: edeposit/user/producent.py:51
 msgid "Country"
 msgstr ""
 
@@ -95,22 +91,23 @@ msgstr ""
 msgid "E-Deposit Site"
 msgstr ""
 
+#: edeposit/user/portlets/documentcontributing.py:64
 #: edeposit/user/portlets/registeringofecontent.py:64
 msgid "E-Deposit: Registering of any eContent"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:44
+#: edeposit/user/producent.py:43
 msgid "Fill a city"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:53
+#: edeposit/user/producent.py:52
 msgid "Fill a country"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:29
+#: edeposit/user/producent.py:28
 msgid "Fill a home page we can find a producent at."
 msgstr ""
 
@@ -119,26 +116,30 @@ msgid "Fill a phone, email or name of a person we can contact."
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:39
+#: edeposit/user/producent.py:38
 msgid "Fill a street with number."
 msgstr ""
 
-#: edeposit/user/browser/register.py:214
+#: edeposit/user/browser/register.py:327
 msgid "Fill in at least one producent administrator"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:28
+#: edeposit/user/producent.py:27
 msgid "Home page"
 msgstr ""
 
-#: edeposit/user/browser/register.py:180
+#: edeposit/user/browser/register.py:278
 msgid "Item created"
 msgstr ""
 
 #: edeposit/user/producentuser.py:190
 #: edeposit/user/userdataschema.py:83
 msgid "Login"
+msgstr ""
+
+#: edeposit/user/portlets/registeringofecontent.py:115
+msgid "Original file contributing"
 msgstr ""
 
 #: edeposit/user/userdataschema.py:25
@@ -150,7 +151,7 @@ msgstr ""
 msgid "Personal Info"
 msgstr ""
 
-#: edeposit/user/browser/register.py:86
+#: edeposit/user/browser/register.py:173
 msgid "Please fill informations about user and producent."
 msgstr ""
 
@@ -164,21 +165,17 @@ msgstr ""
 msgid "Producent"
 msgstr ""
 
-#: edeposit/user/browser/register.py:47
+#: edeposit/user/browser/register.py:49
 msgid "Producent Administrator"
 msgstr ""
 
-#: edeposit/user/browser/register.py:44
+#: edeposit/user/browser/register.py:46
 msgid "Producent Administrators"
 msgstr ""
 
-#: edeposit/user/browser/register.py:58
+#: edeposit/user/browser/register.py:74
 #: edeposit/user/profiles/default/types/edeposit.user.producenteditor.xml
 msgid "Producent Editor"
-msgstr ""
-
-#: edeposit/user/browser/register.py:54
-msgid "Producent Editors"
 msgstr ""
 
 #: edeposit/user/profiles/default/types/edeposit.user.producentfolder.xml
@@ -201,22 +198,23 @@ msgstr ""
 msgid "ProducentUser"
 msgstr ""
 
-#: edeposit/user/handlers.py:71
+#: edeposit/user/handlers.py:100
 msgid "Producents in declaring"
 msgstr ""
 
-#: edeposit/user/handlers.py:101
+#: edeposit/user/handlers.py:130
 msgid "Producents waiting for approving"
 msgstr ""
 
-#: edeposit/user/browser/register.py:159
+#: edeposit/user/browser/register.py:231
 msgid "Register"
 msgstr ""
 
-#: edeposit/user/browser/register.py:85
+#: edeposit/user/browser/register.py:172
 msgid "Registration of a producent"
 msgstr ""
 
+#: edeposit/user/portlets/documentcontributing.pt:8
 #: edeposit/user/portlets/registeringofecontent.pt:8
 msgid "Registration of eContent"
 msgstr ""
@@ -227,7 +225,7 @@ msgstr ""
 
 #: edeposit/user/agreement_file.py:34
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:63
+#: edeposit/user/producent.py:62
 msgid "Upload file with agreement between National Library and you."
 msgstr ""
 
@@ -236,19 +234,23 @@ msgid "Welcome to E-Deposit"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:34
+#: edeposit/user/producent.py:33
 msgid "Your location - either city and country - or in a company setting, where your office is located"
 msgstr ""
 
-#: edeposit/user/handlers.py:117
+#: edeposit/user/handlers.py:146
 msgid "ePublications in declaring"
 msgstr ""
 
-#: edeposit/user/handlers.py:123
+#: edeposit/user/handlers.py:164
+msgid "ePublications waiting for RIV to be reviewed"
+msgstr ""
+
+#: edeposit/user/handlers.py:152
 msgid "ePublications waiting for preparing of acquisition"
 msgstr ""
 
-#: edeposit/user/handlers.py:129
+#: edeposit/user/handlers.py:158
 msgid "ePublications with errors"
 msgstr ""
 
@@ -258,6 +260,7 @@ msgid "help_city"
 msgstr ""
 
 #. Default: "Re-enter the password. Make sure the passwords are identical."
+#: edeposit/user/browser/register.py:125
 #: edeposit/user/producentuser.py:72
 #: edeposit/user/userdataschema.py:105
 msgid "help_confirm_password"
@@ -269,6 +272,7 @@ msgid "help_country"
 msgstr ""
 
 #. Default: "Enter full name, e.g. John Smith."
+#: edeposit/user/browser/register.py:86
 #: edeposit/user/producentuser.py:37
 #: edeposit/user/userdataschema.py:122
 msgid "help_full_name_creation"
@@ -285,12 +289,14 @@ msgid "help_location"
 msgstr ""
 
 #. Default: "Enter your new password."
+#: edeposit/user/browser/register.py:117
 #: edeposit/user/producentuser.py:66
 #: edeposit/user/userdataschema.py:99
 msgid "help_password_creation"
 msgstr ""
 
 #. Default: "Leave your phone number so we can reach you."
+#: edeposit/user/browser/register.py:98
 #: edeposit/user/producentuser.py:49
 #: edeposit/user/userdataschema.py:149
 msgid "help_phone"
@@ -307,6 +313,7 @@ msgid "help_street"
 msgstr ""
 
 #. Default: "Enter a user name, usually something like 'jsmith'. No spaces or special characters. Usernames and passwords are case sensitive, make sure the caps lock key is not enabled. This is the name used to log in."
+#: edeposit/user/browser/register.py:105
 #: edeposit/user/producentuser.py:56
 #: edeposit/user/userdataschema.py:89
 msgid "help_user_name_creation_casesensitive"
@@ -318,6 +325,7 @@ msgid "label_city"
 msgstr ""
 
 #. Default: "Confirm password"
+#: edeposit/user/browser/register.py:123
 #: edeposit/user/producentuser.py:70
 #: edeposit/user/userdataschema.py:103
 msgid "label_confirm_password"
@@ -329,6 +337,7 @@ msgid "label_country"
 msgstr ""
 
 #. Default: "E-mail"
+#: edeposit/user/browser/register.py:91
 #: edeposit/user/producentuser.py:42
 #: edeposit/user/userdataschema.py:127
 msgid "label_email"
@@ -350,12 +359,14 @@ msgid "label_location"
 msgstr ""
 
 #. Default: "Password"
+#: edeposit/user/browser/register.py:116
 #: edeposit/user/producentuser.py:65
 #: edeposit/user/userdataschema.py:98
 msgid "label_password"
 msgstr ""
 
 #. Default: "Telephone number"
+#: edeposit/user/browser/register.py:97
 #: edeposit/user/producentuser.py:48
 #: edeposit/user/userdataschema.py:148
 msgid "label_phone"
@@ -372,13 +383,14 @@ msgid "label_street"
 msgstr ""
 
 #. Default: "User Name"
+#: edeposit/user/browser/register.py:104
 #: edeposit/user/producentuser.py:55
 #: edeposit/user/userdataschema.py:88
 msgid "label_user_name"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:33
+#: edeposit/user/producent.py:32
 msgid "location"
 msgstr ""
 
