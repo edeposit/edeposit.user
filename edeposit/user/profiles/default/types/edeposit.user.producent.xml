@@ -17,6 +17,7 @@
     <element value="edeposit.content.bookfolder"/>
     <element value="edeposit.user.producentadministratorfolder"/>
     <element value="edeposit.user.producenteditorfolder"/>
+    <element value="edeposit.content.originalfilecontributingrequestsfolder"/>
   </property>
   <property name="allow_discussion">False</property>
 

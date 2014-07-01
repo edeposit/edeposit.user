@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-28 11:57+0000\n"
-"PO-Revision-Date: 2014-05-28 13:57+0200\n"
+"POT-Creation-Date: 2014-06-05 12:11+0000\n"
+"PO-Revision-Date: 2014-06-05 14:11+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -30,7 +30,7 @@ msgstr "Smlouva"
 msgid "Agreement with National Library"
 msgstr "Smlouva s Národní knihovnou"
 
-#: edeposit/user/handlers.py:115
+#: edeposit/user/handlers.py:112
 msgid "Approved producents"
 msgstr "Schválení producenti"
 
@@ -42,6 +42,10 @@ msgstr "Město"
 #: edeposit/user/models/producent.xml
 msgid "Contact"
 msgstr "Kontakt"
+
+#: edeposit/user/portlets/registeringofecontent.py:118
+msgid "Contribute Original file"
+msgstr "Odevzdat dokument"
 
 #: edeposit/user/models/producent.xml
 #: edeposit/user/producent.py:51
@@ -135,10 +139,6 @@ msgstr "Položka byla vytvořena"
 msgid "Login"
 msgstr "Přihlášení"
 
-#: edeposit/user/portlets/registeringofecontent.py:115
-msgid "Original file contributing"
-msgstr "Odevzdání dokumentu"
-
 #: edeposit/user/userdataschema.py:25
 msgid "Passwords are not the same."
 msgstr "Hesla se neshodují."
@@ -195,11 +195,11 @@ msgstr ""
 msgid "ProducentUser"
 msgstr ""
 
-#: edeposit/user/handlers.py:100
+#: edeposit/user/handlers.py:97
 msgid "Producents in declaring"
 msgstr "Rozpracovaní producenti"
 
-#: edeposit/user/handlers.py:130
+#: edeposit/user/handlers.py:127
 msgid "Producents waiting for approving"
 msgstr "Producenti čekající na schválení"
 
@@ -235,19 +235,19 @@ msgstr "Vítejte na stránách projektu E-Deposit!"
 msgid "Your location - either city and country - or in a company setting, where your office is located"
 msgstr "Vaše lokace - buď město, země nebo v případě společnosti, lokaci sídla firmy."
 
-#: edeposit/user/handlers.py:146
+#: edeposit/user/handlers.py:143
 msgid "ePublications in declaring"
 msgstr "Rozpracované ePublikace"
 
-#: edeposit/user/handlers.py:164
+#: edeposit/user/handlers.py:161
 msgid "ePublications waiting for RIV to be reviewed"
 msgstr ""
 
-#: edeposit/user/handlers.py:152
+#: edeposit/user/handlers.py:149
 msgid "ePublications waiting for preparing of acquisition"
 msgstr "ePublikace čekající na přípravu akvizice"
 
-#: edeposit/user/handlers.py:158
+#: edeposit/user/handlers.py:155
 msgid "ePublications with errors"
 msgstr "ePublikace s chybami"
 

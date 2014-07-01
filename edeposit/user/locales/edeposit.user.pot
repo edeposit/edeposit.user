@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-28 11:57+0000\n"
+"POT-Creation-Date: 2014-06-05 12:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Agreement with National Library"
 msgstr ""
 
-#: edeposit/user/handlers.py:115
+#: edeposit/user/handlers.py:112
 msgid "Approved producents"
 msgstr ""
 
@@ -44,6 +44,10 @@ msgstr ""
 
 #: edeposit/user/models/producent.xml
 msgid "Contact"
+msgstr ""
+
+#: edeposit/user/portlets/registeringofecontent.py:118
+msgid "Contribute Original file"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
@@ -138,10 +142,6 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: edeposit/user/portlets/registeringofecontent.py:115
-msgid "Original file contributing"
-msgstr ""
-
 #: edeposit/user/userdataschema.py:25
 msgid "Passwords are not the same."
 msgstr ""
@@ -198,11 +198,11 @@ msgstr ""
 msgid "ProducentUser"
 msgstr ""
 
-#: edeposit/user/handlers.py:100
+#: edeposit/user/handlers.py:97
 msgid "Producents in declaring"
 msgstr ""
 
-#: edeposit/user/handlers.py:130
+#: edeposit/user/handlers.py:127
 msgid "Producents waiting for approving"
 msgstr ""
 
@@ -238,19 +238,19 @@ msgstr ""
 msgid "Your location - either city and country - or in a company setting, where your office is located"
 msgstr ""
 
-#: edeposit/user/handlers.py:146
+#: edeposit/user/handlers.py:143
 msgid "ePublications in declaring"
 msgstr ""
 
-#: edeposit/user/handlers.py:164
+#: edeposit/user/handlers.py:161
 msgid "ePublications waiting for RIV to be reviewed"
 msgstr ""
 
-#: edeposit/user/handlers.py:152
+#: edeposit/user/handlers.py:149
 msgid "ePublications waiting for preparing of acquisition"
 msgstr ""
 
-#: edeposit/user/handlers.py:158
+#: edeposit/user/handlers.py:155
 msgid "ePublications with errors"
 msgstr ""
 

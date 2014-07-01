@@ -18,7 +18,7 @@ from edeposit.content.epublicationfolder import IePublicationFolder
 from edeposit.content.eperiodicalfolder import IePeriodicalFolder
 from edeposit.content.bookfolder import IBookFolder
 
-class IregisteringOfEContent(IPortletDataProvider):
+class IDocumentContributing(IPortletDataProvider):
     """A portlet
 
     It inherits from IPortletDataProvider because for this portlet, the
@@ -43,7 +43,7 @@ class Assignment(base.Assignment):
     with columns.
     """
 
-    implements(IregisteringOfEContent)
+    implements(IDocumentContributing)
 
     # TODO: Set default values for the configurable parameters here
 
@@ -72,7 +72,7 @@ class Renderer(base.Renderer):
     of this class. Other methods can be added and referenced in the template.
     """
 
-    render = ViewPageTemplateFile('registeringofecontent.pt')
+    render = ViewPageTemplateFile('documentcontributing.pt')
 
     def member(self):
         return api.user.get_current()
@@ -103,25 +103,16 @@ class Renderer(base.Renderer):
                                      })
             def getRegistrationPath(brain):
                 path = brain.getPath()
-                #portal_type = brain.portal_type
-                #item_portal_type = re.sub("folder$","",portal_type)
-                #url = os.path.join(path,"++add++%s"% (item_portal_type,))
-                url = os.path.join(path,"add-at-once")
+                portal_type = brain.portal_type
+                item_portal_type = re.sub("folder$","",portal_type)
+                url = os.path.join(path,"++add++%s"% (item_portal_type,))
                 return {'desc': brain['Title'], 'href': url}
             
             return map(getRegistrationPath, brains or [])
-
-        def getOriginalFileContributingPath(producentPath):
-            url = os.path.join(producentPath,
-                               "originalfile-contributing",
-                               "contribute"
-            )
-            return [{'desc': _("Contribute Original file"), 'href': url}]
-            
+        
         return [ {'name': producentInfo['title'],         
                   'path': producentInfo['path'],
-                  'links': getRegisteringPaths(producentInfo['path']) +\
-                  getOriginalFileContributingPath(producentInfo['path'])} for
+                  'links': getRegisteringPaths(producentInfo['path'])} for
                  producentInfo in (producentInfos or [])]
         
 # NOTE: If this portlet does not have any configurable parameters, you can
@@ -134,7 +125,7 @@ class AddForm(base.AddForm):
     zope.formlib which fields to display. The create() method actually
     constructs the assignment that is being added.
     """
-    form_fields = form.Fields(IregisteringOfEContent)
+    form_fields = form.Fields(IDocumentContributing)
 
     def create(self, data):
         return Assignment(**data)
@@ -150,4 +141,4 @@ class EditForm(base.EditForm):
     This is registered with configure.zcml. The form_fields variable tells
     zope.formlib which fields to display.
     """
-    form_fields = form.Fields(IregisteringOfEContent)
+    form_fields = form.Fields(IDocumentContributing)
