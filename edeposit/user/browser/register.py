@@ -189,44 +189,7 @@ class ProducentAddForm(DefaultAddForm):
 
     def extractData(self):
         data, errors = super(ProducentAddForm,self).extractData()
-        # def getErrors(adata, awidget):
-        #     password, password_ctl = adata.password, adata.password_ctl
-        #     errors = []
-        #     print "get errors"
-        #     if password != password_ctl:
-        #         print "password does not pass"
-        #         print awidget.name
-        #         widget_password = awidget.subform.widgets['password']
-        #         widget_password_ctl = awidget.subform.widgets['password_ctl']
-        #         error = zope.interface.Invalid('hesla se musi shodovat')
-        #         errors = (getErrorView(widget_password, Invalid('hesla se musi shodovat')),
-        #                           getErrorView(widget_password_ctl, Invalid(u'hesla se musí shodovat')))
-
-        #     if api.user.get(username=adata.username):
-        #         widget_username = awidget.subform.widgets['username']
-        #         errors += (getErrorView(widget_username, 
-        #                                 Invalid(u"toto uživatelské jméno je už obsazeno, zvolte jiné")),)
-        #     return errors
-            
-        # names = filter(lambda key: data.get(key,None), ['IAdministrator.administrator',
-        #                                            'IProducentEditors.editor1',
-        #                                            'IProducentEditors.editor2',
-        #                                            'IProducentEditors.editor3',
-        #                                        ])
-        # def chainErrorViews(listOfList):
-        #     for errorViews in listOfList:
-        #         for errorView in errorViews:
-        #             yield errorView
-
-        # def getWidget(name):
-        #     widget = self.widgets.get(name,None) \
-        #              or filter(lambda widget: widget, map(lambda group: group.widgets.get(name,None), self.groups))[0]
-        #     return widget
-
-        # newErrorViews = filter(lambda errView: errView, 
-        #                        chainErrorViews(map(lambda key: getErrors(data[key], getWidget(key)), names)))
         return data, errors
-
 
     @button.buttonAndHandler(_(u"Register"))
     def handleRegister(self, action):
@@ -258,7 +221,7 @@ class ProducentAddForm(DefaultAddForm):
             if editorData['password'] != editorData['password_ctl']:
                 raise ActionExecutionError(Invalid(u"U editora se neshodují zadaná hesla. Vyplňte hesla znovu."))
             if api.user.get(username=editorData['username']):
-                raise ActionExecutionError(Invalid(u"Uživatelské jméno u editora je již obsazené. Zadejte editorovi jiné uživatelské jméno."))
+                raise ActionExecutionError(Invalid(u"Uživatelské jméno u editora je již obsazené. Vyplňte jiné."))
 
             editorsFolder = producent['producent-editors']
             editorData['title'] = editorData['fullname']
@@ -267,6 +230,13 @@ class ProducentAddForm(DefaultAddForm):
 
         administratorsFolder = producent['producent-administrators']
         administrator = data['IAdministrator.administrator']
+        if api.user.get(username=administrator.username):
+            raise ActionExecutionError(Invalid(u"Uživatelské jméno u správce producenta je již použito. Vyplňte jiné."))   
+        # check administrator passwords
+        if administrator.password_ctl != administrator.password:
+            raise ActionExecutionError(Invalid(u"U správce producenta se neshodují zadaná hesla. Vyplňte hesla znovu."))
+        
+
         administrator.title = getattr(administrator,'fullname',None)
         addContentToContainer(administratorsFolder, administrator, False)
 
