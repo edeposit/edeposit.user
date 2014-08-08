@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from z3c.form import group, field
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -17,6 +17,14 @@ from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
 from edeposit.user.producentuser import IProducentUser
+from edeposit.user.producenteditorfolder import IProducentEditorFolder
+
+from five import grok
+from plone import api
+
+from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
+from zope.interface import Invalid, Interface
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 
 # Interface class; used to define content-type schema.
 
@@ -45,3 +53,18 @@ class SampleView(BrowserView):
     """ sample view class """
 
     # Add view methods here
+
+class ProducentEditorAddForm(DefaultAddForm):
+    portal_type="edeposit.user.producenteditor"
+    grok.context(IProducentEditorFolder)
+
+    def add(self,object):
+        if api.user.get(username=object.username):
+            raise ActionExecutionError(Invalid(u"Uživatelské jméno již existuje. Použijte jiné."))
+        if object.password != object.password_ctl:
+            raise ActionExecutionError(Invalid(u"Hesla se neshodují. Zadejte hesla znovu."))
+        return super(ProducentEditorAddForm,self).add(object)
+
+class ProducentEditorAddView(DefaultAddView):
+    form = ProducentEditorAddForm
+    pass
