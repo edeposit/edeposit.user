@@ -202,18 +202,17 @@ class ProducentAddForm(DefaultAddForm):
             self.status = self.formErrorsMessage
             return
 
+        administrator = data['IAdministrator.administrator']
+        if api.user.get(username=administrator.username):
+            raise ActionExecutionError(Invalid(u"Uživatelské jméno u správce producenta je již použito. Vyplňte jiné."))   
+        # check administrator passwords
+        if administrator.password_ctl != administrator.password:
+            raise ActionExecutionError(Invalid(u"U správce producenta se neshodují zadaná hesla. Vyplňte hesla znovu."))
+
         editorFields = ['fullname','email','phone','username','password','password_ctl']
         editorValues = map(lambda key: data.get('IEditor.'+key,None), editorFields)
 
-        producentsFolder = self.getProducentsFolder()
-        # hack for title and description
-        data['title'] = data.get('IBasic.title','')
-        data['description'] = data.get('IBasic.description','')
-
-        producent = createContentInContainer(producentsFolder, "edeposit.user.producent", **data)
-
         if filter(lambda value: value, editorValues):
-            print "chceme vytvorit editora"
             if False in map(lambda value: bool(value), editorValues):
                 raise ActionExecutionError(Invalid(u"Některé položky u editora nejsou vyplněny. Buď vyplňte editorovi všechny položky, nebo je všechny smažte."))
                 
@@ -223,18 +222,20 @@ class ProducentAddForm(DefaultAddForm):
             if api.user.get(username=editorData['username']):
                 raise ActionExecutionError(Invalid(u"Uživatelské jméno u editora je již obsazené. Vyplňte jiné."))
 
+        producentsFolder = self.getProducentsFolder()
+        # hack for title and description
+        data['title'] = data.get('IBasic.title','')
+        data['description'] = data.get('IBasic.description','')
+
+        producent = createContentInContainer(producentsFolder, "edeposit.user.producent", **data)
+
+        if filter(lambda value: value, editorValues):
             editorsFolder = producent['producent-editors']
             editorData['title'] = editorData['fullname']
             editor = createContentInContainer(editorsFolder, "edeposit.user.producenteditor", **editorData)
 
 
         administratorsFolder = producent['producent-administrators']
-        administrator = data['IAdministrator.administrator']
-        if api.user.get(username=administrator.username):
-            raise ActionExecutionError(Invalid(u"Uživatelské jméno u správce producenta je již použito. Vyplňte jiné."))   
-        # check administrator passwords
-        if administrator.password_ctl != administrator.password:
-            raise ActionExecutionError(Invalid(u"U správce producenta se neshodují zadaná hesla. Vyplňte hesla znovu."))
         
 
         administrator.title = getattr(administrator,'fullname',None)

@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from z3c.form import group, field
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -27,6 +27,11 @@ from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
 from edeposit.user.producentuser import IProducentUser
+from edeposit.user.producentadministratorfolder import IProducentAdministratorFolder
+
+from plone.dexterity.browser.add import DefaultAddForm, DefaultAddView
+from zope.interface import Invalid, Interface
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory
 
 def checkEmailAddress(value):
     reg_tool = api.portal.get_tool(name='portal_registration')
@@ -221,5 +226,19 @@ class ProducentAdministrator(Container):
 
 class SampleView(BrowserView):
     """ sample view class """
-
     # Add view methods here
+
+class ProducentAdministratorAddForm(DefaultAddForm):
+    portal_type="edeposit.user.producentadministrator"
+    grok.context(IProducentAdministratorFolder)
+
+    def add(self,object):
+        if api.user.get(username=object.username):
+            raise ActionExecutionError(Invalid(u"Uživatelské jméno již existuje. Použijte jiné."))
+        if object.password != object.password_ctl:
+            raise ActionExecutionError(Invalid(u"Hesla se neshodují. Zadejte hesla znovu."))
+        return super(ProducentAdministratorAddForm,self).add(object)
+
+class ProducentAdministratorAddView(DefaultAddView):
+    form = ProducentAdministratorAddForm
+    pass

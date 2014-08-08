@@ -136,6 +136,15 @@
 
   <include package=".portlets" />
 
+  <adapter  for="Products.CMFCore.interfaces.IFolderish
+                 Products.CMFDefault.interfaces.ICMFDefaultSkin
+                 plone.dexterity.interfaces.IDexterityFTI"
+            provides="zope.publisher.interfaces.browser.IBrowserPage"
+            factory=".producentadministrator.ProducentAdministratorAddView"
+            name="edeposit.user.producentadministrator"
+            />
+
+
   <!-- <unconfigure> -->
   <!--   <genericsetup:importStep -->
   <!--       name="edeposit.user" -->
