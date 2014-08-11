@@ -60,7 +60,7 @@ class ProducentEditorAddForm(DefaultAddForm):
 
     def add(self,object):
         if api.user.get(username=object.username):
-            raise ActionExecutionError(Invalid(u"Uživatelské jméno již existuje. Použijte jiné."))
+            raise ActionExecutionError(Invalid(u"Uživatelské jméno již existuje. Na záložce Přihlášení použijte jiné."))
         if object.password != object.password_ctl:
             raise ActionExecutionError(Invalid(u"Hesla se neshodují. Zadejte hesla znovu."))
         return super(ProducentEditorAddForm,self).add(object)
