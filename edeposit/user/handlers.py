@@ -77,6 +77,9 @@ def added(context,event):
     context.invokeFactory('edeposit.content.originalfilecontributingrequestsfolder',
                           'originalfile-contributing',
                           title=u"Odevzdané dokumenty")
+    # context.invokeFactory('edeposit.content.producentuserplansfolder',
+    #                       'work-plans',
+    #                       title=u"Plány práce")
 
 def addedProducentFolder(context,event):
     portal = api.portal.get()

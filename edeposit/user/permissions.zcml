@@ -6,4 +6,13 @@
       id="edeposit.AddProducent"
       title="E-Deposit: Add Producent"
       />
+  <permission
+      id="edeposit.EditProducentAdministrators"
+      title="E-Deposit: Edit Producent Administrators"
+      />
+  <permission
+      id="edeposit.EditProducentEditors"
+      title="E-Deposit: Edit Producent Editors"
+      />
+
 </configure>

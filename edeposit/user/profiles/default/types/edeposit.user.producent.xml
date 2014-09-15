@@ -15,6 +15,7 @@
     <element value="edeposit.content.epublicationfolder"/>
     <element value="edeposit.content.eperiodicalfolder"/>
     <element value="edeposit.content.bookfolder"/>
+    <element value="edeposit.content.producentuserplansfolder"/>
     <element value="edeposit.user.producentadministratorfolder"/>
     <element value="edeposit.user.producenteditorfolder"/>
     <element value="edeposit.content.originalfilecontributingrequestsfolder"/>

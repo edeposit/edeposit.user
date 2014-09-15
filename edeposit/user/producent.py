@@ -14,8 +14,11 @@ from plone.namedfile.interfaces import IImageScaleTraversable
 
 from plone.supermodel import model
 from Products.Five import BrowserView
-
+from five import grok
+from plone.app.vocabularies import users
 from edeposit.user import MessageFactory as _
+
+from z3c.relationfield.schema import RelationChoice, RelationList
 
 # Interface class; used to define content-type schema.
 
