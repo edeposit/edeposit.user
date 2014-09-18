@@ -39,6 +39,27 @@
       template="agreement_file_templates/sampleview.pt"
       permission="zope2.View"
       />
+
+  <browser:page
+        for=".producentfolder.IProducentFolder"
+        name="worklist-for-isbn-agency"
+        class=".producentfolder.WorklistForISBNAgencyView"
+        permission="cmf.ReviewPortalContent"
+        />
+  
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-for-acquisition"
+      class=".producentfolder.WorklistForAcquisitionView"
+      permission="cmf.ReviewPortalContent"
+      />
+  
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-for-catalogization"
+      class=".producentfolder.WorklistForCatalogizationView"
+        permission="cmf.ReviewPortalContent"
+      />
   
   <subscriber
       for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
@@ -66,14 +87,10 @@
       handler=".handlers.added"
       />
 
-  <subscriber
-      for=".producentfolder.IProducentFolder
-           zope.container.interfaces.IObjectAddedEvent
-	   "
-      handler=".handlers.addedProducentFolder"
-      />
-
   <!-- -*- extra stuff goes here -*- -->
+
+  <include package=".portlets" />
+  
     <class class=".producenteditorfolder.ProducentEditorFolder">
         <implements interface=".producenteditorfolder.IProducentEditorFolder" />
     </class>
@@ -126,14 +143,7 @@
         <implements interface=".producentuser.IProducentUser" />
     </class>
 
-    <browser:page
-        for=".producentuser.IProducentUser"
-        name="sampleview"
-        class=".producentuser.SampleView"
-        template="producentuser_templates/sampleview.pt"
-        permission="zope2.View"
-        />
-
+    
   <include package=".portlets" />
 
   <adapter  for="Products.CMFCore.interfaces.IFolderish

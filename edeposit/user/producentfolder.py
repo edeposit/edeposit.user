@@ -1,4 +1,4 @@
-
+# -*- coding: utf-8 -*-
 from z3c.form import group, field
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -15,7 +15,7 @@ from plone.supermodel import model
 from Products.Five import BrowserView
 
 from edeposit.user import MessageFactory as _
-
+from plone import api
 
 # Interface class; used to define content-type schema.
 
@@ -47,7 +47,65 @@ class ProducentFolder(Container):
 # its public name. Unless changed, the view will be available
 # TTW at content/@@sampleview
 
-class SampleView(BrowserView):
-    """ sample view class """
-    # Add view methods here
-    pass
+class WorklistCSV(BrowserView):
+    """Export the worklist to CSV as a one-off
+    """
+    
+    filename = ""
+    collection_name = ""
+    separator = "\t"
+    titles = []
+
+    def getRowValues(self, obj):
+        return []
+
+    def __call__(self):
+        self.request.response.setHeader("Content-type","text/csv")
+        self.request.response.setHeader("Content-disposition","attachment;filename=%s.csv" % self.filename)
+        header = self.separator.join(self.titles)
+
+        def result(brain):
+            return self.separator.join(self.getRowValues(brain))
+
+        results = map(result, self.context[self.collection_name].results(batch=False))
+        csvData = "\n".join([header,] + results)
+        return csvData
+
+class WorklistForISBNAgencyView(WorklistCSV):
+    filename = "worklist-for-isbn-agency"
+    collection_name = "originalfiles-for-isbn-agency"
+    titles = [u"Název", 
+              u"Podnázev", 
+              u"Nakladatel/vydavatel",
+              u"Název souboru", 
+              u"Linka v E-Deposit ",
+              u"Zpracovatel záznamu",
+              u"Datum vytvoření"]
+
+    def getRowValues(self,obj):
+        row =  [obj.getParentTitle or "", 
+                obj.getPodnazev or "", 
+                obj.getNakladatelVydavatel or "",
+                obj.title or "", 
+                obj.getURL() or "",
+                obj.getZpracovatelZaznamu or "",
+                obj.CreationDate() or ""]
+        return row
+
+class WorklistForAcquisitionView(WorklistCSV):
+    filename = "worklist-for-acquisition"
+    collection_name = "originalfiles-for-acquisition"
+
+    titles = WorklistCSV.titles
+
+    def getRowValues(self,obj):
+        return super(WorklistForAcquisitionView,self).getRowValues(obj)
+
+class WorklistForCatalogizationView(WorklistCSV):
+    filename = "worklist-for-catalogization"
+    collection_name = "originalfiles-for-catalogization"
+
+    titles = WorklistCSV.titles
+
+    def getRowValues(self,obj):
+        return super(WorklistForAcquisitionView,self).getRowValues(obj)
