@@ -75,20 +75,14 @@ class WorklistForISBNAgencyView(WorklistCSV):
     filename = "worklist-for-isbn-agency"
     collection_name = "originalfiles-for-isbn-agency"
     titles = [u"Název", 
-              u"Podnázev", 
               u"Nakladatel/vydavatel",
-              u"Název souboru", 
               u"Linka v E-Deposit ",
-              u"Zpracovatel záznamu",
               u"Datum vytvoření"]
 
     def getRowValues(self,obj):
         row =  [obj.getParentTitle or "", 
-                obj.getPodnazev or "", 
                 obj.getNakladatelVydavatel or "",
-                obj.title or "", 
                 obj.getURL() or "",
-                obj.getZpracovatelZaznamu or "",
                 obj.CreationDate() or ""]
         return row
 
@@ -101,11 +95,11 @@ class WorklistForAcquisitionView(WorklistCSV):
     def getRowValues(self,obj):
         return super(WorklistForAcquisitionView,self).getRowValues(obj)
 
-class WorklistForCatalogizationView(WorklistCSV):
-    filename = "worklist-for-catalogization"
-    collection_name = "originalfiles-for-catalogization"
+class WorklistForCataloguingView(WorklistCSV):
+    filename = "worklist-for-cataloguing"
+    collection_name = "originalfiles-for-cataloguing"
 
     titles = WorklistCSV.titles
 
     def getRowValues(self,obj):
-        return super(WorklistForAcquisitionView,self).getRowValues(obj)
+        return super(WorklistForCataloguingView,self).getRowValues(obj)

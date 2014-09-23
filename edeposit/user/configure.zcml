@@ -56,8 +56,8 @@
   
   <browser:page
       for=".producentfolder.IProducentFolder"
-      name="worklist-for-catalogization"
-      class=".producentfolder.WorklistForCatalogizationView"
+      name="worklist-for-cataloguing"
+      class=".producentfolder.WorklistForCataloguingView"
         permission="cmf.ReviewPortalContent"
       />
   
