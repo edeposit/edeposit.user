@@ -16,44 +16,56 @@
       </property>
       <property name="visible">True</property>
     </object>
-    <object name="join" meta_type="CMF Action" i18n:domain="plone">
-      <property name="title" i18n:translate="">Register</property>
+    <object name="login" meta_type="CMF Action" i18n:domain="plone">
+      <property name="title" i18n:translate="">Search</property>
       <property name="description" i18n:translate=""/>
-      <property name="url_expr">string:${globals_view/navigationRootUrl}/@@register-with-producent</property>
-      <property name="link_target"/><property name="icon_expr"/>
-      <property name="available_expr">python:member is None</property>
-      <property name="permissions">
-	<element value="Public, everyone can access"/>
-      </property>
-      <property name="visible">True</property>
-    </object>
-    <object name="mystuff" meta_type="CMF Action" i18n:domain="plone">
-      <property name="title" i18n:translate="">My Folder</property>
-      <property name="description" i18n:translate=""></property>
-      <property
-	  name="url_expr">string:${portal/portal_membership/getHomeUrl}</property>
-      <property name="link_target"></property>
-      <property name="icon_expr"></property>
-      <property
-	  name="available_expr">python:(member is not None) and (portal.portal_membership.getHomeFolder() is not None) </property>
-      <property name="permissions">
-	<element value="View"/>
-      </property>
-      <property name="visible">True</property>
-    </object>
-    <object name="agreement with National Library" 
-	    meta_type="CMF Action" 
-	    i18n:domain="edeposit.user">
-      <property name="title" i18n:translate="">Agreement with National Library</property>
-      <property name="description" i18n:translate=""/>
-      <property name="url_expr">string:${portal_url}/smlouva-o-poskytovani-sluzeb</property>
+      <property name="url_expr">string:${globals_view/navigationRootUrl}/@@search</property>
       <property name="link_target"/>
       <property name="icon_expr"/>
-      <property name="available_expr">python:member is None</property>
+      <property name="available_expr"></property>
       <property name="permissions">
 	<element value="View"/>
       </property>
       <property name="visible">True</property>
     </object>
-  </object>
+    <!-- <object name="join" meta_type="CMF Action" i18n:domain="plone"> -->
+    <!--   <property name="title" i18n:translate="">Register</property> -->
+    <!--   <property name="description" i18n:translate=""/> -->
+    <!--   <property name="url_expr">string:${globals_view/navigationRootUrl}/@@register-with-producent</property> -->
+    <!--   <property name="link_target"/><property name="icon_expr"/> -->
+    <!--   <property name="available_expr">python:member is None</property> -->
+    <!--   <property name="permissions"> -->
+    <!--     <element value="Public, everyone can access"/> -->
+    <!--   </property> -->
+    <!--   <property name="visible">True</property> -->
+    <!-- </object> -->
+    <!-- <object name="mystuff" meta_type="CMF Action" i18n:domain="plone"> -->
+    <!--   <property name="title" i18n:translate="">My Folder</property> -->
+    <!--   <property name="description" i18n:translate=""></property> -->
+    <!--   <property -->
+    <!--       name="url_expr">string:${portal/portal_membership/getHomeUrl}</property> -->
+    <!--   <property name="link_target"></property> -->
+    <!--   <property name="icon_expr"></property> -->
+    <!--   <property -->
+    <!--       name="available_expr">python:(member is not None) and (portal.portal_membership.getHomeFolder() is not None) </property> -->
+    <!--   <property name="permissions"> -->
+    <!--     <element value="View"/> -->
+    <!--   </property> -->
+    <!--   <property name="visible">True</property> -->
+    <!-- </object> -->
+  <!--   <object name="agreement with National Library"  -->
+  <!--           meta_type="CMF Action"  -->
+  <!--           i18n:domain="edeposit.user"> -->
+  <!--     <property name="title" i18n:translate="">Agreement with National Library</property> -->
+  <!--     <property name="description" i18n:translate=""/> -->
+  <!--     <property name="url_expr">string:${portal_url}/smlouva-o-poskytovani-sluzeb</property> -->
+  <!--     <property name="link_target"/> -->
+  <!--     <property name="icon_expr"/> -->
+  <!--     <property name="available_expr">python:member is None</property> -->
+  <!--     <property name="permissions"> -->
+  <!--       <element value="View"/> -->
+  <!--     </property> -->
+  <!--     <property name="visible">True</property> -->
+  <!--   </object> -->
+  <!-- </object> -->
 </object>
