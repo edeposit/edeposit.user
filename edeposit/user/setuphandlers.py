@@ -20,4 +20,4 @@ def setupVarious(context):
         # Not your add-on
         return
     portal = context.getSite()
-    #createFolders(portal)
+    createFolders(portal)
