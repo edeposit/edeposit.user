@@ -76,14 +76,12 @@ class WorklistForISBNAgencyView(WorklistCSV):
     collection_name = "originalfiles-for-isbn-agency"
     titles = [u"Název", 
               u"Nakladatel/vydavatel",
-              u"Linka v E-Deposit ",
-              u"Datum vytvoření"]
+              u"Linka v E-Deposit "]
 
     def getRowValues(self,obj):
         row =  [obj.getParentTitle or "", 
                 obj.getNakladatelVydavatel or "",
-                obj.getURL() or "",
-                obj.CreationDate() or ""]
+                obj.getURL() or ""]
         return row
 
 class WorklistForAcquisitionView(WorklistCSV):
