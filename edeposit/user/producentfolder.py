@@ -54,10 +54,15 @@ class WorklistCSV(BrowserView):
     filename = ""
     collection_name = ""
     separator = "\t"
-    titles = []
+    titles = [u"Název", 
+              u"Nakladatel/vydavatel",
+              u"Linka v E-Deposit "]
 
-    def getRowValues(self, obj):
-        return []
+    def getRowValues(self,obj):
+        row =  [obj.getParentTitle or "", 
+                obj.getNakladatelVydavatel or "",
+                obj.getURL() or ""]
+        return row
 
     def __call__(self):
         self.request.response.setHeader("Content-type","text/csv")
@@ -74,27 +79,15 @@ class WorklistCSV(BrowserView):
 class WorklistForISBNAgencyView(WorklistCSV):
     filename = "worklist-for-isbn-agency"
     collection_name = "originalfiles-for-isbn-agency"
-    titles = [u"Název", 
-              u"Nakladatel/vydavatel",
-              u"Linka v E-Deposit "]
-
-    def getRowValues(self,obj):
-        row =  [obj.getParentTitle or "", 
-                obj.getNakladatelVydavatel or "",
-                obj.getURL() or ""]
-        return row
 
 class WorklistWaitingForAleph(WorklistCSV):
     filename = "worklist-waiting-for-aleph"
     collection_name = "originalfiles-waiting-for-aleph"
-    titles = WorklistCSV.titles
 
 class WorklistForAcquisitionView(WorklistCSV):
     filename = "worklist-for-acquisition"
     collection_name = "originalfiles-for-acquisition"
-    titles = WorklistCSV.titles
 
 class WorklistForCataloguingView(WorklistCSV):
     filename = "worklist-for-cataloguing"
     collection_name = "originalfiles-for-cataloguing"
-    titles = WorklistCSV.titles
