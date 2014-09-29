@@ -84,20 +84,17 @@ class WorklistForISBNAgencyView(WorklistCSV):
                 obj.getURL() or ""]
         return row
 
+class WorklistWaitingForAleph(WorklistCSV):
+    filename = "worklist-waiting-for-aleph"
+    collection_name = "originalfiles-waiting-for-aleph"
+    titles = WorklistCSV.titles
+
 class WorklistForAcquisitionView(WorklistCSV):
     filename = "worklist-for-acquisition"
     collection_name = "originalfiles-for-acquisition"
-
     titles = WorklistCSV.titles
-
-    def getRowValues(self,obj):
-        return super(WorklistForAcquisitionView,self).getRowValues(obj)
 
 class WorklistForCataloguingView(WorklistCSV):
     filename = "worklist-for-cataloguing"
     collection_name = "originalfiles-for-cataloguing"
-
     titles = WorklistCSV.titles
-
-    def getRowValues(self,obj):
-        return super(WorklistForCataloguingView,self).getRowValues(obj)
