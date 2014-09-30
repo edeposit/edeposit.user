@@ -13,8 +13,7 @@
       <ul>
         <li tal:repeat="producent view/assignedProducents">
           <legend>
-            <a tal:attributes="href producent/path"
-               tal:content="producent/name">producent name</a>
+            <a tal:attributes="href producent/path">Můj producent</a>
           </legend>
           <ul>
             <li tal:repeat="link producent/links">

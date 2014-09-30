@@ -84,10 +84,10 @@ class WorklistWaitingForAleph(WorklistCSV):
     filename = "worklist-waiting-for-aleph"
     collection_name = "originalfiles-waiting-for-aleph"
 
-class WorklistForAcquisitionView(WorklistCSV):
-    filename = "worklist-for-acquisition"
-    collection_name = "originalfiles-for-acquisition"
+class WorklistWaitingForAcquisitionView(WorklistCSV):
+    filename = "worklist-waiting-for-acquisition"
+    collection_name = "originalfiles-waiting-for-acquisition"
 
 class WorklistForCataloguingView(WorklistCSV):
-    filename = "worklist-for-cataloguing"
-    collection_name = "originalfiles-for-cataloguing"
+    filename = "worklist-waiting-for-cataloguing"
+    collection_name = "originalfiles-waiting-for-cataloguing"
