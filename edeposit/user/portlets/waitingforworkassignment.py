@@ -26,7 +26,7 @@ def possibleCataloguersFactory(groupName):
     @grok.provider(IContextSourceBinder)
     def possibleCataloguers(context):
         acl_users = getToolByName(context, 'acl_users')
-        group = acl_users.getGroupById('Cataloguers')
+        group = acl_users.getGroupById(groupName)
         terms = []
         
         if group is not None:
@@ -49,7 +49,7 @@ class IAssignedCataloguer(form.Schema):
         required=False,
     )
     
-class AssignedForm(form.SchemaForm):
+class AssignedCataloguerForm(form.SchemaForm):
     schema = IAssignedCataloguer
     ignoreContext = True
     label = u""
@@ -66,7 +66,7 @@ class AssignedForm(form.SchemaForm):
         if data.get('cataloguer',None):
             api.user.grant_roles(username=data['cataloguer'],
                                  obj=self.context,
-                                 roles=('E-Deposit: Cataloguer',))
+                                 roles=('E-Deposit: Descriptive Cataloguer',))
             modified(self.context)
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context, self.submitAction)

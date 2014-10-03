@@ -8,7 +8,17 @@
     </dt>
 
     <dd class="portletItem odd">
-      
+      <ul>
+        <li><a tal:attributes="href string:${context/portal_url}/producents/originalfiles-waiting-for-descriptive-cataloguing-preparing"
+               title="" 
+               href="http://edeposit-test.nkp.cz/producents/originalfiles-waiting-for-descriptive-cataloguing-preparing" 
+               class="external-link"
+               target="_self">přehled originálů</a></li>
+        <li><a tal:attributes="href string:${context/portal_url}/producents/worklist-waiting-for-descriptive-cataloguing-preparing"
+               title="" 
+               href="http://edeposit-test.nkp.cz/producents/worklist-waiting-for-acquisition" 
+               class="external-link" 
+               target="_self">CSV s přehledem</a></li>
     </dd>
 
     <dd class="portletFooter">
