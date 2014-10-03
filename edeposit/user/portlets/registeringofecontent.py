@@ -26,16 +26,6 @@ class IregisteringOfEContent(IPortletDataProvider):
     same.
     """
 
-    # TODO: Add any zope.schema fields here to capture portlet configuration
-    # information. Alternatively, if there are no settings, leave this as an
-    # empty interface - see also notes around the add form and edit form
-    # below.
-
-    # some_field = schema.TextLine(title=_(u"Some field"),
-    #                              description=_(u"A field to use"),
-    #                              required=True)
-
-
 class Assignment(base.Assignment):
     """Portlet assignment.
 
@@ -44,15 +34,6 @@ class Assignment(base.Assignment):
     """
 
     implements(IregisteringOfEContent)
-
-    # TODO: Set default values for the configurable parameters here
-
-    # some_field = u""
-
-    # TODO: Add keyword parameters for configurable parameters here
-    # def __init__(self, some_field=u''):
-    #    self.some_field = some_field
-
     def __init__(self):
         pass
 

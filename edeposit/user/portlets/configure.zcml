@@ -9,6 +9,28 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.user.portlets.PrepareCataloguing"
+      interface=".preparecataloguing.IPrepareCataloguing"
+      assignment=".preparecataloguing.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".preparecataloguing.Renderer"
+      addview=".preparecataloguing.AddForm"
+      />
+
+
+  <plone:portlet
+      name="edeposit.user.portlets.WaitingForWorkAssignment"
+      interface=".waitingforworkassignment.IWaitingForWorkAssignment"
+      assignment=".waitingforworkassignment.Assignment"
+      view_permission="cmf.ReviewPortalContent"
+      edit_permission="cmf.ManagePortal"
+      renderer=".waitingforworkassignment.Renderer"
+      addview=".waitingforworkassignment.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.user.portlets.registeringOfEContent"
       interface=".registeringofecontent.IregisteringOfEContent"
       assignment=".registeringofecontent.Assignment"

@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+from five import grok
+from plone.directives import dexterity, form
+from z3c.relationfield.schema import RelationChoice, Relation, RelationList
+from plone.formwidget.contenttree import ObjPathSourceBinder, PathSourceBinder
+from z3c.form import field, button, validator
 from z3c.form import group, field
 from zope import schema
 from zope.interface import invariant, Invalid
@@ -24,28 +29,10 @@ class IProducentFolder(model.Schema, IImageScaleTraversable):
     E-Deposit - folder for producents
     """
 
-    # If you want a schema-defined interface, delete the model.load
-    # line below and delete the matching file in the models sub-directory.
-    # If you want a model-based interface, edit
-    # models/producentfolder.xml to define the content type.
-
-    model.load("models/producentfolder.xml")
-
-
-# Custom content-type class; objects created for this content type will
-# be instances of this class. Use this class to add content-type specific
-# methods and properties. Put methods that are mainly useful for rendering
-# in separate view classes.
-
 class ProducentFolder(Container):
     # Add your class methods and properties here
     pass
 
-
-# View class
-# The view is configured in configure.zcml. Edit there to change
-# its public name. Unless changed, the view will be available
-# TTW at content/@@sampleview
 
 class WorklistCSV(BrowserView):
     """Export the worklist to CSV as a one-off
@@ -88,6 +75,74 @@ class WorklistWaitingForAcquisitionView(WorklistCSV):
     filename = "worklist-waiting-for-acquisition"
     collection_name = "originalfiles-waiting-for-acquisition"
 
-class WorklistForCataloguingView(WorklistCSV):
-    filename = "worklist-waiting-for-cataloguing"
-    collection_name = "originalfiles-waiting-for-cataloguing"
+
+from edeposit.content.originalfile import IOriginalFile
+
+@grok.provider(IContextSourceBinder)
+def availableDescriptiveCataloguers(context):
+    acl_users = getToolByName(context, 'acl_users')
+    group = acl_users.getGroupById('Descriptive Cataloguers')
+    terms = []
+
+    if group is not None:
+        for member_id in group.getMemberIds():
+            user = acl_users.getUserById(member_id)
+            if user is not None:
+                member_name = user.getProperty('fullname') or member_id
+                terms.append(SimpleVocabulary.createTerm(member_id, str(member_id), member_name))
+
+    return SimpleVocabulary(terms)
+
+@grok.provider(IContextSourceBinder)
+def availableOriginalFiles(context):
+    path = '/'.join(context.getPhysicalPath())
+    query = { 
+        "portal_type" : "edeposit.content.originalfile",
+    }
+    return ObjPathSourceBinder(navigation_tree_query = query).__call__(context)
+
+from edeposit.content import MessageFactory as _
+
+
+# Interface class; used to define content-type schema.
+
+class IDescriptiveCatalogizationWorkPlan(form.Schema):
+    """
+    E-Deposit: Catalogization Work Plan
+    """
+
+    related_catalogizator = schema.Choice( title=u"Pracovník jmenné katalogizace",
+                                           required = True,
+                                           source = availableDescriptiveCataloguers )
+    
+    assigned_originalfiles = RelationList(
+        title=u"Dokumenty ke zpracování",
+        required = False,
+        default = [],
+        value_type =   RelationChoice( 
+            title=u"Originály",
+            source = ObjPathSourceBinder(object_provides=IOriginalFile.__identifier__)
+        )
+    )
+    
+# @form.default_value(field=ICatalogizationWorkPlan['related_catalogizator'])
+# def defaultCatalogizator(data):
+#     return "jans"
+
+class DescriptiveCatalogizationAssignForm(form.SchemaForm):
+    grok.name("descriptive-cataloguers-assign")
+    grok.require("cmf.ReviewPortalContent")
+    grok.context(IProducentFolder)
+    schema = IDescriptiveCatalogizationWorkPlan
+    ignoreContext = True
+    label = u""
+    description = u""
+
+    @button.buttonAndHandler(u'Přidělit práci')
+    def handleOK(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+        
+    pass

@@ -61,13 +61,6 @@
       permission="cmf.ReviewPortalContent"
       />
   
-  <browser:page
-      for=".producentfolder.IProducentFolder"
-      name="worklist-for-cataloguing"
-      class=".producentfolder.WorklistForCataloguingView"
-        permission="cmf.ReviewPortalContent"
-      />
-  
   <subscriber
       for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
       handler=".postlogin.logged_in_handler"
