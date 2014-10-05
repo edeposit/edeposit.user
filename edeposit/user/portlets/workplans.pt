@@ -1,0 +1,27 @@
+<dl class="portlet portletWorkPlans"
+    i18n:domain="edeposit.user">
+
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span tal:content="here/header"></span>
+        <span class="portletTopRight"></span>
+    </dt>
+
+    <dd class="portletItem odd">
+      <ul tal:repeat="user here/groupUsers" tal:define="collPath python:here.collectionPath(user)">
+        <li><a href="" 
+               tal:attributes="href collPath"
+               tal:content="user/fullname">Full name</a>
+        </li>
+      </ul>
+    </dd>
+
+    <dd class="portletFooter">
+        <span class="portletBottomLeft"></span>
+        <span>
+           Footer
+        </span>
+        <span class="portletBottomRight"></span>
+    </dd>
+
+</dl>

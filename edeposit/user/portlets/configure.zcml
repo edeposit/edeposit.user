@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.user.portlets.WorkPlansForDescriptiveCataloguers"
+      interface=".workplans.IWorkPlans"
+      assignment=".workplans.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".workplans.RendererForDescriptiveCataloguers"
+      addview=".workplans.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.user.portlets.PrepareCataloguing"
       interface=".preparecataloguing.IPrepareCataloguing"
       assignment=".preparecataloguing.Assignment"

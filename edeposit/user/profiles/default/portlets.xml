@@ -29,7 +29,33 @@
       />
   
   <!-- -*- extra stuff goes here -*- -->
-  
+
+   <!-- to have your portlet's title and description translated in 
+        @@manage-portlets, provide the messageids for the i18n:domain plone
+        (see http://dev.plone.org/plone/ticket/9631 or
+             http://dev.plone.org/plone/ticket/9090) for more information on 
+        internationalization with portlets or in plone in general -->
+
+   <portlet
+     addview="edeposit.user.portlets.WorkPlansForDescriptiveCataloguers"
+     title="Work Plans for Desriptive Cataloguing"
+     description=""
+     i18n:attributes="title; description"
+   />
+
+   <assignment
+       category="group"
+       key="Descriptive Cataloguing Administrators"
+       manager="plone.leftcolumn"
+       type="edeposit.user.portlets.WorkPlansForDescriptiveCataloguers"
+       />
+
+   <!-- to have your portlet's title and description translated in 
+        @@manage-portlets, provide the messageids for the i18n:domain plone
+        (see http://dev.plone.org/plone/ticket/9631 or
+             http://dev.plone.org/plone/ticket/9090) for more information on 
+        internationalization with portlets or in plone in general -->
+
    <portlet
        addview="edeposit.user.portlets.PrepareCataloguing"
        title="Prepare Descriptive Cataloguing"
