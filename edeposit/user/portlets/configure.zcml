@@ -18,6 +18,35 @@
       addview=".workplans.AddForm"
       />
 
+  <plone:portlet
+      name="edeposit.user.portlets.WorkPlansForDescriptiveReviewers"
+      interface=".workplans.IWorkPlansForDescriptiveReviewers"
+      assignment=".workplans.AssignmentForDescriptiveReviewers"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".workplans.RendererForDescriptiveReviewers"
+      addview=".workplans.AddFormForDescriptiveReviewers"
+      />
+
+  <!-- <plone:portlet -->
+  <!--     name="edeposit.user.portlets.WorkPlansForSubjectCataloguers" -->
+  <!--     interface=".workplans.IWorkPlans" -->
+  <!--     assignment=".workplans.Assignment" -->
+  <!--     view_permission="zope2.View" -->
+  <!--     edit_permission="cmf.ManagePortal" -->
+  <!--     renderer=".workplans.RendererForSubjectCataloguers" -->
+  <!--     addview=".workplans.AddForm" -->
+  <!--     /> -->
+
+  <!-- <plone:portlet -->
+  <!--     name="edeposit.user.portlets.WorkPlansForSubjectReviewers" -->
+  <!--     interface=".workplans.IWorkPlans" -->
+  <!--     assignment=".workplans.Assignment" -->
+  <!--     view_permission="zope2.View" -->
+  <!--     edit_permission="cmf.ManagePortal" -->
+  <!--     renderer=".workplans.RendererForSubjectReviewers" -->
+  <!--     addview=".workplans.AddForm" -->
+  <!--     /> -->
 
   <plone:portlet
       name="edeposit.user.portlets.PrepareCataloguing"

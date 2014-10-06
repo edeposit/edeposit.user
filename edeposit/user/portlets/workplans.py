@@ -9,74 +9,82 @@ from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+from plone import api
+
 from edeposit.user import MessageFactory as _
 
-class IWorkPlans(IPortletDataProvider):
-    """A portlet
-
-    It inherits from IPortletDataProvider because for this portlet, the
-    data that is being rendered and the portlet assignment itself are the
-    same.
-    """
-
-class Assignment(base.Assignment):
-    """Portlet assignment.
-
-    This is what is actually managed through the portlets UI and associated
-    with columns.
-    """
-
-    implements(IWorkPlans)
-
-    def __init__(self):
-        pass
-
-    @property
-    def title(self):
-        """This property is used to give the title of the portlet in the
-        "manage portlets" screen.
-        """
-        return _(u"Work Plans")
-
-
 class Renderer(base.Renderer):
-    """Portlet renderer.
-
-    This is registered in configure.zcml. The referenced page template is
-    rendered, and the implicit variable 'view' will refer to an instance
-    of this class. Other methods can be added and referenced in the template.
-    """
     groupName = "Administrators"
     portalHeader = "Some Title"
 
     render = ViewPageTemplateFile('workplans.pt')
 
     def groupUsers(self):
+
         users = api.user.get_users(groupname=self.groupName)
         return users
         
     def collectionPath(self, user):
-        return "/producents/originalfiles-waiting-for-user-" + user.id
+        print str(user)
+        collName =  "/producents/originalfiles-waiting-for-user-" + user.id
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents',collName))
+
+    def userFullname(self,user):
+        return user.getProperty("fullname")
 
     def header(self):
         return self.portalHeader
 
-# NOTE: If this portlet does not have any configurable parameters, you can
-# inherit from NullAddForm and remove the form_fields variable.
+class IWorkPlans(IPortletDataProvider):
+    pass
+
+class Assignment(base.Assignment):
+    implements(IWorkPlans)
+    def __init__(self):
+        pass
+
+    @property
+    def title(self):
+        return _(u"Work Plans")
 
 class AddForm(base.AddForm):
-    """Portlet add form.
-
-    This is registered in configure.zcml. The form_fields variable tells
-    zope.formlib which fields to display. The create() method actually
-    constructs the assignment that is being added.
-    """
     form_fields = form.Fields(IWorkPlans)
 
     def create(self, data):
         return Assignment(**data)
 
-
 class RendererForDescriptiveCataloguers(Renderer):
-    groupName = "E-Deposit: Descriptive Cataloguers"
-    portalHeader = u"Práce pro jmenný popis"
+    groupName = "Descriptive Cataloguers"
+    portalHeader = u"Práce pro Jmenný popis"
+
+
+
+class IWorkPlansForDescriptiveReviewers(IPortletDataProvider):
+    pass
+
+class AssignmentForDescriptiveReviewers(base.Assignment):
+    implements(IWorkPlansForDescriptiveReviewers)
+    def __init__(self):
+        pass
+
+    @property
+    def title(self):
+        return _(u"Work Plans For Descriptive Reviewers")
+
+class AddFormForDescriptiveReviewers(base.AddForm):
+    form_fields = form.Fields(IWorkPlansForDescriptiveReviewers)
+
+    def create(self, data):
+        return AssignmentForDescriptiveReviewers(**data)
+
+class RendererForDescriptiveReviewers(Renderer):
+    groupName = "Descriptive Cataloguing Reviewers"
+    portalHeader = u"Práce pro Jmennou revizi"
+
+class RendererForSubjectCataloguers(Renderer):
+    groupName = "Subject Cataloguers"
+    portalHeader = u"Práce pro Věcný popis"
+
+class RendererForSubjectReviewers(Renderer):
+    groupName = "Subject Cataloguing Reviewers"
+    portalHeader = u"Práce pro Věcnou revizi"
