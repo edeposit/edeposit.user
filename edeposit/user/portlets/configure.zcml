@@ -10,12 +10,12 @@
 
   <plone:portlet
       name="edeposit.user.portlets.WorkPlansForDescriptiveCataloguers"
-      interface=".workplans.IWorkPlans"
-      assignment=".workplans.Assignment"
+      interface=".workplans.IWorkPlansForDescriptiveCataloguers"
+      assignment=".workplans.AssignmentForDescriptiveCataloguers"
       view_permission="zope2.View"
       edit_permission="cmf.ManagePortal"
       renderer=".workplans.RendererForDescriptiveCataloguers"
-      addview=".workplans.AddForm"
+      addview=".workplans.AddFormForDescriptiveCataloguers"
       />
 
   <plone:portlet
@@ -28,35 +28,46 @@
       addview=".workplans.AddFormForDescriptiveReviewers"
       />
 
-  <!-- <plone:portlet -->
-  <!--     name="edeposit.user.portlets.WorkPlansForSubjectCataloguers" -->
-  <!--     interface=".workplans.IWorkPlans" -->
-  <!--     assignment=".workplans.Assignment" -->
-  <!--     view_permission="zope2.View" -->
-  <!--     edit_permission="cmf.ManagePortal" -->
-  <!--     renderer=".workplans.RendererForSubjectCataloguers" -->
-  <!--     addview=".workplans.AddForm" -->
-  <!--     /> -->
-
-  <!-- <plone:portlet -->
-  <!--     name="edeposit.user.portlets.WorkPlansForSubjectReviewers" -->
-  <!--     interface=".workplans.IWorkPlans" -->
-  <!--     assignment=".workplans.Assignment" -->
-  <!--     view_permission="zope2.View" -->
-  <!--     edit_permission="cmf.ManagePortal" -->
-  <!--     renderer=".workplans.RendererForSubjectReviewers" -->
-  <!--     addview=".workplans.AddForm" -->
-  <!--     /> -->
-
   <plone:portlet
-      name="edeposit.user.portlets.PrepareCataloguing"
-      interface=".preparecataloguing.IPrepareCataloguing"
-      assignment=".preparecataloguing.Assignment"
+      name="edeposit.user.portlets.WorkPlansForSubjectCataloguers"
+      interface=".workplans.IWorkPlansForSubjectCataloguers"
+      assignment=".workplans.AssignmentForSubjectCataloguers"
       view_permission="zope2.View"
       edit_permission="cmf.ManagePortal"
-      renderer=".preparecataloguing.Renderer"
-      addview=".preparecataloguing.AddForm"
+      renderer=".workplans.RendererForSubjectCataloguers"
+      addview=".workplans.AddFormForSubjectCataloguers"
       />
+
+  <plone:portlet
+      name="edeposit.user.portlets.WorkPlansForSubjectReviewers"
+      interface=".workplans.IWorkPlansForSubjectReviewers"
+      assignment=".workplans.AssignmentForSubjectReviewers"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".workplans.RendererForSubjectReviewers"
+      addview=".workplans.AddFormForSubjectReviewers"
+      />
+
+  <plone:portlet
+      name="edeposit.user.portlets.PrepareDescriptiveCataloguing"
+      interface=".preparecataloguing.IPrepareDescriptiveCataloguing"
+      assignment=".preparecataloguing.AssignmentForDescriptiveCataloguing"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".preparecataloguing.RendererForDescriptiveCataloguing"
+      addview=".preparecataloguing.AddFormForDescriptiveCataloguing"
+      />
+
+  <plone:portlet
+      name="edeposit.user.portlets.PrepareSubjectCataloguing"
+      interface=".preparecataloguing.IPrepareSubjectCataloguing"
+      assignment=".preparecataloguing.AssignmentForSubjectCataloguing"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".preparecataloguing.RendererForSubjectCataloguing"
+      addview=".preparecataloguing.AddFormForSubjectCataloguing"
+      />
+
 
   <plone:portlet
       name="edeposit.user.portlets.AssignDescriptiveCataloguer"

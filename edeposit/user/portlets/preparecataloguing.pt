@@ -3,22 +3,23 @@
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
-        <span>Čekáme na rozdělení práce </span>
+        <span tal:content="context/header">Čekáme na rozdělení práce </span>
         <span class="portletTopRight"></span>
     </dt>
 
     <dd class="portletItem odd">
       <ul>
-        <li><a tal:attributes="href string:${context/portal_url}/producents/originalfiles-waiting-for-descriptive-cataloguing-preparing"
+        <li><a tal:attributes="href string:${context/collectionPath}"
                title="" 
                href="http://edeposit-test.nkp.cz/producents/originalfiles-waiting-for-descriptive-cataloguing-preparing" 
                class="external-link"
                target="_self">přehled originálů</a></li>
-        <li><a tal:attributes="href string:${context/portal_url}/producents/worklist-waiting-for-descriptive-cataloguing-preparing"
+        <li><a tal:attributes="href string:${context/worklistPath}"
                title="" 
                href="http://edeposit-test.nkp.cz/producents/worklist-waiting-for-acquisition" 
                class="external-link" 
                target="_self">CSV s přehledem</a></li>
+      </ul>
     </dd>
 
     <dd class="portletFooter">

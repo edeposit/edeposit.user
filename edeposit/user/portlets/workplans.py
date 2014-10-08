@@ -20,12 +20,10 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('workplans.pt')
 
     def groupUsers(self):
-
         users = api.user.get_users(groupname=self.groupName)
         return users
         
     def collectionPath(self, user):
-        print str(user)
         collName =  "/producents/originalfiles-waiting-for-user-" + user.id
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents',collName))
 
@@ -35,47 +33,9 @@ class Renderer(base.Renderer):
     def header(self):
         return self.portalHeader
 
-class IWorkPlans(IPortletDataProvider):
-    pass
-
-class Assignment(base.Assignment):
-    implements(IWorkPlans)
-    def __init__(self):
-        pass
-
-    @property
-    def title(self):
-        return _(u"Work Plans")
-
-class AddForm(base.AddForm):
-    form_fields = form.Fields(IWorkPlans)
-
-    def create(self, data):
-        return Assignment(**data)
-
 class RendererForDescriptiveCataloguers(Renderer):
     groupName = "Descriptive Cataloguers"
     portalHeader = u"Práce pro Jmenný popis"
-
-
-
-class IWorkPlansForDescriptiveReviewers(IPortletDataProvider):
-    pass
-
-class AssignmentForDescriptiveReviewers(base.Assignment):
-    implements(IWorkPlansForDescriptiveReviewers)
-    def __init__(self):
-        pass
-
-    @property
-    def title(self):
-        return _(u"Work Plans For Descriptive Reviewers")
-
-class AddFormForDescriptiveReviewers(base.AddForm):
-    form_fields = form.Fields(IWorkPlansForDescriptiveReviewers)
-
-    def create(self, data):
-        return AssignmentForDescriptiveReviewers(**data)
 
 class RendererForDescriptiveReviewers(Renderer):
     groupName = "Descriptive Cataloguing Reviewers"
@@ -88,3 +48,70 @@ class RendererForSubjectCataloguers(Renderer):
 class RendererForSubjectReviewers(Renderer):
     groupName = "Subject Cataloguing Reviewers"
     portalHeader = u"Práce pro Věcnou revizi"
+
+
+class IWorkPlansForDescriptiveCataloguers(IPortletDataProvider):
+    pass
+
+class IWorkPlansForDescriptiveReviewers(IPortletDataProvider):
+    pass
+
+class IWorkPlansForSubjectCataloguers(IPortletDataProvider):
+    pass
+
+class IWorkPlansForSubjectReviewers(IPortletDataProvider):
+    pass
+
+class AssignmentForDescriptiveCataloguers(base.Assignment):
+    implements(IWorkPlansForDescriptiveCataloguers)
+    def __init__(self):
+        pass
+    @property
+    def title(self):
+        return _(u"Work Plans for Descriptive Cataloguers")
+
+class AssignmentForDescriptiveReviewers(base.Assignment):
+    implements(IWorkPlansForDescriptiveReviewers)
+    def __init__(self):
+        pass
+    @property
+    def title(self):
+        return _(u"Work Plans for Descriptive Reviewers")
+
+class AssignmentForSubjectCataloguers(base.Assignment):
+    implements(IWorkPlansForSubjectCataloguers)
+    def __init__(self):
+        pass
+    @property
+    def title(self):
+        return _(u"Work Plans for Subject Cataloguers")
+
+class AssignmentForSubjectReviewers(base.Assignment):
+    implements(IWorkPlansForSubjectReviewers)
+    def __init__(self):
+        pass
+    @property
+    def title(self):
+        return _(u"Work Plans for Subject Reviewers")
+
+class AddFormForDescriptiveCataloguers(base.AddForm):
+    form_fields = form.Fields(IWorkPlansForDescriptiveCataloguers)
+    def create(self, data):
+        return AssignmentForDescriptiveCataloguers(**data)
+
+class AddFormForDescriptiveReviewers(base.AddForm):
+    form_fields = form.Fields(IWorkPlansForDescriptiveReviewers)
+    def create(self, data):
+        return AssignmentForDescriptiveReviewers(**data)
+
+class AddFormForSubjectCataloguers(base.AddForm):
+    form_fields = form.Fields(IWorkPlansForSubjectCataloguers)
+    def create(self, data):
+        return AssignmentForSubjectCataloguers(**data)
+
+class AddFormForSubjectReviewers(base.AddForm):
+    form_fields = form.Fields(IWorkPlansForSubjectReviewers)
+    def create(self, data):
+        return AssignmentForSubjectReviewers(**data)
+
+
