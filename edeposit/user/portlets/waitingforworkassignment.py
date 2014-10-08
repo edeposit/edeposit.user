@@ -72,13 +72,14 @@ class IAssignedSubjectReviewer(form.Schema):
         required=False,
     )
     
-class AssignedDescriptiveCataloguerForm(form.SchemaForm):
+class AssignedWorkerForm(form.SchemaForm):
     schema = IAssignedDescriptiveCataloguer
     ignoreContext = True
     label = u""
     description = u""
     submitAction = 'submitDescriptiveCataloguingPreparing'
     fieldName = 'cataloguer'
+    roleName = 'E-Deposit: Descriptive Cataloguer'
 
     @button.buttonAndHandler(u'Přiřadit')
     def handleOK(self, action):
@@ -88,62 +89,102 @@ class AssignedDescriptiveCataloguerForm(form.SchemaForm):
             return
 
         if data.get(self.fieldName,None):
+            local_roles = self.context.get_local_roles()
+            remove = filter(lambda pair: self.roleName in pair[1], local_roles)
+            users = map(lambda pair: pair[0], remove)
+            for userid in users:
+                api.user.revoke_roles(username=userid, 
+                                      obj=self.context, 
+                                      roles=[self.roleName,])
             api.user.grant_roles(username=data[self.fieldName],
-                                 obj=self.context,
-                                 roles=('E-Deposit: Descriptive Cataloguer',))
+                                 obj=self.context, 
+                                 roles=[self.roleName,])
             modified(self.context)
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context, self.submitAction)
         self.status = u"Hotovo!"
 
+# @form.default_value(field=IAssignedCataloguer['cataloguer'])
+# def default_cataloguer(data):
+#     pass
 
-class AssignedDescriptiveReviewerForm(AssignedDescriptiveCataloguerForm):
+class AssignedDescriptiveCataloguerForm(AssignedWorkerForm):
+    schema = IAssignedDescriptiveCataloguer
+    submitAction = 'submitDescriptiveCataloguingPreparing'
+    fieldName = 'cataloguer'
+    roleName = 'E-Deposit: Descriptive Cataloguer'
+
+class AssignedDescriptiveReviewerForm(AssignedWorkerForm):
     schema = IAssignedDescriptiveReviewer
     submitAction = 'submitDescriptiveCataloguingReviewPreparing'
     fieldName = 'reviewer'
-
-class AssignedSubjectCataloguerForm(AssignedDescriptiveCataloguerForm):
+    roleName = 'E-Deposit: Descriptive Cataloguing Reviewer'
+                                 
+class AssignedSubjectCataloguerForm(AssignedWorkerForm):
     schema = IAssignedSubjectCataloguer
     submitAction = 'submitSubjectCataloguingreparing'
     fieldName = 'cataloguer'
+    roleName = 'E-Deposit: Subject Cataloguer'
 
-class AssignedSubjectReviewerForm(AssignedDescriptiveCataloguerForm):
+class AssignedSubjectReviewerForm(AssignedWorkerForm):
     schema = IAssignedSubjectReviewer
     submitAction = 'submitSubjectCataloguingReviewPreparing'
     fieldName = 'reviewer'
-
+    roleName = 'E-Deposit: Subject Cataloguing Reviewer'
 
 class PortletFormView(FormWrapper):
      """ Form view which renders z3c.forms embedded in a portlet.
      Subclass FormWrapper so that we can use custom frame template. """
      index = ViewPageTemplateFile("formwrapper.pt")
 
-class IWaitingForWorkAssignment(IPortletDataProvider):
-    """A portlet
+class IAssignDescriptiveCataloguerDataProvider(IPortletDataProvider):
+    pass
 
-    It inherits from IPortletDataProvider because for this portlet, the
-    data that is being rendered and the portlet assignment itself are the
-    same.
-    """
+class IAssignDescriptiveReviewerDataProvider(IPortletDataProvider):
+    pass
 
-class Assignment(base.Assignment):
-    """Portlet assignment.
+class IAssignSubjectCataloguerDataProvider(IPortletDataProvider):
+    pass
 
-    This is what is actually managed through the portlets UI and associated
-    with columns.
-    """
+class IAssignSubjectReviewerDataProvider(IPortletDataProvider):
+    pass
 
-    implements(IWaitingForWorkAssignment)
-
+class DescriptiveCataloguerAssignment(base.Assignment):
+    implements(IAssignDescriptiveCataloguerDataProvider)
     def __init__(self):
         pass
 
     @property
     def title(self):
-        """This property is used to give the title of the portlet in the
-        "manage portlets" screen.
-        """
         return _(u"Waiting for work assignment")
+
+class DescriptiveReviewerAssignment(base.Assignment):
+    implements(IAssignDescriptiveReviewerDataProvider)
+    def __init__(self):
+        pass
+
+    @property
+    def title(self):
+        return _(u"Waiting for work assignment")
+
+class SubjectCataloguerAssignment(base.Assignment):
+    implements(IAssignSubjectCataloguerDataProvider)
+    def __init__(self):
+        pass
+
+    @property
+    def title(self):
+        return _(u"Waiting for work assignment")
+
+class SubjectReviewerAssignment(base.Assignment):
+    implements(IAssignSubjectReviewerDataProvider)
+    def __init__(self):
+        pass
+
+    @property
+    def title(self):
+        return _(u"Waiting for work assignment")
+
 
 class Renderer(base.Renderer):
     """Portlet renderer.
@@ -154,7 +195,8 @@ class Renderer(base.Renderer):
     """
 
     render = ViewPageTemplateFile('waitingforworkassignment.pt')
-    
+    fornClass = AssignedDescriptiveCataloguerForm
+
     def __init__(self, context, request, view, manager, data):
         base.Renderer.__init__(self, context, request, view, manager, data)
         self.form_wrapper = self.createForm()
@@ -165,31 +207,63 @@ class Renderer(base.Renderer):
         @return: z3c.form wrapped for Plone 3 view
         """
         context = self.context.aq_inner
-        form = AssignedCataloguerForm(context, self.request)
+        form = self.formClass(context, self.request)
 
         # Wrap a form in Plone view
         view = PortletFormView(context, self.request)
         view = view.__of__(context) # Make sure acquisition chain is respected
         view.form_instance = form
         return view
-    
+
+class AssignDescriptiveCataloguerRenderer(Renderer):
+    formClass = AssignedDescriptiveCataloguerForm
     @property
     def available(self):
-        return 'descriptiveCataloguingPreparing' in api.content.get_state(self.context)
+        state = api.content.get_state(self.context)
+        return 'descriptiveCataloguingPreparing' in state or 'descriptiveCataloguing' in state
 
+class AssignDescriptiveReviewerRenderer(Renderer):
+    formClass = AssignedDescriptiveReviewerForm
+    @property
+    def available(self):
+        state = api.content.get_state(self.context)
+        return 'descriptiveCataloguingReviewPreparing' in state or 'descriptiveCataloguingReview' in state
+
+class AssignSubjectCataloguerRenderer(Renderer):
+    formClass = AssignedSubjectCataloguerForm
+    @property
+    def available(self):
+        state = api.content.get_state(self.context)
+        return 'subjectCataloguingPreparing' in state or 'subjectCataloguing' in state
+
+class AssignSubjectReviewerRenderer(Renderer):
+    formClass = AssignedSubjectReviewerForm
+    @property
+    def available(self):
+        state = api.content.get_state(self.context)
+        return 'subjectCataloguingReviewPreparing' in state or 'subjectCataloguingReview' in state
+    
 
 # NOTE: If this portlet does not have any configurable parameters, you can
 # inherit from NullAddForm and remove the form_fields variable.
 
-class AddForm(base.AddForm):
-    """Portlet add form.
-
-    This is registered in configure.zcml. The form_fields variable tells
-    zope.formlib which fields to display. The create() method actually
-    constructs the assignment that is being added.
-    """
-    form_fields = formlib.Fields(IWaitingForWorkAssignment)
-
+class AssignDescriptiveCataloguerAddForm(base.AddForm):
+    form_fields = formlib.Fields(IAssignDescriptiveCataloguerDataProvider)
     def create(self, data):
-        return Assignment(**data)
+        return DescriptiveCataloguerAssignment(**data)
+
+class AssignDescriptiveReviewerAddForm(base.AddForm):
+    form_fields = formlib.Fields(IAssignDescriptiveReviewerDataProvider)
+    def create(self, data):
+        return DescriptiveReviewerAssignment(**data)
+
+class AssignSubjectCataloguerAddForm(base.AddForm):
+    form_fields = formlib.Fields(IAssignSubjectCataloguerDataProvider)
+    def create(self, data):
+        return SubjectCataloguerAssignment(**data)
+
+class AssignSubjectReviewerAddForm(base.AddForm):
+    form_fields = formlib.Fields(IAssignSubjectReviewerDataProvider)
+    def create(self, data):
+        return SubjectReviewerAssignment(**data)
 

@@ -172,7 +172,7 @@ class ProducentAddForm(DefaultAddForm):
     label = _(u"Registration of a producent")
     description = _(u"Please fill informations about user and producent.")
     default_fieldset_label = u"Producent"
-
+    enable_form_tabbing = False
     @property
     def additionalSchemata(self):
         schemata =       [IAdministrator,] +\

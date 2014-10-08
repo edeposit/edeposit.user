@@ -8,19 +8,18 @@
     </dt>
 
     <dd class="portletItem odd">
-      <ul tal:repeat="user here/groupUsers" tal:define="collPath python:here.collectionPath(user)">
-        <li><a href="" 
-               tal:attributes="href collPath"
-               tal:content="user/fullname">Full name</a>
+      <ul>
+        <li tal:repeat="groupUser  here/groupUsers">
+	  <a href="" 
+	     tal:attributes="href python: here.collectionPath(groupUser)"
+	     tal:content="python: here.userFullname(groupUser)">Full name</a>
         </li>
       </ul>
     </dd>
 
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>
-        <span>
-           Footer
-        </span>
+        <span></span>
         <span class="portletBottomRight"></span>
     </dd>
 

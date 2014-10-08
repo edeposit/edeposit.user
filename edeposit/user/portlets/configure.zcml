@@ -18,6 +18,35 @@
       addview=".workplans.AddForm"
       />
 
+  <plone:portlet
+      name="edeposit.user.portlets.WorkPlansForDescriptiveReviewers"
+      interface=".workplans.IWorkPlansForDescriptiveReviewers"
+      assignment=".workplans.AssignmentForDescriptiveReviewers"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".workplans.RendererForDescriptiveReviewers"
+      addview=".workplans.AddFormForDescriptiveReviewers"
+      />
+
+  <!-- <plone:portlet -->
+  <!--     name="edeposit.user.portlets.WorkPlansForSubjectCataloguers" -->
+  <!--     interface=".workplans.IWorkPlans" -->
+  <!--     assignment=".workplans.Assignment" -->
+  <!--     view_permission="zope2.View" -->
+  <!--     edit_permission="cmf.ManagePortal" -->
+  <!--     renderer=".workplans.RendererForSubjectCataloguers" -->
+  <!--     addview=".workplans.AddForm" -->
+  <!--     /> -->
+
+  <!-- <plone:portlet -->
+  <!--     name="edeposit.user.portlets.WorkPlansForSubjectReviewers" -->
+  <!--     interface=".workplans.IWorkPlans" -->
+  <!--     assignment=".workplans.Assignment" -->
+  <!--     view_permission="zope2.View" -->
+  <!--     edit_permission="cmf.ManagePortal" -->
+  <!--     renderer=".workplans.RendererForSubjectReviewers" -->
+  <!--     addview=".workplans.AddForm" -->
+  <!--     /> -->
 
   <plone:portlet
       name="edeposit.user.portlets.PrepareCataloguing"
@@ -29,17 +58,45 @@
       addview=".preparecataloguing.AddForm"
       />
 
-
   <plone:portlet
-      name="edeposit.user.portlets.WaitingForWorkAssignment"
-      interface=".waitingforworkassignment.IWaitingForWorkAssignment"
-      assignment=".waitingforworkassignment.Assignment"
+      name="edeposit.user.portlets.AssignDescriptiveCataloguer"
+      interface=".waitingforworkassignment.IAssignDescriptiveCataloguerDataProvider"
+      assignment=".waitingforworkassignment.DescriptiveCataloguerAssignment"
       view_permission="cmf.ReviewPortalContent"
       edit_permission="cmf.ManagePortal"
-      renderer=".waitingforworkassignment.Renderer"
-      addview=".waitingforworkassignment.AddForm"
+      renderer=".waitingforworkassignment.AssignDescriptiveCataloguerRenderer"
+      addview=".waitingforworkassignment.AssignDescriptiveCataloguerAddForm"
       />
 
+  <plone:portlet
+      name="edeposit.user.portlets.AssignDescriptiveReviewer"
+      interface=".waitingforworkassignment.IAssignDescriptiveReviewerDataProvider"
+      assignment=".waitingforworkassignment.DescriptiveReviewerAssignment"
+      view_permission="cmf.ReviewPortalContent"
+      edit_permission="cmf.ManagePortal"
+      renderer=".waitingforworkassignment.AssignDescriptiveReviewerRenderer"
+      addview=".waitingforworkassignment.AssignDescriptiveReviewerAddForm"
+      />
+
+  <plone:portlet
+      name="edeposit.user.portlets.AssignSubjectCataloguer"
+      interface=".waitingforworkassignment.IAssignSubjectCataloguerDataProvider"
+      assignment=".waitingforworkassignment.SubjectCataloguerAssignment"
+      view_permission="cmf.ReviewPortalContent"
+      edit_permission="cmf.ManagePortal"
+      renderer=".waitingforworkassignment.AssignSubjectCataloguerRenderer"
+      addview=".waitingforworkassignment.AssignSubjectCataloguerAddForm"
+      />
+
+  <plone:portlet
+      name="edeposit.user.portlets.AssignSubjectReviewer"
+      interface=".waitingforworkassignment.IAssignSubjectReviewerDataProvider"
+      assignment=".waitingforworkassignment.SubjectReviewerAssignment"
+      view_permission="cmf.ReviewPortalContent"
+      edit_permission="cmf.ManagePortal"
+      renderer=".waitingforworkassignment.AssignSubjectReviewerRenderer"
+      addview=".waitingforworkassignment.AssignSubjectReviewerAddForm"
+      />
 
   <plone:portlet
       name="edeposit.user.portlets.registeringOfEContent"
