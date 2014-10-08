@@ -22,9 +22,9 @@ from plone.directives import form
 from zope.formlib import form as formlib
 from z3c.form import group, field, button
 
-def possibleCataloguersFactory(groupName):
+def possibleWorkersFactory(groupName):
     @grok.provider(IContextSourceBinder)
-    def possibleCataloguers(context):
+    def possibleWorkers(context):
         acl_users = getToolByName(context, 'acl_users')
         group = acl_users.getGroupById(groupName)
         terms = []
@@ -37,40 +37,80 @@ def possibleCataloguersFactory(groupName):
                     terms.append(SimpleVocabulary.createTerm(member_id, str(member_id), member_name))
                     
         return SimpleVocabulary(terms)
-    return possibleCataloguers
+    return possibleWorkers
 
-possibleDescriptiveCataloguers = possibleCataloguersFactory('Descriptive Cataloguers')
-possibleSubjectCataloguers = possibleCataloguersFactory('Subject Cataloguers')
+possibleDescriptiveCataloguers = possibleWorkersFactory('Descriptive Cataloguers')
+possibleDescriptiveReviewers = possibleWorkersFactory('Descriptive Cataloguing Reviewers')
+possibleSubjectCataloguers = possibleWorkersFactory('Subject Cataloguers')
+possibleSubjectReviewers = possibleWorkersFactory('Subject Cataloguing Reviewers')
 
-class IAssignedCataloguer(form.Schema):
+class IAssignedDescriptiveCataloguer(form.Schema):
     cataloguer = schema.Choice(
         title=_(u"Cataloguer"),
         source=possibleDescriptiveCataloguers,
         required=False,
     )
+
+class IAssignedSubjectCataloguer(form.Schema):
+    cataloguer = schema.Choice(
+        title=_(u"Cataloguer"),
+        source=possibleSubjectCataloguers,
+        required=False,
+    )
+
+class IAssignedDescriptiveReviewer(form.Schema):
+    reviewer = schema.Choice(
+        title=_(u"Reviewer"),
+        source=possibleDescriptiveReviewers,
+        required=False,
+    )
+
+class IAssignedSubjectReviewer(form.Schema):
+    reviewer = schema.Choice(
+        title=_(u"Reviewer"),
+        source=possibleSubjectReviewers,
+        required=False,
+    )
     
-class AssignedCataloguerForm(form.SchemaForm):
-    schema = IAssignedCataloguer
+class AssignedDescriptiveCataloguerForm(form.SchemaForm):
+    schema = IAssignedDescriptiveCataloguer
     ignoreContext = True
     label = u""
     description = u""
     submitAction = 'submitDescriptiveCataloguingPreparing'
+    fieldName = 'cataloguer'
 
-    @button.buttonAndHandler(u'Přiřadit katalogizatora')
+    @button.buttonAndHandler(u'Přiřadit')
     def handleOK(self, action):
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
             return
 
-        if data.get('cataloguer',None):
-            api.user.grant_roles(username=data['cataloguer'],
+        if data.get(self.fieldName,None):
+            api.user.grant_roles(username=data[self.fieldName],
                                  obj=self.context,
                                  roles=('E-Deposit: Descriptive Cataloguer',))
             modified(self.context)
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context, self.submitAction)
         self.status = u"Hotovo!"
+
+
+class AssignedDescriptiveReviewerForm(AssignedDescriptiveCataloguerForm):
+    schema = IAssignedDescriptiveReviewer
+    submitAction = 'submitDescriptiveCataloguingReviewPreparing'
+    fieldName = 'reviewer'
+
+class AssignedSubjectCataloguerForm(AssignedDescriptiveCataloguerForm):
+    schema = IAssignedSubjectCataloguer
+    submitAction = 'submitSubjectCataloguingreparing'
+    fieldName = 'cataloguer'
+
+class AssignedSubjectReviewerForm(AssignedDescriptiveCataloguerForm):
+    schema = IAssignedSubjectReviewer
+    submitAction = 'submitSubjectCataloguingReviewPreparing'
+    fieldName = 'reviewer'
 
 
 class PortletFormView(FormWrapper):
@@ -114,7 +154,7 @@ class Renderer(base.Renderer):
     """
 
     render = ViewPageTemplateFile('waitingforworkassignment.pt')
-
+    
     def __init__(self, context, request, view, manager, data):
         base.Renderer.__init__(self, context, request, view, manager, data)
         self.form_wrapper = self.createForm()
