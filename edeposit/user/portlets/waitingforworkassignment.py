@@ -55,6 +55,7 @@ class AssignedCataloguerForm(form.SchemaForm):
     label = u""
     description = u""
     submitAction = 'submitDescriptiveCataloguingPreparing'
+    roleName = 'E-Deposit: Descriptive Cataloguer'
 
     @button.buttonAndHandler(u'Přiřadit katalogizatora')
     def handleOK(self, action):
@@ -64,14 +65,24 @@ class AssignedCataloguerForm(form.SchemaForm):
             return
 
         if data.get('cataloguer',None):
+            local_roles = self.context.get_local_roles()
+            remove = filter(lambda pair: self.roleName in pair[1], local_roles)
+            users = map(lambda pair: pair[0], remove)
+            for userid in users:
+                api.user.revoke_roles(username=userid, 
+                                      obj=self.context, 
+                                      roles=[self.roleName,])
             api.user.grant_roles(username=data['cataloguer'],
                                  obj=self.context,
-                                 roles=('E-Deposit: Descriptive Cataloguer',))
+                                 roles=(self.roleName,))
             modified(self.context)
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context, self.submitAction)
         self.status = u"Hotovo!"
 
+@form.default_value(field=IAssignedCataloguer['cataloguer'])
+def default_cataloguer(data):
+    pass
 
 class PortletFormView(FormWrapper):
      """ Form view which renders z3c.forms embedded in a portlet.
@@ -135,7 +146,8 @@ class Renderer(base.Renderer):
     
     @property
     def available(self):
-        return 'descriptiveCataloguingPreparing' in api.content.get_state(self.context)
+        state = api.content.get_state(self.context)
+        return 'descriptiveCataloguingPreparing' in state or 'descriptiveCataloguing' in state
 
 
 # NOTE: If this portlet does not have any configurable parameters, you can
