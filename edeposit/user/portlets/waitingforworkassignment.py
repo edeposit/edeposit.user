@@ -50,18 +50,17 @@ class IAssignedDescriptiveCataloguer(form.Schema):
         source=possibleDescriptiveCataloguers,
         required=False,
     )
+class IAssignedDescriptiveReviewer(form.Schema):
+    reviewer = schema.Choice(
+        title=_(u"Reviewer"),
+        source=possibleDescriptiveReviewers,
+        required=False,
+    )
 
 class IAssignedSubjectCataloguer(form.Schema):
     cataloguer = schema.Choice(
         title=_(u"Cataloguer"),
         source=possibleSubjectCataloguers,
-        required=False,
-    )
-
-class IAssignedDescriptiveReviewer(form.Schema):
-    reviewer = schema.Choice(
-        title=_(u"Reviewer"),
-        source=possibleDescriptiveReviewers,
         required=False,
     )
 
