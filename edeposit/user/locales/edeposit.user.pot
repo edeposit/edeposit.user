@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-05 12:11+0000\n"
+"POT-Creation-Date: 2014-10-09 05:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: edeposit.user\n"
 
-#: edeposit/user/producent.py:66
+#: edeposit/user/producent.py:69
 #: edeposit/user/userdataschema.py:156
 msgid "Address"
 msgstr ""
@@ -28,17 +28,16 @@ msgstr ""
 msgid "Agreement"
 msgstr ""
 
-#: edeposit/user/producent.py:70
-#: edeposit/user/profiles/default/actions.xml
+#: edeposit/user/producent.py:73
 msgid "Agreement with National Library"
 msgstr ""
 
-#: edeposit/user/handlers.py:112
-msgid "Approved producents"
+#: edeposit/user/portlets/waitingforworkassignment.py:49
+msgid "Cataloguer"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:42
+#: edeposit/user/producent.py:45
 msgid "City"
 msgstr ""
 
@@ -46,12 +45,12 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: edeposit/user/portlets/registeringofecontent.py:118
+#: edeposit/user/portlets/registeringofecontent.py:100
 msgid "Contribute Original file"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:51
+#: edeposit/user/producent.py:54
 msgid "Country"
 msgstr ""
 
@@ -96,22 +95,22 @@ msgid "E-Deposit Site"
 msgstr ""
 
 #: edeposit/user/portlets/documentcontributing.py:64
-#: edeposit/user/portlets/registeringofecontent.py:64
+#: edeposit/user/portlets/registeringofecontent.py:45
 msgid "E-Deposit: Registering of any eContent"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:43
+#: edeposit/user/producent.py:46
 msgid "Fill a city"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:52
+#: edeposit/user/producent.py:55
 msgid "Fill a country"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:28
+#: edeposit/user/producent.py:31
 msgid "Fill a home page we can find a producent at."
 msgstr ""
 
@@ -120,20 +119,20 @@ msgid "Fill a phone, email or name of a person we can contact."
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:38
+#: edeposit/user/producent.py:41
 msgid "Fill a street with number."
 msgstr ""
 
-#: edeposit/user/browser/register.py:327
+#: edeposit/user/browser/register.py:298
 msgid "Fill in at least one producent administrator"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:27
+#: edeposit/user/producent.py:30
 msgid "Home page"
 msgstr ""
 
-#: edeposit/user/browser/register.py:278
+#: edeposit/user/browser/register.py:249
 msgid "Item created"
 msgstr ""
 
@@ -158,6 +157,14 @@ msgstr ""
 #: edeposit/user/browser/post-login.pt:20
 #: edeposit/user/browser/registered.pt:20
 msgid "Pokud chcete využít možnosti řízené distribuce Vašich knih, navštivte Národní knihovnu a sepište smlouvu."
+msgstr ""
+
+#: edeposit/user/portlets/preparecataloguing.py:26
+msgid "Prepare Descriptive Cataloguing"
+msgstr ""
+
+#: edeposit/user/portlets/preparecataloguing.py:34
+msgid "Prepare Subject Cataloguing"
 msgstr ""
 
 #: edeposit/user/profiles/default/types/edeposit.user.producent.xml
@@ -198,15 +205,7 @@ msgstr ""
 msgid "ProducentUser"
 msgstr ""
 
-#: edeposit/user/handlers.py:97
-msgid "Producents in declaring"
-msgstr ""
-
-#: edeposit/user/handlers.py:127
-msgid "Producents waiting for approving"
-msgstr ""
-
-#: edeposit/user/browser/register.py:231
+#: edeposit/user/browser/register.py:194
 msgid "Register"
 msgstr ""
 
@@ -219,39 +218,55 @@ msgstr ""
 msgid "Registration of eContent"
 msgstr ""
 
+#: edeposit/user/portlets/waitingforworkassignment.py:55
+msgid "Reviewer"
+msgstr ""
+
 #: edeposit/user/models/producent.xml
 msgid "Street"
 msgstr ""
 
 #: edeposit/user/agreement_file.py:34
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:62
+#: edeposit/user/producent.py:65
 msgid "Upload file with agreement between National Library and you."
+msgstr ""
+
+#: edeposit/user/portlets/preparecataloguing.py:40
+msgid "Waiting for Descriptive Cataloguing Preparing"
+msgstr ""
+
+#: edeposit/user/portlets/preparecataloguing.py:58
+msgid "Waiting for Subject Cataloguing Preparing"
+msgstr ""
+
+#: edeposit/user/portlets/waitingforworkassignment.py:158
+msgid "Waiting for work assignment"
 msgstr ""
 
 #: edeposit/user/profiles/default/property.xml
 msgid "Welcome to E-Deposit"
 msgstr ""
 
+#: edeposit/user/portlets/workplans.py:71
+msgid "Work Plans for Descriptive Cataloguers"
+msgstr ""
+
+#: edeposit/user/portlets/workplans.py:79
+msgid "Work Plans for Descriptive Reviewers"
+msgstr ""
+
+#: edeposit/user/portlets/workplans.py:87
+msgid "Work Plans for Subject Cataloguers"
+msgstr ""
+
+#: edeposit/user/portlets/workplans.py:95
+msgid "Work Plans for Subject Reviewers"
+msgstr ""
+
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:33
+#: edeposit/user/producent.py:36
 msgid "Your location - either city and country - or in a company setting, where your office is located"
-msgstr ""
-
-#: edeposit/user/handlers.py:143
-msgid "ePublications in declaring"
-msgstr ""
-
-#: edeposit/user/handlers.py:161
-msgid "ePublications waiting for RIV to be reviewed"
-msgstr ""
-
-#: edeposit/user/handlers.py:149
-msgid "ePublications waiting for preparing of acquisition"
-msgstr ""
-
-#: edeposit/user/handlers.py:155
-msgid "ePublications with errors"
 msgstr ""
 
 #. Default: "Fill in the city you live in."
@@ -390,7 +405,7 @@ msgid "label_user_name"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:32
+#: edeposit/user/producent.py:35
 msgid "location"
 msgstr ""
 

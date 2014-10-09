@@ -4,7 +4,7 @@ from zope.interface import implements
 
 from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
-
+from plone import api
 from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile

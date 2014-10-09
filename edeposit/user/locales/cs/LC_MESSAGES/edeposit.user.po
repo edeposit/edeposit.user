@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-05 12:11+0000\n"
-"PO-Revision-Date: 2014-06-05 14:11+0200\n"
+"POT-Creation-Date: 2014-10-09 05:20+0000\n"
+"PO-Revision-Date: 2014-10-09 07:15+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
 
-#: edeposit/user/producent.py:66
+#: edeposit/user/producent.py:69
 #: edeposit/user/userdataschema.py:156
 msgid "Address"
 msgstr "Adresa"
@@ -25,17 +25,16 @@ msgstr "Adresa"
 msgid "Agreement"
 msgstr "Smlouva"
 
-#: edeposit/user/producent.py:70
-#: edeposit/user/profiles/default/actions.xml
+#: edeposit/user/producent.py:73
 msgid "Agreement with National Library"
 msgstr "Smlouva s Národní knihovnou"
 
-#: edeposit/user/handlers.py:112
-msgid "Approved producents"
-msgstr "Schválení producenti"
+#: edeposit/user/portlets/waitingforworkassignment.py:49
+msgid "Cataloguer"
+msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:42
+#: edeposit/user/producent.py:45
 msgid "City"
 msgstr "Město"
 
@@ -43,12 +42,12 @@ msgstr "Město"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: edeposit/user/portlets/registeringofecontent.py:118
+#: edeposit/user/portlets/registeringofecontent.py:100
 msgid "Contribute Original file"
 msgstr "Odevzdat dokument"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:51
+#: edeposit/user/producent.py:54
 msgid "Country"
 msgstr "Země"
 
@@ -93,22 +92,22 @@ msgid "E-Deposit Site"
 msgstr "E-Deposit"
 
 #: edeposit/user/portlets/documentcontributing.py:64
-#: edeposit/user/portlets/registeringofecontent.py:64
+#: edeposit/user/portlets/registeringofecontent.py:45
 msgid "E-Deposit: Registering of any eContent"
 msgstr "Ohlášení ePublikací, ePeriodik, knih"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:43
+#: edeposit/user/producent.py:46
 msgid "Fill a city"
 msgstr "Doplňte město"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:52
+#: edeposit/user/producent.py:55
 msgid "Fill a country"
 msgstr "Doplňte zemi"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:28
+#: edeposit/user/producent.py:31
 msgid "Fill a home page we can find a producent at."
 msgstr "Doplňte adresu web stránky, na které můžeme producenta najít."
 
@@ -117,20 +116,20 @@ msgid "Fill a phone, email or name of a person we can contact."
 msgstr "Doplňte telefon, email, nebo jméno osoby. Abychom se mohli na producenta obrátit."
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:38
+#: edeposit/user/producent.py:41
 msgid "Fill a street with number."
 msgstr "Doplňte ulici a číslo domu."
 
-#: edeposit/user/browser/register.py:327
+#: edeposit/user/browser/register.py:298
 msgid "Fill in at least one producent administrator"
 msgstr ""
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:27
+#: edeposit/user/producent.py:30
 msgid "Home page"
 msgstr "Domovská stránka"
 
-#: edeposit/user/browser/register.py:278
+#: edeposit/user/browser/register.py:249
 msgid "Item created"
 msgstr "Položka byla vytvořena"
 
@@ -156,6 +155,14 @@ msgstr "Doplňte informace o uživateli a producentovi."
 #: edeposit/user/browser/registered.pt:20
 msgid "Pokud chcete využít možnosti řízené distribuce Vašich knih, navštivte Národní knihovnu a sepište smlouvu."
 msgstr ""
+
+#: edeposit/user/portlets/preparecataloguing.py:26
+msgid "Prepare Descriptive Cataloguing"
+msgstr "Příprava jmenného popisu"
+
+#: edeposit/user/portlets/preparecataloguing.py:34
+msgid "Prepare Subject Cataloguing"
+msgstr "Příprava věcného popisu"
 
 #: edeposit/user/profiles/default/types/edeposit.user.producent.xml
 #: edeposit/user/userdataschema.py:181
@@ -195,15 +202,7 @@ msgstr ""
 msgid "ProducentUser"
 msgstr ""
 
-#: edeposit/user/handlers.py:97
-msgid "Producents in declaring"
-msgstr "Rozpracovaní producenti"
-
-#: edeposit/user/handlers.py:127
-msgid "Producents waiting for approving"
-msgstr "Producenti čekající na schválení"
-
-#: edeposit/user/browser/register.py:231
+#: edeposit/user/browser/register.py:194
 msgid "Register"
 msgstr "Registrovat"
 
@@ -216,40 +215,56 @@ msgstr "Registrace producenta"
 msgid "Registration of eContent"
 msgstr "Ohlášení ePublikace, ePeriodika, knihy"
 
+#: edeposit/user/portlets/waitingforworkassignment.py:55
+msgid "Reviewer"
+msgstr "Revizor"
+
 #: edeposit/user/models/producent.xml
 msgid "Street"
 msgstr "Ulice"
 
 #: edeposit/user/agreement_file.py:34
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:62
+#: edeposit/user/producent.py:65
 msgid "Upload file with agreement between National Library and you."
 msgstr "Uložte soubor se smlouvou mezi Vámi a Národní knihovnou."
+
+#: edeposit/user/portlets/preparecataloguing.py:40
+msgid "Waiting for Descriptive Cataloguing Preparing"
+msgstr "Čekáme na přípravu jmenného popisu"
+
+#: edeposit/user/portlets/preparecataloguing.py:58
+msgid "Waiting for Subject Cataloguing Preparing"
+msgstr "Čekáme na přípravu věcného popisu"
+
+#: edeposit/user/portlets/waitingforworkassignment.py:158
+msgid "Waiting for work assignment"
+msgstr "Čeká na přidělení"
 
 #: edeposit/user/profiles/default/property.xml
 msgid "Welcome to E-Deposit"
 msgstr "Vítejte na stránách projektu E-Deposit!"
 
+#: edeposit/user/portlets/workplans.py:71
+msgid "Work Plans for Descriptive Cataloguers"
+msgstr "Plány práce pro jmenný popis"
+
+#: edeposit/user/portlets/workplans.py:79
+msgid "Work Plans for Descriptive Reviewers"
+msgstr "Plány práce pro revizi jmenného popisu"
+
+#: edeposit/user/portlets/workplans.py:87
+msgid "Work Plans for Subject Cataloguers"
+msgstr "Plány práce pro věcný popis"
+
+#: edeposit/user/portlets/workplans.py:95
+msgid "Work Plans for Subject Reviewers"
+msgstr "Plány práce pro revizi věcného popisu"
+
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:33
+#: edeposit/user/producent.py:36
 msgid "Your location - either city and country - or in a company setting, where your office is located"
 msgstr "Vaše lokace - buď město, země nebo v případě společnosti, lokaci sídla firmy."
-
-#: edeposit/user/handlers.py:143
-msgid "ePublications in declaring"
-msgstr "Rozpracované ePublikace"
-
-#: edeposit/user/handlers.py:161
-msgid "ePublications waiting for RIV to be reviewed"
-msgstr ""
-
-#: edeposit/user/handlers.py:149
-msgid "ePublications waiting for preparing of acquisition"
-msgstr "ePublikace čekající na přípravu akvizice"
-
-#: edeposit/user/handlers.py:155
-msgid "ePublications with errors"
-msgstr "ePublikace s chybami"
 
 #. Default: "Fill in the city you live in."
 #: edeposit/user/userdataschema.py:168
@@ -387,7 +402,7 @@ msgid "label_user_name"
 msgstr "Uživatelské jméno"
 
 #: edeposit/user/models/producent.xml
-#: edeposit/user/producent.py:32
+#: edeposit/user/producent.py:35
 msgid "location"
 msgstr "Lokalita"
 

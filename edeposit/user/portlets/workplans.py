@@ -35,19 +35,19 @@ class Renderer(base.Renderer):
 
 class RendererForDescriptiveCataloguers(Renderer):
     groupName = "Descriptive Cataloguers"
-    portalHeader = u"Práce pro Jmenný popis"
+    portalHeader = u"Práce pro jmenný popis"
 
 class RendererForDescriptiveReviewers(Renderer):
     groupName = "Descriptive Cataloguing Reviewers"
-    portalHeader = u"Práce pro Jmennou revizi"
+    portalHeader = u"Práce pro revizi jmenného popisu"
 
 class RendererForSubjectCataloguers(Renderer):
     groupName = "Subject Cataloguers"
-    portalHeader = u"Práce pro Věcný popis"
+    portalHeader = u"Práce pro věcný popis"
 
 class RendererForSubjectReviewers(Renderer):
     groupName = "Subject Cataloguing Reviewers"
-    portalHeader = u"Práce pro Věcnou revizi"
+    portalHeader = u"Práce pro revizi věcného popisu"
 
 
 class IWorkPlansForDescriptiveCataloguers(IPortletDataProvider):

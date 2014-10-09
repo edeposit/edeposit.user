@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-06-05 12:11+0000\n"
+"POT-Creation-Date: 2014-10-09 05:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,15 +25,31 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: edeposit/user/profiles/default/actions.xml
-msgid "My Folder"
-msgstr ""
-
 #: edeposit/user/profiles/default/portlets.xml
 msgid "Portlet helps producents to register ePublications, eBooks and ePeriodical"
 msgstr ""
 
+#: edeposit/user/profiles/default/portlets.xml
+msgid "Prepare Descriptive Cataloguing"
+msgstr ""
+
+#: edeposit/user/profiles/default/portlets.xml
+msgid "Prepare Subject Cataloguing"
+msgstr ""
+
 #: edeposit/user/profiles/default/actions.xml
-msgid "Register"
+msgid "Search"
+msgstr ""
+
+#: edeposit/user/profiles/default/portlets.xml
+msgid "Waiting for work assignment"
+msgstr ""
+
+#: edeposit/user/profiles/default/portlets.xml
+msgid "Work Plans for Desriptive Cataloguing"
+msgstr ""
+
+#: edeposit/user/profiles/default/portlets.xml
+msgid "Work Plans for Desriptive Cataloguing Reviewers"
 msgstr ""
 
