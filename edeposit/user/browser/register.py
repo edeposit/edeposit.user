@@ -128,45 +128,6 @@ class IEditor(model.Schema):
         required=False,
     )
 
-    # @invariant
-    # def checkPasswords(data):
-    #     password, password_ctl = getattr(data,'password',None),getattr(data,'password_ctl',None)
-    #     if password and password_ctl:
-    #         if password != password_ctl:
-    #             raise Invalid("hesla se musí shodovat")
-    #     pass
-        
-    #     # raise Invalid(
-    #     #     PC_("You cannot have a type as a secondary type without "
-    #     #         "having it allowed. You have selected ${types}s.",
-    #     #         mapping=dict(types=", ".join(missing))))
-    #     # error_keys = [error.field_name for error in errors
-    #     #               if hasattr(error, 'field_name')]
-    #     # if not ('password' in error_keys or 'password_ctl' in error_keys):
-    #     #     password = self.widgets['password'].getInputValue()
-    #     #     password_ctl = self.widgets['password_ctl'].getInputValue()
-    #     #     if password != password_ctl:
-    #     #         err_str = _(u'Passwords do not match.')
-    #     #         errors.append(WidgetInputError('password',
-    #     #                                        u'label_password', err_str))
-    #     #         errors.append(WidgetInputError('password_ctl',
-    #     #                                        u'label_password', err_str))
-    #     #         self.widgets['password'].error = err_str
-    #     #         self.widgets['password_ctl'].error = err_str
-    #     #         pass
-    #     #         # Password field checked against RegistrationTool
-    #     #         # Skip this check if password fields already have an error
-    #     #         if not 'password' in error_keys:
-    #     #             password = self.widgets['password'].getInputValue()
-    #     #             if password:
-    #     #                 # Use PAS to test validity
-    #     #                 err_str = registration.testPasswordValidity(password)
-    #     #                 if err_str:
-    #     #                     errors.append(WidgetInputError('password',
-    #     #                                                    u'label_password', err_str))
-    #     #                     self.widgets['password'].error = err_str
-
-
 
 class ProducentAddForm(DefaultAddForm):
     label = _(u"Registration of a producent")
