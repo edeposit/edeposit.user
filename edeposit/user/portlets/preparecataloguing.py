@@ -45,6 +45,12 @@ class RendererForDescriptiveCataloguing(base.Renderer):
     def worklistPath(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-descriptive-cataloguing-preparing'))
 
+    def collection01Path(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-descriptive-cataloguing-review-preparing'))
+
+    def worklist01Path(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-descriptive-cataloguing-review-preparing'))
+
 class RendererForSubjectCataloguing(base.Renderer):
     render = ViewPageTemplateFile('preparecataloguing.pt')
 
@@ -56,6 +62,12 @@ class RendererForSubjectCataloguing(base.Renderer):
 
     def worklistPath(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-subject-cataloguing-preparing'))
+
+    def collection01Path(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-subject-cataloguing-review-preparing'))
+
+    def worklist01Path(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-subject-cataloguing-review-preparing'))
         
 
 class AddFormForDescriptiveCataloguing(base.AddForm):

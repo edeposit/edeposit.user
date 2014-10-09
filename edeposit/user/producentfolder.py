@@ -75,6 +75,22 @@ class WorklistWaitingForAcquisitionView(WorklistCSV):
     filename = "worklist-waiting-for-acquisition"
     collection_name = "originalfiles-waiting-for-acquisition"
 
+class WorklistWaitingForDescriptiveCataloguingPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-descriptive-cataloguing-preparing"
+    collection_name = "originalfiles-waiting-for-descriptive-cataloguing-preparing"
+
+class WorklistWaitingForDescriptiveCataloguingReviewPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-descriptive-cataloguing-review-preparing"
+    collection_name = "originalfiles-waiting-for-descriptive-cataloguing-review-preparing"
+
+class WorklistWaitingForSubjectCataloguingPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-subject-cataloguing-preparing"
+    collection_name = "originalfiles-waiting-for-subject-cataloguing-preparing"
+
+class WorklistWaitingForSubjectCataloguingReviewPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-subject-cataloguing-review-preparing"
+    collection_name = "originalfiles-waiting-for-subject-cataloguing-review-preparing"
+
 
 from edeposit.content.originalfile import IOriginalFile
 

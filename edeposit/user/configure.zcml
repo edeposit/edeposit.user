@@ -60,6 +60,34 @@
       class=".producentfolder.WorklistWaitingForAcquisitionView"
       permission="cmf.ReviewPortalContent"
       />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-descriptive-cataloguing-preparing"
+      class=".producentfolder.WorklistWaitingForDescriptiveCataloguingPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-descriptive-cataloguing-review-preparing"
+      class=".producentfolder.WorklistWaitingForDescriptiveCataloguingReviewPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-subject-cataloguing-preparing"
+      class=".producentfolder.WorklistWaitingForSubjectCataloguingPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-subject-cataloguing-review-preparing"
+      class=".producentfolder.WorklistWaitingForSubjectCataloguingReviewPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
   
   <subscriber
       for="Products.PluggableAuthService.interfaces.events.IUserLoggedInEvent"
