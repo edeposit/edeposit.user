@@ -63,9 +63,9 @@ class WorklistCSV(BrowserView):
         csvData = "\n".join([header,] + results)
         return csvData
 
-class WorklistForISBNAgencyView(WorklistCSV):
-    filename = "worklist-for-isbn-agency"
-    collection_name = "originalfiles-for-isbn-agency"
+class WorklistWaitingForISBNGenerationView(WorklistCSV):
+    filename = "worklist-waiting-for-isbn-generation"
+    collection_name = "originalfiles-waiting-for-isbn-generation"
 
 class WorklistWaitingForAleph(WorklistCSV):
     filename = "worklist-waiting-for-aleph"
@@ -74,6 +74,10 @@ class WorklistWaitingForAleph(WorklistCSV):
 class WorklistWaitingForAcquisitionView(WorklistCSV):
     filename = "worklist-waiting-for-acquisition"
     collection_name = "originalfiles-waiting-for-acquisition"
+
+class WorklistWaitingForISBNSubjectValidationView(WorklistCSV):
+    filename = "worklist-waiting-for-isbn-subject-validation"
+    collection_name = "originalfiles-waiting-for-isbn-subject-validation"
 
 class WorklistWaitingForDescriptiveCataloguingPreparingView(WorklistCSV):
     filename = "worklist-waiting-for-descriptive-cataloguing-preparing"

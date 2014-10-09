@@ -42,8 +42,15 @@
 
   <browser:page
         for=".producentfolder.IProducentFolder"
-        name="worklist-for-isbn-agency"
-        class=".producentfolder.WorklistForISBNAgencyView"
+        name="worklist-waiting-for-isbn-generation"
+        class=".producentfolder.WorklistWaitingForISBNGenerationView"
+        permission="cmf.ReviewPortalContent"
+        />
+
+  <browser:page
+        for=".producentfolder.IProducentFolder"
+        name="worklist-waiting-for-isbn-subject-validation"
+        class=".producentfolder.WorklistWaitingForISBNSubjectValidationView"
         permission="cmf.ReviewPortalContent"
         />
 
