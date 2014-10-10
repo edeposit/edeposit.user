@@ -17,6 +17,14 @@ class IPrepareDescriptiveCataloguing(IPortletDataProvider):
 class IPrepareSubjectCataloguing(IPortletDataProvider):
     pass
 
+class Assignment(base.Assignment):
+    implements(IPrepareDescriptiveCataloguing)
+    def __init__(self):
+        pass
+    @property
+    def title(self):
+        return _(u"Prepare Descriptive Cataloguing")
+
 class AssignmentForDescriptiveCataloguing(base.Assignment):
     implements(IPrepareDescriptiveCataloguing)
     def __init__(self):
@@ -37,7 +45,7 @@ class RendererForDescriptiveCataloguing(base.Renderer):
     render = ViewPageTemplateFile('preparecataloguing.pt')
 
     def header(self):
-        return _(u"Waiting for Descriptive Cataloguing Preparing")
+        return _(u"Descriptive Cataloguing Preparing")
         
     def collectionPath(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-descriptive-cataloguing-preparing'))
@@ -45,17 +53,23 @@ class RendererForDescriptiveCataloguing(base.Renderer):
     def worklistPath(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-descriptive-cataloguing-preparing'))
 
+    def emailPath(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToDescriptiveCataloguingPreparing'))
+
     def collection01Path(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-descriptive-cataloguing-review-preparing'))
 
     def worklist01Path(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-descriptive-cataloguing-review-preparing'))
 
+    def email01Path(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToDescriptiveCataloguingReviewPreparing'))
+
 class RendererForSubjectCataloguing(base.Renderer):
     render = ViewPageTemplateFile('preparecataloguing.pt')
 
     def header(self):
-        return _(u"Waiting for Subject Cataloguing Preparing")
+        return _(u"Subject Cataloguing Preparing")
         
     def collectionPath(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-subject-cataloguing-preparing'))
@@ -63,11 +77,17 @@ class RendererForSubjectCataloguing(base.Renderer):
     def worklistPath(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-subject-cataloguing-preparing'))
 
+    def emailPath(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToSubjectCataloguingPreparing'))
+
     def collection01Path(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-subject-cataloguing-review-preparing'))
 
     def worklist01Path(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-subject-cataloguing-review-preparing'))
+
+    def email01Path(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToSubjectCataloguingReviewPreparing'))
         
 
 class AddFormForDescriptiveCataloguing(base.AddForm):

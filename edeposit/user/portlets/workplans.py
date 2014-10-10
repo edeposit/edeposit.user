@@ -62,6 +62,14 @@ class IWorkPlansForSubjectCataloguers(IPortletDataProvider):
 class IWorkPlansForSubjectReviewers(IPortletDataProvider):
     pass
 
+class Assignment(base.Assignment):
+    implements(IWorkPlansForDescriptiveCataloguers)
+    def __init__(self):
+        pass
+    @property
+    def title(self):
+        return _(u"Some Assignment")
+
 class AssignmentForDescriptiveCataloguers(base.Assignment):
     implements(IWorkPlansForDescriptiveCataloguers)
     def __init__(self):

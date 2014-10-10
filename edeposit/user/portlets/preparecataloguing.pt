@@ -19,6 +19,7 @@
                href="http://edeposit-test.nkp.cz/producents/worklist-waiting-for-acquisition" 
                class="external-link" 
                target="_self">CSV s přehledem</a></li>
+	<li><a href=""  tal:attributes="href string:${context/emailPath}">Poslat email</a></li>
       </ul>
       <h4>Příprava revize</h4>
       <ul>
@@ -32,6 +33,7 @@
                href="http://edeposit-test.nkp.cz/producents/worklist-waiting-for-acquisition" 
                class="external-link" 
                target="_self">CSV s přehledem</a></li>
+	<li><a href=""  tal:attributes="href string:${context/email01Path}">Poslat email</a></li>
       </ul>
     </dd>
     <dd class="portletFooter">
