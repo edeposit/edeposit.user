@@ -157,6 +157,8 @@ class DescriptiveCataloguerAssignment(base.Assignment):
     def title(self):
         return _(u"Waiting for work assignment")
 
+Assignment = DescriptiveCataloguerAssignment
+
 class DescriptiveReviewerAssignment(base.Assignment):
     implements(IAssignDescriptiveReviewerDataProvider)
     def __init__(self):
