@@ -6,7 +6,7 @@
         <span tal:content="here/header"></span>
         <span class="portletTopRight"></span>
     </dt>
-
+    <a href="" tal:attributes="href string:${here/urlOfGroupEmail}">email</a>
     <dd class="portletItem odd">
       <ul>
         <li tal:repeat="groupUser  here/groupUsers">

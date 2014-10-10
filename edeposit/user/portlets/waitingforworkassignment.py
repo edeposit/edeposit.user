@@ -121,7 +121,7 @@ class AssignedDescriptiveReviewerForm(AssignedWorkerForm):
                                  
 class AssignedSubjectCataloguerForm(AssignedWorkerForm):
     schema = IAssignedSubjectCataloguer
-    submitAction = 'submitSubjectCataloguingreparing'
+    submitAction = 'submitSubjectCataloguingPreparing'
     fieldName = 'cataloguer'
     roleName = 'E-Deposit: Subject Cataloguer'
 

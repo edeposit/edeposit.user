@@ -16,13 +16,17 @@ from edeposit.user import MessageFactory as _
 class Renderer(base.Renderer):
     groupName = "Administrators"
     portalHeader = "Some Title"
-
+    groupEmailTransition = "sendEmailToGroupSubjectCataloguers"
     render = ViewPageTemplateFile('workplans.pt')
 
     def groupUsers(self):
         users = api.user.get_users(groupname=self.groupName)
         return users
         
+    def urlOfGroupEmail(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment')) \
+            + "?workflow_action=%s" % (self.groupEmailTransition,)
+
     def collectionPath(self, user):
         collName =  "/producents/originalfiles-waiting-for-user-" + user.id
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents',collName))
@@ -36,18 +40,22 @@ class Renderer(base.Renderer):
 class RendererForDescriptiveCataloguers(Renderer):
     groupName = "Descriptive Cataloguers"
     portalHeader = u"Práce pro jmenný popis"
+    groupEmailTransition = "sendEmailToGroupDescriptiveCataloguers"
 
 class RendererForDescriptiveReviewers(Renderer):
     groupName = "Descriptive Cataloguing Reviewers"
     portalHeader = u"Práce pro revizi jmenného popisu"
+    groupEmailTransition = "sendEmailToGroupDescriptiveCataloguingReviewers"
 
 class RendererForSubjectCataloguers(Renderer):
     groupName = "Subject Cataloguers"
     portalHeader = u"Práce pro věcný popis"
+    groupEmailTransition = "sendEmailToGroupSubjectCataloguers"
 
 class RendererForSubjectReviewers(Renderer):
     groupName = "Subject Cataloguing Reviewers"
     portalHeader = u"Práce pro revizi věcného popisu"
+    groupEmailTransition = "sendEmailToGroupSubjectCataloguingReviewers"
 
 
 class IWorkPlansForDescriptiveCataloguers(IPortletDataProvider):
