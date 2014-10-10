@@ -63,6 +63,18 @@ class WorklistCSV(BrowserView):
         csvData = "\n".join([header,] + results)
         return csvData
 
+class WorklistWaitingForUserView(WorklistCSV):
+    """ this view takes userid from request and specializes collection name this way:
+    originalfiles-waiting-for-user-USER_ID"""
+    filename = "worklist-waiting-for-user"
+    prefix_of_collection_name = "originalfiles-waiting-for-user"
+
+    @property
+    def collection_name(self):
+        userid= self.request.get('userid',"")
+        name = WorklistWaitingForUserView.prefix_of_collection_name + "-" + userid
+        return name
+
 class WorklistWaitingForISBNGenerationView(WorklistCSV):
     filename = "worklist-waiting-for-isbn-generation"
     collection_name = "originalfiles-waiting-for-isbn-generation"
