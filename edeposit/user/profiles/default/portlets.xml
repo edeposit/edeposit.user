@@ -7,26 +7,26 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="plone">
 
-  <assignment
-      purge="True"
-      manager="plone.leftcolumn"
-      category="group"
-      key="Producent Administrators"
-      />
+  <!-- <assignment -->
+  <!--     purge="True" -->
+  <!--     manager="plone.leftcolumn" -->
+  <!--     category="group" -->
+  <!--     key="Producent Administrators" -->
+  <!--     /> -->
   
-  <assignment
-      purge="True"
-      manager="plone.leftcolumn"
-      category="group"
-      key="Descriptive Cataloguing Administrators"
-      />
+  <!-- <assignment -->
+  <!--     purge="True" -->
+  <!--     manager="plone.leftcolumn" -->
+  <!--     category="group" -->
+  <!--     key="Descriptive Cataloguing Administrators" -->
+  <!--     /> -->
   
-  <assignment
-      purge="True"
-      manager="plone.leftcolumn"
-      category="group"
-      key="Producent Editors"
-      />
+  <!-- <assignment -->
+  <!--     purge="True" -->
+  <!--     manager="plone.leftcolumn" -->
+  <!--     category="group" -->
+  <!--     key="Producent Editors" -->
+  <!--     /> -->
   
   <!-- -*- extra stuff goes here -*- -->
 
