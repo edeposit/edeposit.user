@@ -196,7 +196,7 @@ class Renderer(base.Renderer):
     """
 
     render = ViewPageTemplateFile('waitingforworkassignment.pt')
-    fornClass = AssignedDescriptiveCataloguerForm
+    formClass = AssignedDescriptiveCataloguerForm
 
     def __init__(self, context, request, view, manager, data):
         base.Renderer.__init__(self, context, request, view, manager, data)
