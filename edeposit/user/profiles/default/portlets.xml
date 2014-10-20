@@ -155,6 +155,15 @@
        />
 
    <assignment
+       remove = "True"
+       category="content_type"
+       key="edeposit.content.originalfile"
+       manager="plone.rightcolumn"
+       type="edeposit.user.portlets.AssignDescriptiveCataloguer"
+       name="descriptivecataloguerassignment"
+       />
+
+   <assignment
        category="content_type"
        key="edeposit.content.originalfile"
        manager="plone.rightcolumn"
