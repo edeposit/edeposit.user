@@ -130,15 +130,3 @@ class AddForm(base.AddForm):
     def create(self, data):
         return Assignment(**data)
 
-
-# NOTE: IF this portlet does not have any configurable parameters, you can
-# remove this class definition and delete the editview attribute from the
-# <plone:portlet /> registration in configure.zcml
-
-class EditForm(base.EditForm):
-    """Portlet edit form.
-
-    This is registered with configure.zcml. The form_fields variable tells
-    zope.formlib which fields to display.
-    """
-    form_fields = form.Fields(IDocumentContributing)
