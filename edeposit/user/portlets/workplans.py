@@ -34,6 +34,14 @@ class Renderer(base.Renderer):
     def userFullname(self,user):
         return user.getProperty("fullname")
 
+    def numOfOriginalFilesWaitingForUser(self, user):
+        collName =  "/producents/originalfiles-waiting-for-user-" + user.id
+        collection = api.content.get(path=collName)
+        return len(collection.results(batch=False))
+
+    def linkText(self,user):
+        return "%s (%d)" % (self.userFullname(user), self.numOfOriginalFilesWaitingForUser(user))
+
     def header(self):
         return self.portalHeader
 

@@ -6,15 +6,20 @@
         <span tal:content="here/header"></span>
         <span class="portletTopRight"></span>
     </dt>
-    <a href="" tal:attributes="href string:${here/urlOfGroupEmail}">email</a>
+    <a href="" tal:attributes="href string:${here/urlOfGroupEmail}">rozeslat emaily</a>
     <dd class="portletItem odd">
-      <ul>
-        <li tal:repeat="groupUser  here/groupUsers">
-	  <a href="" 
-	     tal:attributes="href python: here.collectionPath(groupUser)"
-	     tal:content="python: here.userFullname(groupUser)">Full name</a>
-        </li>
-      </ul>
+      <table>
+	<tbody>
+          <tr tal:repeat="groupUser  here/groupUsers">
+	    <td align="right" style="padding-right:1em"> <a target="_blank" 
+				  href="" 
+				  tal:attributes="href python: here.collectionPath(groupUser)"
+				  tal:content="python: here.userFullname(groupUser)">Full name</a>
+	    </td>
+	    <td><span tal:content="python: here.numOfOriginalFilesWaitingForUser(groupUser)"></span></td>
+          </tr>
+	</tbody>
+      </table>
     </dd>
 
     <dd class="portletFooter">
