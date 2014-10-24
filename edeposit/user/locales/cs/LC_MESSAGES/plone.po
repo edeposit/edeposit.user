@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-09 05:20+0000\n"
-"PO-Revision-Date: 2013-11-04 12:42+0100\n"
+"POT-Creation-Date: 2014-10-24 13:51+0000\n"
+"PO-Revision-Date: 2014-10-24 15:51+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,25 +28,25 @@ msgstr "Portlet usnadňuje producentům ohlášení ePublikací, ePeriodik a kni
 
 #: edeposit/user/profiles/default/portlets.xml
 msgid "Prepare Descriptive Cataloguing"
-msgstr ""
+msgstr "Příprava jmenného popisu"
 
 #: edeposit/user/profiles/default/portlets.xml
 msgid "Prepare Subject Cataloguing"
-msgstr ""
+msgstr "Příprava věcného popisu"
 
 #: edeposit/user/profiles/default/actions.xml
 msgid "Search"
-msgstr ""
+msgstr "Hledání"
 
 #: edeposit/user/profiles/default/portlets.xml
 msgid "Waiting for work assignment"
-msgstr ""
+msgstr "Čeká na rozdělení práce"
 
 #: edeposit/user/profiles/default/portlets.xml
 msgid "Work Plans for Desriptive Cataloguing"
-msgstr ""
+msgstr "Plány pro jmenný popis"
 
 #: edeposit/user/profiles/default/portlets.xml
 msgid "Work Plans for Desriptive Cataloguing Reviewers"
-msgstr ""
+msgstr "Plány pro revizi jmenného popisu"
 

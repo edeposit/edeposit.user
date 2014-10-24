@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-09 05:20+0000\n"
+"POT-Creation-Date: 2014-10-24 13:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,6 +52,10 @@ msgstr ""
 #: edeposit/user/models/producent.xml
 #: edeposit/user/producent.py:54
 msgid "Country"
+msgstr ""
+
+#: edeposit/user/portlets/preparecataloguing.py:48
+msgid "Descriptive Cataloguing Preparing"
 msgstr ""
 
 #: edeposit/user/profiles/default/types/edeposit.user.producent.xml
@@ -123,7 +127,7 @@ msgstr ""
 msgid "Fill a street with number."
 msgstr ""
 
-#: edeposit/user/browser/register.py:298
+#: edeposit/user/browser/register.py:259
 msgid "Fill in at least one producent administrator"
 msgstr ""
 
@@ -132,7 +136,7 @@ msgstr ""
 msgid "Home page"
 msgstr ""
 
-#: edeposit/user/browser/register.py:249
+#: edeposit/user/browser/register.py:210
 msgid "Item created"
 msgstr ""
 
@@ -150,7 +154,7 @@ msgstr ""
 msgid "Personal Info"
 msgstr ""
 
-#: edeposit/user/browser/register.py:173
+#: edeposit/user/browser/register.py:134
 msgid "Please fill informations about user and producent."
 msgstr ""
 
@@ -163,7 +167,7 @@ msgstr ""
 msgid "Prepare Descriptive Cataloguing"
 msgstr ""
 
-#: edeposit/user/portlets/preparecataloguing.py:34
+#: edeposit/user/portlets/preparecataloguing.py:42
 msgid "Prepare Subject Cataloguing"
 msgstr ""
 
@@ -205,11 +209,11 @@ msgstr ""
 msgid "ProducentUser"
 msgstr ""
 
-#: edeposit/user/browser/register.py:194
+#: edeposit/user/browser/register.py:155
 msgid "Register"
 msgstr ""
 
-#: edeposit/user/browser/register.py:172
+#: edeposit/user/browser/register.py:133
 msgid "Registration of a producent"
 msgstr ""
 
@@ -222,22 +226,22 @@ msgstr ""
 msgid "Reviewer"
 msgstr ""
 
+#: edeposit/user/portlets/workplans.py:79
+msgid "Some Assignment"
+msgstr ""
+
 #: edeposit/user/models/producent.xml
 msgid "Street"
+msgstr ""
+
+#: edeposit/user/portlets/preparecataloguing.py:72
+msgid "Subject Cataloguing Preparing"
 msgstr ""
 
 #: edeposit/user/agreement_file.py:34
 #: edeposit/user/models/producent.xml
 #: edeposit/user/producent.py:65
 msgid "Upload file with agreement between National Library and you."
-msgstr ""
-
-#: edeposit/user/portlets/preparecataloguing.py:40
-msgid "Waiting for Descriptive Cataloguing Preparing"
-msgstr ""
-
-#: edeposit/user/portlets/preparecataloguing.py:58
-msgid "Waiting for Subject Cataloguing Preparing"
 msgstr ""
 
 #: edeposit/user/portlets/waitingforworkassignment.py:158
@@ -248,19 +252,19 @@ msgstr ""
 msgid "Welcome to E-Deposit"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:71
+#: edeposit/user/portlets/workplans.py:87
 msgid "Work Plans for Descriptive Cataloguers"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:79
+#: edeposit/user/portlets/workplans.py:95
 msgid "Work Plans for Descriptive Reviewers"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:87
+#: edeposit/user/portlets/workplans.py:103
 msgid "Work Plans for Subject Cataloguers"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:95
+#: edeposit/user/portlets/workplans.py:111
 msgid "Work Plans for Subject Reviewers"
 msgstr ""
 

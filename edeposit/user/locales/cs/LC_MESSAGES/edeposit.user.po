@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-09 05:20+0000\n"
-"PO-Revision-Date: 2014-10-09 07:15+0200\n"
+"POT-Creation-Date: 2014-10-24 13:51+0000\n"
+"PO-Revision-Date: 2014-10-24 15:49+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Smlouva s Národní knihovnou"
 
 #: edeposit/user/portlets/waitingforworkassignment.py:49
 msgid "Cataloguer"
-msgstr ""
+msgstr "Katalogizátor"
 
 #: edeposit/user/models/producent.xml
 #: edeposit/user/producent.py:45
@@ -50,6 +50,10 @@ msgstr "Odevzdat dokument"
 #: edeposit/user/producent.py:54
 msgid "Country"
 msgstr "Země"
+
+#: edeposit/user/portlets/preparecataloguing.py:48
+msgid "Descriptive Cataloguing Preparing"
+msgstr "Příprava jmenného popisu"
 
 #: edeposit/user/profiles/default/types/edeposit.user.producent.xml
 msgid "E-Deposit - Producent"
@@ -120,16 +124,16 @@ msgstr "Doplňte telefon, email, nebo jméno osoby. Abychom se mohli na producen
 msgid "Fill a street with number."
 msgstr "Doplňte ulici a číslo domu."
 
-#: edeposit/user/browser/register.py:298
+#: edeposit/user/browser/register.py:259
 msgid "Fill in at least one producent administrator"
-msgstr ""
+msgstr "Doplňte alespoň jednoho správce"
 
 #: edeposit/user/models/producent.xml
 #: edeposit/user/producent.py:30
 msgid "Home page"
 msgstr "Domovská stránka"
 
-#: edeposit/user/browser/register.py:249
+#: edeposit/user/browser/register.py:210
 msgid "Item created"
 msgstr "Položka byla vytvořena"
 
@@ -147,7 +151,7 @@ msgstr "Hesla se neshodují."
 msgid "Personal Info"
 msgstr "Osobní informace"
 
-#: edeposit/user/browser/register.py:173
+#: edeposit/user/browser/register.py:134
 msgid "Please fill informations about user and producent."
 msgstr "Doplňte informace o uživateli a producentovi."
 
@@ -160,7 +164,7 @@ msgstr ""
 msgid "Prepare Descriptive Cataloguing"
 msgstr "Příprava jmenného popisu"
 
-#: edeposit/user/portlets/preparecataloguing.py:34
+#: edeposit/user/portlets/preparecataloguing.py:42
 msgid "Prepare Subject Cataloguing"
 msgstr "Příprava věcného popisu"
 
@@ -202,11 +206,11 @@ msgstr ""
 msgid "ProducentUser"
 msgstr ""
 
-#: edeposit/user/browser/register.py:194
+#: edeposit/user/browser/register.py:155
 msgid "Register"
 msgstr "Registrovat"
 
-#: edeposit/user/browser/register.py:172
+#: edeposit/user/browser/register.py:133
 msgid "Registration of a producent"
 msgstr "Registrace producenta"
 
@@ -219,23 +223,23 @@ msgstr "Ohlášení ePublikace, ePeriodika, knihy"
 msgid "Reviewer"
 msgstr "Revizor"
 
+#: edeposit/user/portlets/workplans.py:79
+msgid "Some Assignment"
+msgstr ""
+
 #: edeposit/user/models/producent.xml
 msgid "Street"
 msgstr "Ulice"
+
+#: edeposit/user/portlets/preparecataloguing.py:72
+msgid "Subject Cataloguing Preparing"
+msgstr "Příprava věcného popisu"
 
 #: edeposit/user/agreement_file.py:34
 #: edeposit/user/models/producent.xml
 #: edeposit/user/producent.py:65
 msgid "Upload file with agreement between National Library and you."
 msgstr "Uložte soubor se smlouvou mezi Vámi a Národní knihovnou."
-
-#: edeposit/user/portlets/preparecataloguing.py:40
-msgid "Waiting for Descriptive Cataloguing Preparing"
-msgstr "Čekáme na přípravu jmenného popisu"
-
-#: edeposit/user/portlets/preparecataloguing.py:58
-msgid "Waiting for Subject Cataloguing Preparing"
-msgstr "Čekáme na přípravu věcného popisu"
 
 #: edeposit/user/portlets/waitingforworkassignment.py:158
 msgid "Waiting for work assignment"
@@ -245,19 +249,19 @@ msgstr "Čeká na přidělení"
 msgid "Welcome to E-Deposit"
 msgstr "Vítejte na stránách projektu E-Deposit!"
 
-#: edeposit/user/portlets/workplans.py:71
+#: edeposit/user/portlets/workplans.py:87
 msgid "Work Plans for Descriptive Cataloguers"
 msgstr "Plány práce pro jmenný popis"
 
-#: edeposit/user/portlets/workplans.py:79
+#: edeposit/user/portlets/workplans.py:95
 msgid "Work Plans for Descriptive Reviewers"
 msgstr "Plány práce pro revizi jmenného popisu"
 
-#: edeposit/user/portlets/workplans.py:87
+#: edeposit/user/portlets/workplans.py:103
 msgid "Work Plans for Subject Cataloguers"
 msgstr "Plány práce pro věcný popis"
 
-#: edeposit/user/portlets/workplans.py:95
+#: edeposit/user/portlets/workplans.py:111
 msgid "Work Plans for Subject Reviewers"
 msgstr "Plány práce pro revizi věcného popisu"
 
