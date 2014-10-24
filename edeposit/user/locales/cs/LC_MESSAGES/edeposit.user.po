@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-24 13:51+0000\n"
+"POT-Creation-Date: 2014-10-24 13:52+0000\n"
 "PO-Revision-Date: 2014-10-24 15:49+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr "Město"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: edeposit/user/portlets/registeringofecontent.py:100
+#: edeposit/user/portlets/registeringofecontent.py:97
 msgid "Contribute Original file"
 msgstr "Odevzdat dokument"
 
@@ -215,7 +215,6 @@ msgid "Registration of a producent"
 msgstr "Registrace producenta"
 
 #: edeposit/user/portlets/documentcontributing.pt:8
-#: edeposit/user/portlets/registeringofecontent.pt:8
 msgid "Registration of eContent"
 msgstr "Ohlášení ePublikace, ePeriodika, knihy"
 
@@ -223,7 +222,7 @@ msgstr "Ohlášení ePublikace, ePeriodika, knihy"
 msgid "Reviewer"
 msgstr "Revizor"
 
-#: edeposit/user/portlets/workplans.py:79
+#: edeposit/user/portlets/workplans.py:87
 msgid "Some Assignment"
 msgstr ""
 
@@ -249,19 +248,19 @@ msgstr "Čeká na přidělení"
 msgid "Welcome to E-Deposit"
 msgstr "Vítejte na stránách projektu E-Deposit!"
 
-#: edeposit/user/portlets/workplans.py:87
+#: edeposit/user/portlets/workplans.py:95
 msgid "Work Plans for Descriptive Cataloguers"
 msgstr "Plány práce pro jmenný popis"
 
-#: edeposit/user/portlets/workplans.py:95
+#: edeposit/user/portlets/workplans.py:103
 msgid "Work Plans for Descriptive Reviewers"
 msgstr "Plány práce pro revizi jmenného popisu"
 
-#: edeposit/user/portlets/workplans.py:103
+#: edeposit/user/portlets/workplans.py:111
 msgid "Work Plans for Subject Cataloguers"
 msgstr "Plány práce pro věcný popis"
 
-#: edeposit/user/portlets/workplans.py:111
+#: edeposit/user/portlets/workplans.py:119
 msgid "Work Plans for Subject Reviewers"
 msgstr "Plány práce pro revizi věcného popisu"
 

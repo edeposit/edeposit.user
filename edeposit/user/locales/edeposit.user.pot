@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-10-24 13:51+0000\n"
+"POT-Creation-Date: 2014-10-24 13:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: edeposit/user/portlets/registeringofecontent.py:100
+#: edeposit/user/portlets/registeringofecontent.py:97
 msgid "Contribute Original file"
 msgstr ""
 
@@ -218,7 +218,6 @@ msgid "Registration of a producent"
 msgstr ""
 
 #: edeposit/user/portlets/documentcontributing.pt:8
-#: edeposit/user/portlets/registeringofecontent.pt:8
 msgid "Registration of eContent"
 msgstr ""
 
@@ -226,7 +225,7 @@ msgstr ""
 msgid "Reviewer"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:79
+#: edeposit/user/portlets/workplans.py:87
 msgid "Some Assignment"
 msgstr ""
 
@@ -252,19 +251,19 @@ msgstr ""
 msgid "Welcome to E-Deposit"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:87
+#: edeposit/user/portlets/workplans.py:95
 msgid "Work Plans for Descriptive Cataloguers"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:95
+#: edeposit/user/portlets/workplans.py:103
 msgid "Work Plans for Descriptive Reviewers"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:103
+#: edeposit/user/portlets/workplans.py:111
 msgid "Work Plans for Subject Cataloguers"
 msgstr ""
 
-#: edeposit/user/portlets/workplans.py:111
+#: edeposit/user/portlets/workplans.py:119
 msgid "Work Plans for Subject Reviewers"
 msgstr ""
 
