@@ -5,22 +5,32 @@
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
-        <span i18n:translate="">Registration of eContent</span>
+        <span>Uživatelské menu</span>
         <span class="portletTopRight"></span>
     </dt>
 
     <dd class="portletItem odd">
-      <ul>
-        <li tal:repeat="producent view/assignedProducents">
-          <legend>
-            <a tal:attributes="href producent/path">Můj producent</a>
-          </legend>
-          <ul>
-            <li tal:repeat="link producent/links">
-              <a class="" title="" tal:attributes="href link/href" tal:content="link/desc">link</a>
-            </li>
-          </ul>
-        </li>
+      <ul tal:repeat="producent view/assignedProducents">
+         <li> <a tal:attributes="href producent/path">Editace producenta</a></li>
+	 <li class="header_add"><h4>Ohlášení</h4></li>
+	 <li class="add_pbl"><a class="external-link" target="_self" href="" 
+				tal:attributes="href string:${producent/path}/epublications/add-at-once">ePublikace</a>
+	 </li>
+	 <li class="add_eper"><a class="external-link" target="_self" href="" 
+				 tal:attributes="href string:${producent/path}/eperiodicals/add-at-once">ePeriodika</a>
+	 </li>
+
+	 <li class="header_add"><h4>Přehledy ohlášení</h4></li>
+	 <li class="add_pbl"><a class="external-link" target="_self" href="" 
+				tal:attributes="href string:${producent/path}/epublications/">ePublikací</a>
+	 </li>
+	 <li class="add_eper"><a class="external-link" target="_self" href="" 
+				 tal:attributes="href string:${producent/path}/eperiodicals/">ePeriodik</a>
+	 </li>
+
+         <!-- <li tal:repeat="link producent/links"> -->
+         <!--    <a class="" title="" tal:attributes="href link/href" tal:content="link/desc">link</a> -->
+         <!--  </li> -->
       </ul>
     </dd>
     
