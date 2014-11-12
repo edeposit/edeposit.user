@@ -84,7 +84,7 @@ class AssignedWorkerForm(form.SchemaForm):
     def updateWidgets(self):
         super(AssignedWorkerForm, self).updateWidgets()
         fieldValue = self.fieldValueFromContext()
-        self.widgets[self.fieldName].value = fieldValue
+        self.widgets[self.fieldName].value = fieldValue and (fieldValue) or ()
         pass
 
     @button.buttonAndHandler(u'Přiřadit')
