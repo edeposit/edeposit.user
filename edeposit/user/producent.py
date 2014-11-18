@@ -83,6 +83,17 @@ class Producent(Container):
     # Add your class methods and properties here
     pass
 
+def getAssignedPersonFactory(roleName):
+    def getAssignedPerson(self):
+        local_roles = self.get_local_roles()
+        pairs = filter(lambda pair: roleName in pair[1], local_roles)
+        return pairs and [ pp[0] for pp in pairs ] or None
+
+    return getAssignedPerson
+
+Producent.getAssignedProducentAdministrators = getAssignedPersonFactory('E-Deposit: Producent Administrator')
+Producent.getAssignedProducentEditors = getAssignedPersonFactory('E-Deposit: Producent Editor')
+
 
 # View class
 # The view is configured in configure.zcml. Edit there to change
