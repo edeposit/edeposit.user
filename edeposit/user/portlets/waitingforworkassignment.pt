@@ -3,7 +3,7 @@
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
-        <span>Čeká na přidělení</span>
+        <span tal:content="view/title">Přidělení</span>
         <span class="portletTopRight"></span>
     </dt>
 

@@ -69,15 +69,11 @@ def added(context,event):
     #                        domain='edeposit.user',
     #                        context=context, 
     #                        target_language='cs')
-    context.invokeFactory('edeposit.content.epublicationfolder','epublications', title=u"Ohlášení ePublikací")
-    context.invokeFactory('edeposit.content.eperiodicalfolder','eperiodicals', title=u"Ohlášování ePeriodik")
-    context.invokeFactory('edeposit.content.bookfolder','books', title=u"Ohlášení tištěných knih")
+    context.invokeFactory('edeposit.content.epublicationfolder','epublications', title=u"Ohlášené ePublikace")
+    context.invokeFactory('edeposit.content.eperiodicalfolder','eperiodicals', title=u"Ohlášená ePeriodika")
+    context.invokeFactory('edeposit.content.bookfolder','books', title=u"Ohlášené tištěné knihy")
     context.invokeFactory('edeposit.user.producentadministratorfolder','producent-administrators',title=u"Administrátoři")
     context.invokeFactory('edeposit.user.producenteditorfolder','producent-editors',title=u"Editoři")
     context.invokeFactory('edeposit.content.originalfilecontributingrequestsfolder',
                           'originalfile-contributing',
                           title=u"Odevzdané dokumenty")
-    # context.invokeFactory('edeposit.content.producentuserplansfolder',
-    #                       'work-plans',
-    #                       title=u"Plány práce")
-

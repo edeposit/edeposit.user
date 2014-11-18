@@ -79,6 +79,13 @@ class AssignedWorkerForm(form.SchemaForm):
     submitAction = 'submitDescriptiveCataloguingPreparing'
     fieldName = 'cataloguer'
     roleName = 'E-Deposit: Descriptive Cataloguer'
+    fieldValueFromContext = lambda self: self.context.getAssignedDescriptiveCataloguer()
+
+    def updateWidgets(self):
+        super(AssignedWorkerForm, self).updateWidgets()
+        fieldValue = self.fieldValueFromContext()
+        self.widgets[self.fieldName].value = fieldValue and (fieldValue) or ()
+        pass
 
     @button.buttonAndHandler(u'Přiřadit')
     def handleOK(self, action):
@@ -101,9 +108,11 @@ class AssignedWorkerForm(form.SchemaForm):
             modified(self.context)
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context, self.submitAction)
-        self.status = u"Hotovo!"
+            self.status = u"Hotovo!"
 
-# @form.default_value(field=IAssignedCataloguer['cataloguer'])
+        return self.context.REQUEST.response.redirect( self.context.absolute_url() )
+
+# @form.default_value(field=IAssignedDescriptiveCataloguer['cataloguer'])
 # def default_cataloguer(data):
 #     pass
 
@@ -112,30 +121,34 @@ class AssignedDescriptiveCataloguerForm(AssignedWorkerForm):
     submitAction = 'submitDescriptiveCataloguingPreparing'
     fieldName = 'cataloguer'
     roleName = 'E-Deposit: Descriptive Cataloguer'
+    fieldValueFromContext = lambda self: self.context.getAssignedDescriptiveCataloguer()
 
 class AssignedDescriptiveReviewerForm(AssignedWorkerForm):
     schema = IAssignedDescriptiveReviewer
     submitAction = 'submitDescriptiveCataloguingReviewPreparing'
     fieldName = 'reviewer'
     roleName = 'E-Deposit: Descriptive Cataloguing Reviewer'
+    fieldValueFromContext = lambda self: self.context.getAssignedDescriptiveCataloguingReviewer()
                                  
 class AssignedSubjectCataloguerForm(AssignedWorkerForm):
     schema = IAssignedSubjectCataloguer
     submitAction = 'submitSubjectCataloguingPreparing'
     fieldName = 'cataloguer'
     roleName = 'E-Deposit: Subject Cataloguer'
+    fieldValueFromContext = lambda self: self.context.getAssignedSubjectCataloguer()
 
 class AssignedSubjectReviewerForm(AssignedWorkerForm):
     schema = IAssignedSubjectReviewer
     submitAction = 'submitSubjectCataloguingReviewPreparing'
     fieldName = 'reviewer'
     roleName = 'E-Deposit: Subject Cataloguing Reviewer'
+    fieldValueFromContext = lambda self: self.context.getAssignedSubjectCataloguingReviewer()
 
 class PortletFormView(FormWrapper):
      """ Form view which renders z3c.forms embedded in a portlet.
      Subclass FormWrapper so that we can use custom frame template. """
      index = ViewPageTemplateFile("formwrapper.pt")
-
+     
 class IAssignDescriptiveCataloguerDataProvider(IPortletDataProvider):
     pass
 
@@ -197,6 +210,7 @@ class Renderer(base.Renderer):
 
     render = ViewPageTemplateFile('waitingforworkassignment.pt')
     formClass = AssignedDescriptiveCataloguerForm
+    title = u"ahoj"
 
     def __init__(self, context, request, view, manager, data):
         base.Renderer.__init__(self, context, request, view, manager, data)
@@ -218,6 +232,8 @@ class Renderer(base.Renderer):
 
 class AssignDescriptiveCataloguerRenderer(Renderer):
     formClass = AssignedDescriptiveCataloguerForm
+    title = u"Jmenný popis"
+
     @property
     def available(self):
         state = api.content.get_state(self.context)
@@ -225,6 +241,8 @@ class AssignDescriptiveCataloguerRenderer(Renderer):
 
 class AssignDescriptiveReviewerRenderer(Renderer):
     formClass = AssignedDescriptiveReviewerForm
+    title = u"Jmenný popis"
+
     @property
     def available(self):
         state = api.content.get_state(self.context)
@@ -232,6 +250,8 @@ class AssignDescriptiveReviewerRenderer(Renderer):
 
 class AssignSubjectCataloguerRenderer(Renderer):
     formClass = AssignedSubjectCataloguerForm
+    title = u"Věcný popis"
+
     @property
     def available(self):
         state = api.content.get_state(self.context)
@@ -239,6 +259,8 @@ class AssignSubjectCataloguerRenderer(Renderer):
 
 class AssignSubjectReviewerRenderer(Renderer):
     formClass = AssignedSubjectReviewerForm
+    title = u"Věcný popis"
+
     @property
     def available(self):
         state = api.content.get_state(self.context)
