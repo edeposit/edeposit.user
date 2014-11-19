@@ -31,6 +31,19 @@ class IProducentFolder(model.Schema, IImageScaleTraversable):
 
 class ProducentFolder(Container):
     # Add your class methods and properties here
+    def getProducentsForCurrentUser(self):
+        pass
+
+    def handleOhlaseniPublikace(self,*args,**kwargs):
+        request = self.REQUEST
+        path = request.physicalPathFromURL(request.URL)
+        try:
+            producentsIndex = path.index('producents')
+            producentsPath = mainPath[producentsIndex:-1]
+        except ValueError:
+            pass
+        import pdb; pdb.set_trace()
+        pass
     pass
 
 
