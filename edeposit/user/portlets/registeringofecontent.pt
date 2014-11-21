@@ -10,23 +10,25 @@
     </dt>
 
     <dd class="portletItem odd">
-      <ul tal:repeat="producent view/assignedProducents">
-         <li> <a tal:attributes="href producent/path">Editace producenta</a></li>
-	 <li class="header_add"><h4>Ohlášení</h4></li>
-	 <li class="add_pbl"><a class="external-link" target="_self" href="" 
+      <ul class="uzmen" tal:repeat="producent view/assignedProducents">
+         
+	 <li><h4 class="ohl">Ohlášení</h4></li>
+	 <li><a target="_self" href="" 
 				tal:attributes="href string:${producent/path}/epublications/add-at-once">ePublikace</a>
 	 </li>
-	 <li class="add_eper"><a class="external-link" target="_self" href="" 
+	 <li><a target="_self" href="" 
 				 tal:attributes="href string:${producent/path}/eperiodicals/add-at-once">ePeriodika</a>
 	 </li>
 
-	 <li class="header_add"><h4>Přehledy ohlášení</h4></li>
-	 <li class="add_pbl"><a class="external-link" target="_self" href="" 
+	 <li><h4 class="prehl">Přehledy ohlášených</h4></li>
+	 <li><a target="_self" href="" 
 				tal:attributes="href string:${producent/path}/epublications/">ePublikací</a>
 	 </li>
-	 <li class="add_eper"><a class="external-link" target="_self" href="" 
+	 <li><a target="_self" href="" 
 				 tal:attributes="href string:${producent/path}/eperiodicals/">ePeriodik</a>
 	 </li>
+	 <li> <a class="editprod" tal:attributes="href producent/path">Editace producenta</a></li>
+	 
 
          <!-- <li tal:repeat="link producent/links"> -->
          <!--    <a class="" title="" tal:attributes="href link/href" tal:content="link/desc">link</a> -->
