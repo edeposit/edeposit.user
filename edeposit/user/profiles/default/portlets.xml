@@ -180,6 +180,7 @@
        key="Producent Editors"
        manager="plone.rightcolumn"
        type="edeposit.user.portlets.registeringOfEContent"
+       insert-before="*"
        />
 
    <assignment

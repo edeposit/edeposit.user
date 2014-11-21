@@ -9,7 +9,7 @@ from zope import schema
 from zope.interface import invariant, Invalid
 from zope.schema.interfaces import IContextSourceBinder
 from zope.schema.vocabulary import SimpleVocabulary, SimpleTerm
-
+from decimal import Decimal
 from plone.dexterity.content import Container
 from plone.app.textfield import RichText
 from plone.namedfile.field import NamedImage, NamedFile
@@ -18,6 +18,7 @@ from plone.namedfile.interfaces import IImageScaleTraversable
 
 from plone.supermodel import model
 from Products.Five import BrowserView
+from plone.dexterity.utils import createContentInContainer, addContentToContainer, createContent
 
 from edeposit.user import MessageFactory as _
 from plone import api
@@ -31,8 +32,23 @@ class IProducentFolder(model.Schema, IImageScaleTraversable):
 
 class ProducentFolder(Container):
     # Add your class methods and properties here
+    def getDefaultProducentForCurrentUser(self):
+        return 'key01'
+
     def getProducentsForCurrentUser(self):
-        pass
+        result = (('key01','Title 01'),('key02','Title 02'))
+        currentUser = api.user.get_current()
+        from plone.api.exc import UserNotFoundError
+        try:
+            if 'Manager' in api.user.get_roles(currentUser.id):
+                brains=api.portal.get_tool('portal_catalog')(portal_type="edeposit.user.producent",sort_limit=5)
+                return [ (bb['id'],bb['Title']) for bb in brains ]
+        except UserNotFoundError:
+            pass
+
+        query = currentUser.id
+        brains = api.portal.get_tool('portal_catalog')(portal_type="edeposit.user.producent", getAssignedProducentEditors = query)
+        return [ (bb['id'],bb['Title']) for bb in brains ]
 
     def handleOhlaseniPublikace(self,*args,**kwargs):
         request = self.REQUEST
@@ -42,7 +58,15 @@ class ProducentFolder(Container):
             producentsPath = mainPath[producentsIndex:-1]
         except ValueError:
             pass
+        currentUser = api.user.get_current()
+        path="/".join(["",'producents',kwargs['nakladatel']])
+        producent = api.content.get(path=path)
+        epublicationFolder = producent['epublications']
+        kwargs.keys()
         import pdb; pdb.set_trace()
+        valuesPairs = [('vazba','online'),('nakladatel_vydavatel',producent.title),('zpracovatel_zaznamu',currentUser.id),('cena',kwargs['cena-v-kc'] and Decimal(kwargs['cena-v-kc']))]
+        pairs = [('title','nazev-publikace'),('podnazev','podnazev'),('isbn_souboru_publikaci','isbn-souboru-publikaci'),('cast','cast-dil'),('nazev_casti','nazev-casti-dilu'),('rok_vydani','rok-vydani'),('poradi_vydani','poradi-vydani'),('misto_vydani','misto-vydani'),('vydano_v_koedici_s','vydano-v-koedici'),('is_public','publikace-je-verejna'),('offer_to_riv','zpristupnit-pro-riv'),]
+        newEPublication = createContentInContainer(epublicationFolder,'edeposit.content.epublication',**dict([ (ii[0],kwargs.get(ii[1])) for ii in pairs] + valuesPairs))
         pass
     pass
 
