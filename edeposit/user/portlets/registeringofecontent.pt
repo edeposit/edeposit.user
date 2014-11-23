@@ -21,8 +21,8 @@
 	 </li>
 
 	 <li><h4 class="prehl">Přehledy ohlášených</h4></li>
-	 <li><a target="_self" href="" 
-				tal:attributes="href string:${producent/path}/epublications/">ePublikací</a>
+	 <li><a target="_self" href="/producents/my-epublications"
+				tal:attributes="href string:${context/portal_url}/producents/my-epublications">ePublikací</a>
 	 </li>
 	 <li><a target="_self" href="" 
 				 tal:attributes="href string:${producent/path}/eperiodicals/">ePeriodik</a>

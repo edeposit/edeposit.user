@@ -37,6 +37,7 @@ from Acquisition import aq_inner, aq_base
 from Products.CMFDefault.exceptions import EmailAddressInvalid
 from zope.interface import invariant, Invalid
 from itertools import chain
+from five import grok
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
@@ -277,6 +278,177 @@ class RegistrationForm(ProducentAddForm):
         portal = api.portal.get()
         return portal['producents']
 
+
+class IRegistrationAtOnce(form.Schema):
+    producent_name = schema.TextLine (
+        title = u"Firma/Jméno, příjmení",
+        required = True)
+
+    domicile = schema.TextLine (
+        title = u"Sídlo",
+        required = False )
+
+    ico = schema.TextLine (
+        title = u"IČ",
+        required = False )
+
+    dic = schema.TextLine (
+        title = u"DIČ",
+        required = False )
+
+    zastoupen = schema.TextLine (
+        title = u"Zastoupen",
+        required = False )
+
+    jednajici = schema.TextLine (
+        title = u"Jednající",
+        required = False )
+
+    form.fieldset('producent_administrator',
+                  label = u"Správce producenta",
+                  fields = ('administrator_fullname',
+                            'administrator_email',
+                            'administrator_phone',
+                            'administrator_username',
+                            'administrator_password',
+                            'administrator_password_ctl',
+                            )
+        )
+    
+    administrator_fullname = schema.TextLine (
+        title = u"Příjmení a jméno",
+        required = True )
+
+    administrator_email = schema.ASCIILine (
+        title = u"email",
+        required = True )
+
+    administrator_phone = schema.ASCIILine (
+        title = u"Telefonní číslo",
+        required = True )
+
+    administrator_username = schema.ASCIILine (
+        title = u"Uživatelské jméno",
+        required = True )
+
+    administrator_password = schema.Password (
+        title = u"Heslo",
+        required = True )
+
+    administrator_password_ctl = schema.Password (
+        title = u"Potvrďte heslo",
+        required = True )
+
+    form.fieldset('producent_editor',
+                  label = u"Editor producenta",
+                  fields = ('editor_fullname',
+                            'editor_email',
+                            'editor_phone',
+                            'editor_username',
+                            'editor_password',
+                            'editor_password_ctl',
+                            )
+        )
+    
+    editor_fullname = schema.TextLine (
+        title = u"Příjmení a jméno",
+        required = True )
+
+    editor_email = schema.ASCIILine (
+        title = u"email",
+        required = True )
+
+    editor_phone = schema.ASCIILine (
+        title = u"Telefonní číslo",
+        required = True )
+
+    editor_username = schema.ASCIILine (
+        title = u"Uživatelské jméno",
+        required = True )
+
+    editor_password = schema.Password (
+        title = u"Heslo",
+        required = True )
+
+    editor_password_ctl = schema.Password (
+        title = u"Potvrďte heslo",
+        required = True )
+    
+
+class RegistrationAtOnceForm(form.SchemaForm):
+    schema = IRegistrationAtOnce
+    default_fieldset_label = u"Producent"
+    label = u"Registrace producenta"
+    description = u"""<p>Vyplněním těchto údajů získáte přístup k aplikaci Národní knihovny, která umožňuje ukládání vašich elektronických publikací, jejich dlouhodobou ochranu a šíření podle Vašich instrukcí.</p>
+<p>Pro využívání základních funkcí systému postačí vyplnit tento online formulář. Dalším krokem je uzavření písemné smlouvy, která umožní další funkčnosti včetně řízené distribuce vašich e-publikací.</p>"""
+
+    ignoreContext = True
+    enableCSRFProtection = True
+    enable_form_tabbing = False
+
+    def extractData(self):
+        def getErrorView(widget,error):
+            view = zope.component.getMultiAdapter( (error, 
+                                                    self.request, 
+                                                    widget, 
+                                                    widget.field, 
+                                                    widget.form, 
+                                                    self.context), 
+                                                   IErrorViewSnippet)
+            view.update()
+            widget.error = view
+            return view
+
+        data, errors = super(RegistrationAtOnceForm,self).extractData()
+
+        reg_tool = api.portal.get_tool(name='portal_registration')
+        
+        widgets = self.groups[0].widgets
+        username = data.get('administrator_username')
+        if username:
+            if api.user.get(username = username):
+                errors += (getErrorView(widgets.get('administrator_username'),
+                                        Invalid(u"Uživatelské jméno je již použito. Vyplňte jiné.")),)
+                pass
+            
+        pwd1 = data.get('administrator_password')
+        pwd2 = data.get('administrator_password_ctl')
+        if (pwd1 and pwd2) and (pwd1 != pwd2):
+            errors += (getErrorView(widgets.get('administrator_password'),  Invalid(u"Hesla se neshodují.")),)
+            errors += (getErrorView(widgets.get('administrator_password_ctl'),  Invalid(u"Hesla se neshodují.")),)
+
+        email = data.get('administrator_email')
+        if email and not reg_tool.isValidEmail(email):
+            errors += (getErrorView(widgets.get('administrator_email'),  Invalid(u"Chyba v emailu.")),)
+
+        widgets = self.groups[1].widgets
+        username = data.get('editor_username')
+        if username:
+            if api.user.get(username = username):
+                errors += (getErrorView(widgets.get('editor_username'),
+                                        Invalid(u"Uživatelské jméno je již použito. Vyplňte jiné.")),)
+                pass
+            
+        pwd1 = data.get('editor_password')
+        pwd2 = data.get('editor_password_ctl')
+        if (pwd1 and pwd2) and (pwd1 != pwd2):
+            errors += (getErrorView(widgets.get('editor_password'),  Invalid(u"Hesla se neshodují.")),)
+            errors += (getErrorView(widgets.get('editor_password_ctl'),  Invalid(u"Hesla se neshodují.")),)
+
+        email = data.get('editor_email')
+        if email and not reg_tool.isValidEmail(email):
+            errors += (getErrorView(widgets.get('editor_email'),  Invalid(u"Chyba v emailu.")),)
+
+        return (data,errors)
+
+
+    @button.buttonAndHandler(_(u"Register"))
+    def handleRegister(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+    pass
 
 # class RegistrationForm(form.SchemaForm):
 #     schema = IProducentWithAdministrators

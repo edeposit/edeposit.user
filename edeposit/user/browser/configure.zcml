@@ -17,6 +17,13 @@
     <browser:page
         for="*"
         name="register-with-producent"
+        class=".register.RegistrationAtOnceForm"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="*"
+        name="register-at-once"
         class=".register.RegistrationForm"
         permission="zope2.View"
         />

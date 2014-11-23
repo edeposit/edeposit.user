@@ -215,3 +215,4 @@ class DescriptiveCatalogizationAssignForm(form.SchemaForm):
             return
         
     pass
+

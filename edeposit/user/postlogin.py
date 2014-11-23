@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Python imports
 import logging
 
@@ -20,6 +21,7 @@ from five import grok
 # Plone imports
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 import os.path
+from plone import api
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
@@ -29,18 +31,29 @@ logger = logging.getLogger(__name__)
 def redirect_to_proper_dashboard_folder(user):
     portal = api.portal.get()
     request = getattr(portal, "REQUEST", None)
-    logger.debug("redirect to proper dashboard folder")
     if not request:
         # HTTP request is not present e.g.
         # when doing unit testing / calling scripts from command line
         return False
     
-    # dashboard_url = os.path.join(portal.absolute_url(),
-    #                              'nastenka-pro-producenty')
-
     dashboard_url = os.path.join(portal.absolute_url(),'dashboard')
-    logger.debug("redirect to: %s" % (dashboard_url,))
     request.response.redirect(dashboard_url, lock=True)
+    return True
+
+def redirect_to_proper_originalfiles_collection(user):
+    portal = api.portal.get()
+    request = getattr(portal, "REQUEST", None)
+    if not request:
+        # HTTP request is not present e.g.
+        # when doing unit testing / calling scripts from command line
+        return False
+
+    userid = user.id
+    catalog = api.portal.get_tool('portal_catalog')
+    producents = catalog(portal_type='edeposit.user.producent', getAssignedProducentEditors=userid)
+    redirect_url = producents and os.path.join(portal.absolute_url(),'producents','my-epublications') or \
+        os.path.join(portal.absolute_url(),'dashboard')
+    request.response.redirect(redirect_url, lock=True)
     return True
 
 def logged_in_handler(event):
@@ -51,4 +64,4 @@ def logged_in_handler(event):
     logger.debug("current user: %s" % (api.user.get_current(),))
     logger.debug("roles for user: %s" % ("|".join(api.user.get_roles())))
     user = event.object
-    redirect_to_proper_dashboard_folder(user)
+    redirect_to_proper_originalfiles_collection(api.user.get_current())

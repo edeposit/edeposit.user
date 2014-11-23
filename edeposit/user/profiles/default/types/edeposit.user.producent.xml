@@ -19,6 +19,10 @@
     <element value="edeposit.user.producentadministratorfolder"/>
     <element value="edeposit.user.producenteditorfolder"/>
     <element value="edeposit.content.originalfilecontributingrequestsfolder"/>
+    <element value="Collection"/>
+    <element value="Image"/>
+    <element value="Link"/>
+    <element value="Document"/>
   </property>
   <property name="allow_discussion">False</property>
 
