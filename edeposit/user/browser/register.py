@@ -300,10 +300,6 @@ class IRegistrationAtOnce(form.Schema):
         title = u"Zastoupen",
         required = False )
 
-    jednajici = schema.TextLine (
-        title = u"Jednající",
-        required = False )
-
     form.fieldset('producent_administrator',
                   label = u"Správce producenta",
                   fields = ('administrator_fullname',
@@ -352,27 +348,27 @@ class IRegistrationAtOnce(form.Schema):
     
     editor_fullname = schema.TextLine (
         title = u"Příjmení a jméno",
-        required = True )
+        required = False )
 
     editor_email = schema.ASCIILine (
         title = u"email",
-        required = True )
+        required = False )
 
     editor_phone = schema.ASCIILine (
         title = u"Telefonní číslo",
-        required = True )
+        required = False )
 
     editor_username = schema.ASCIILine (
         title = u"Uživatelské jméno",
-        required = True )
+        required = False )
 
     editor_password = schema.Password (
         title = u"Heslo",
-        required = True )
+        required = False )
 
     editor_password_ctl = schema.Password (
         title = u"Potvrďte heslo",
-        required = True )
+        required = False )
     
 
 class RegistrationAtOnceForm(form.SchemaForm):
@@ -448,143 +444,16 @@ class RegistrationAtOnceForm(form.SchemaForm):
         if errors:
             self.status = self.formErrorsMessage
             return
+
+        # zkontrolujeme editora, jesli je neco vyplnene
+        editorKeys = [ key for key in data.keys() if key.startswith('editor_') ]
+        definedEditorKeys = [ key for key in IRegistrationAtOnce.names() if key.startswith('editor_')]
+        if bool(editorKeys):
+            if frozenset(editorKeys) != frozenset(definedEditorKeys):
+                raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechny políčka."))
+            if False in [ bool(data[key]) for key in editorKeys ]:
+                raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechny políčka."))
+        pass
+        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
     pass
-
-# class RegistrationForm(form.SchemaForm):
-#     schema = IProducentWithAdministrators
-
-#     label = _(u"Registration of a producent")
-#     description = _(u"Please fill informations about user and producent.")
-
-#     ignoreContext = True
-#     enableCSRFProtection = True
-
-#     template = ViewPageTemplateFile('form.pt')
-#     prefix = 'producent'
-
-#     def update(self):
-#         self.request.set('disable_border', True)
-#         super(RegistrationForm, self).update()
-
-#     @button.buttonAndHandler(_(u"Register"))
-#     def handleRegister(self, action):
-#         data, errors = self.extractData()
-#         if errors:
-#             self.status = self.formErrorsMessage
-#             return
-        
-#         producentsFolder = api.portal.getSite()['producents']
-#         producent = createContentInContainer(producentsFolder, 
-#                                              "edeposit.user.producent", 
-#                                              **data)
-        
-#         for administrator in data['administrators']:
-#             addContentToContainer(producent['producent-administrators'], 
-#                                   administrator,
-#                                   False)
-#     pass
-
-
-# class RegistrationForm01(form.SchemaForm):
-#     label = _(u"Registration")
-#     description = _(u"Please fill informations about user and producent.")
-
-#     ignoreContext = True
-#     enableCSRFProtection = True
-
-#     schema = IEnhancedUserDataSchema
-#     template = ViewPageTemplateFile('form.pt')
-
-#     def update(self):
-#         self.request.set('disable_border', True)
-#         super(RegistrationForm, self).update()
-
-#     @button.buttonAndHandler(u"Register")
-#     def handleRegister(self, action):
-#         data, errors = self.extractData()
-#         if errors:
-#             self.status = self.formErrorsMessage
-#             return
-
-#         properties = dict([ (key,data[key]) for key in schema.getFieldNames(IEnhancedUserDataSchema) 
-#                             if key not in ['password','username','password_ctl']])
-
-#         if api.user.get(username=data['username']):
-#             raise ActionExecutionError(Invalid(_('Username is already used. Fill in another username.')))
-
-#         user = api.user.create(username=data['username'],
-#                                password=data['password'],
-#                                properties = properties,
-#                                )
-#         producent_properties = dict([ (key,data['producent.'+key]) for key in schema.getFieldNames(IProducent) ])
-#         if data.get('producent.new_producent',None):
-#             portal_catalog = api.portal.get_tool('portal_catalog')
-#             brains = portal_catalog({'object_provides': IProducentFolder.__identifier__})
-#             if brains:
-#                 plone.api.group.add_user(groupname="Producents", user=user)
-#                 producentFolder = brains[0].getObject()
-#                 with api.env.adopt_user(user=user):
-#                     producent = api.content.create(container=producentFolder,type='edeposit.user.producent', title=data['producent.title'],**producent_properties)
-#                     plone.api.user.grant_roles(user=user,obj=producent, roles=['E-Deposit: Assigned Producent',])
-#                     plone.api.content.transition(obj=producent, transition="submit")
-#                 pass
-#             pass
-#         else:
-#             if data['producent']:
-#                 plone.api.group.add_user(groupname="Producents", user=user)
-#                 producent = plone.api.content.get(UID=data['producent'])
-#                 plone.api.user.grant_roles(user=user,obj=producent,roles=['E-Deposit: Assigned Producent',])
-#                 producent.reindexObject()
-#             pass
-#         self.status="Registered!"
-#         self.request.response.redirect(os.path.join(api.portal.get().absolute_url(),"@@register-with-producent-successed"))
-
-
-# @form.validator(field=IEnhancedUserDataSchema['username'])
-# def isUnique(value):
-#     print "user is already used validation"
-#     if api.user.get(username=value):
-#         raise Invalid("Your username is already used. Fill in another username.")
-#     return True
-
-
-# class INewProducent(Interface):
-#     new_producent = schema.Bool(
-#         title=_(u'label_new_producent', default=u'New producent'),
-#         description=_(u'help_new_producent',
-#                       default=u"Do you wan to create new producent?"),
-#         required=False,
-#         )
-
-# class IProducentTitle(Interface):
-#     title = schema.ASCIILine(
-#         title=_(u'label_producent_title', default=u'Producent title'),
-#         description=_(u'help_title_producent',
-#                       default=_(u"Fill in title of new producent.")),
-#         required=False,
-#         )
-
-# class RegistrationFormExtender(extensible.FormExtender):
-#     adapts(Interface, IDefaultBrowserLayer, RegistrationForm) # context, request, form
-
-#     def __init__(self, context, request, form):
-#         self.context = context
-#         self.request = request
-#         self.form = form
-        
-#     def update(self):
-#         self.add(field.Fields(INewProducent,prefix="producent"), group="producent")
-#         self.move('producent.new_producent', before='producent')
-#         self.add(field.Fields(IProducent,prefix="producent"), group="producent")
-#         self.add(field.Fields(IProducentTitle,prefix="producent"), group="producent")
-#         self.move('producent.title', before='producent.home_page')
-#         producentFields = [gg for gg in self.form.groups if 'producent' in gg.__name__][0].fields           
-#         if 'form.widgets.producent.new_producent' in self.request.form \
-#                 and 'selected' in self.request.form['form.widgets.producent.new_producent']:
-#             pass
-#         else:
-#             for ff in producentFields.values():
-#                 field_copy = copy.copy(ff.field)
-#                 field_copy.required = False
-#                 ff.field = field_copy
 
