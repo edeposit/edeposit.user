@@ -93,19 +93,28 @@ jQuery.fn.edepositFormLoadStyle = function(){
 
 
 jQuery(document).ready(function() {
-        $("#form").edepositFormLegends();
-        /*        .edepositRegistrationFormTabsHandler()
-                .edepositFormLoadStyle();
-        */
+    $("#form").edepositFormLegends();
+    $("#form-widgets-libraries_accessing-0").change(function() {
+        $("#formfield-form-widgets-libraries_that_can_access").fadeOut('slow');
+    });
+    $("#form-widgets-libraries_accessing-1").change(function() {
+        $("#formfield-form-widgets-libraries_that_can_access").fadeOut('slow');
+    });
+    $("#form-widgets-libraries_accessing-2").change(function() {
+        $("#formfield-form-widgets-libraries_that_can_access").fadeIn('slow');
+    });
+    /*        .edepositRegistrationFormTabsHandler()
+              .edepositFormLoadStyle();
+    */
         
-	// No overlays for IE6
-	// if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
-	// 	// Set up overlays
-	// 	$("a#personaltools-join").prepOverlay({
-	// 		subtype: 'ajax',
-	// 		filter: 'div.edeposit-user-registration',
-	// 		formselector: 'form',
-	// 		noform: 'close',
-	// 	});
-	// }
+    // No overlays for IE6
+    // if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
+    // 	// Set up overlays
+    // 	$("a#personaltools-join").prepOverlay({
+    // 		subtype: 'ajax',
+    // 		filter: 'div.edeposit-user-registration',
+    // 		formselector: 'form',
+    // 		noform: 'close',
+    // 	});
+    // }
 });
