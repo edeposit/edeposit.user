@@ -55,6 +55,13 @@ class Renderer(base.Renderer):
 
     render = ViewPageTemplateFile('registeringofecontent.pt')
 
+    @property
+    def available(self):
+        if api.user.is_anonymous():
+            return False
+        userGroups = api.group.get_groups(username=api.user.get_current().id)
+        return 'Producent Editors' in [ gg.id for gg in userGroups ]
+
     def member(self):
         return api.user.get_current()
 

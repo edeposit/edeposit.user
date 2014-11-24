@@ -176,8 +176,8 @@
      />
    
    <assignment
-       category="group"
-       key="Producent Editors"
+       category="context"
+       key="/"
        manager="plone.rightcolumn"
        type="edeposit.user.portlets.registeringOfEContent"
        insert-before="*"
