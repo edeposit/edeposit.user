@@ -68,7 +68,7 @@ class Renderer(base.Renderer):
     
     @property
     def available(self):
-        return self.request.URL.endswith('/register-with-producent')
+        return self.request.URL.endswith('register-with-producent')
 
 
 # NOTE: If this portlet does not have any configurable parameters, you can

@@ -55,6 +55,13 @@
       category="group"
       key="Producent Administrators"
       />
+
+  <assignment
+      purge="True"
+      manager="plone.rightcolumn"
+      category="context"
+      key="/"
+      />
   
   <!-- -*- extra stuff goes here -*- -->
 
@@ -239,6 +246,7 @@
 
    <assignment
        category="content_type"
+       remove = "True"
        key="edeposit.content.originalfile"
        manager="plone.rightcolumn"
        type="edeposit.user.portlets.AssignSubjectReviewer"
