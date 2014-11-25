@@ -72,8 +72,8 @@ def added(context,event):
     context.invokeFactory('edeposit.content.epublicationfolder','epublications', title=u"Ohlášené ePublikace")
     context.invokeFactory('edeposit.content.eperiodicalfolder','eperiodicals', title=u"Ohlášená ePeriodika")
     context.invokeFactory('edeposit.content.bookfolder','books', title=u"Ohlášené tištěné knihy")
-    context.invokeFactory('edeposit.user.producentadministratorfolder','producent-administrators',title=u"Administrátoři")
-    context.invokeFactory('edeposit.user.producenteditorfolder','producent-editors',title=u"Editoři")
-    context.invokeFactory('edeposit.content.originalfilecontributingrequestsfolder',
-                          'originalfile-contributing',
-                          title=u"Odevzdané dokumenty")
+    # context.invokeFactory('edeposit.user.producentadministratorfolder','producent-administrators',title=u"Administrátoři")
+    # context.invokeFactory('edeposit.user.producenteditorfolder','producent-editors',title=u"Editoři")
+    # context.invokeFactory('edeposit.content.originalfilecontributingrequestsfolder',
+    #                       'originalfile-contributing',
+    #                       title=u"Odevzdané dokumenty")

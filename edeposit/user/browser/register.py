@@ -312,7 +312,7 @@ class IRegistrationAtOnce(form.Schema):
         )
     
     administrator_fullname = schema.TextLine (
-        title = u"Příjmení a jméno",
+        title = u"Jméno a příjmení",
         required = True )
 
     administrator_email = schema.ASCIILine (
@@ -347,7 +347,7 @@ class IRegistrationAtOnce(form.Schema):
         )
     
     editor_fullname = schema.TextLine (
-        title = u"Příjmení a jméno",
+        title = u"Jméno a příjmení",
         required = False )
 
     editor_email = schema.ASCIILine (
@@ -448,12 +448,56 @@ class RegistrationAtOnceForm(form.SchemaForm):
         # zkontrolujeme editora, jesli je neco vyplnene
         editorKeys = [ key for key in data.keys() if key.startswith('editor_') ]
         definedEditorKeys = [ key for key in IRegistrationAtOnce.names() if key.startswith('editor_')]
+
         if bool(editorKeys):
             if frozenset(editorKeys) != frozenset(definedEditorKeys):
-                raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechny políčka."))
-            if False in [ bool(data[key]) for key in editorKeys ]:
-                raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechny políčka."))
-        pass
-        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-    pass
+                raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
+            if True in [ bool(data[key]) for key in editorKeys ]:
+                raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
+            pass
+
+        producentData = dict(zip( ('title','domicile','ico','dic', 'zastoupen'), map(data.__getitem__,('producent_name','domicile','ico','dic','zastoupen'))))
+        newProducent = createContentInContainer(self.context['producents'],'edeposit.user.producent',**producentData)
+
+        # username, email, password, properties
+        def createUser(data,prefix=""):
+            userFields = ('username','password','email')
+            kwargs = dict(zip(userFields,map(data.__getitem__, map(prefix.__add__,userFields))))
+            propertyFields = ('phone','fullname')
+            properties = dict(zip(propertyFields, map(data.__getitem__, map(prefix.__add__, propertyFields))))
+            newUser = api.user.create(properties = properties, **kwargs)
+            return newUser
+
+        newUser = createUser(data, prefix = "administrator_")
+
+        api.group.add_user(groupname="Producent Editors", username=newUser.id )
+        api.group.add_user(groupname="Producent Contributors", username=newUser.id )
+        api.group.add_user(groupname="Producent Administrators", username=newUser.id )
+
+        api.user.grant_roles(username=newUser.id,  obj=newProducent,
+                             roles=('E-Deposit: Producent Editor',
+                                    'E-Deposit: Producent Administrator',
+                                    'Editor','Reader')
+                             )
+        api.user.grant_roles(username=newUser.id,  obj = newProducent['epublications'],
+                             roles=('E-Deposit: Producent Editor',
+                                    'E-Deposit: Producent Administrator',
+                                    'Contributor'))
+        
+        if True in [ bool(data[key]) for key in editorKeys ]:
+            newUser = createUser(data,prefix="editor_")
+            api.group.add_user(groupname="Producent Editors", username=newUser.id )
+            api.group.add_user(groupname="Producent Contributors", username=newUser.id )
+            api.user.grant_roles(username=newUser.id,
+                                 obj = newProducent['epublications'],
+                                 roles=('E-Deposit: Producent Editor','Contributor'))
+            api.user.grant_roles(username=newUser.id, obj=newProducent,
+                                 roles=('E-Deposit: Producent Editor', 'Reader'))
+
+        
+        wft = api.portal.get_tool('portal_workflow')
+        wft.doActionFor(newProducent,'submit')
+        IStatusMessage(self.request).addStatusMessage(u"Registrace proběhla úspěšně", "info")
+        url = "%s/%s" % (api.portal.getSite().absolute_url(), 'register-with-producent-successed')
+        self.request.response.redirect(url)
 
