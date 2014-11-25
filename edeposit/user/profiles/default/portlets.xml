@@ -71,6 +71,24 @@
              http://dev.plone.org/plone/ticket/9090) for more information on 
         internationalization with portlets or in plone in general -->
    <portlet
+     addview="edeposit.user.portlets.ProducentAdministratorsPortlet"
+     title="Producent Administrators Portlet"
+     description=""
+     i18n:attributes="title; description"
+   />
+
+   <assignment  category="group"
+		key="Producent Administrators"
+		manager="plone.rightcolumn"
+		type="edeposit.user.portlets.ProducentAdministratorsPortlet" />
+
+
+   <!-- to have your portlet's title and description translated in 
+        @@manage-portlets, provide the messageids for the i18n:domain plone
+        (see http://dev.plone.org/plone/ticket/9631 or
+             http://dev.plone.org/plone/ticket/9090) for more information on 
+        internationalization with portlets or in plone in general -->
+   <portlet
      addview="edeposit.user.portlets.ProducentRegisteringHelp"
      title="Producent Registering Help"
      description=""

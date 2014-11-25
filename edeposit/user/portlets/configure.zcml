@@ -9,6 +9,17 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <plone:portlet
+      name="edeposit.user.portlets.ProducentAdministratorsPortlet"
+      interface=".producentadministratorsportlet.IProducentAdministratorsPortlet"
+      assignment=".producentadministratorsportlet.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".producentadministratorsportlet.Renderer"
+      addview=".producentadministratorsportlet.AddForm"
+      />
+
+
+  <plone:portlet
       name="edeposit.user.portlets.ProducentRegisteringHelp"
       interface=".producentregisteringhelp.IProducentRegisteringHelp"
       assignment=".producentregisteringhelp.Assignment"
