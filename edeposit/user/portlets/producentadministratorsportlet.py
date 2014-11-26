@@ -7,6 +7,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 
 from edeposit.user import MessageFactory as _
 
@@ -60,8 +61,21 @@ class Renderer(base.Renderer):
 
     @property
     def administrators(self):
-        import sys,pdb; pdb.Pdb(stdout=sys.__stdout__).set_trace()
-        pass
+        ids = self.context.getAssignedProducentAdministrators()
+        members = [ api.user.get(username = ii) for ii in ids]
+        fullnames = [ mm.getProperty('fullname') for mm in members ]
+        return [{'id':id,'fullname':fullname} for (id,fullname) in zip(ids,fullnames)]
+
+    @property
+    def editors(self):
+        ids = self.context.getAssignedProducentEditors()
+        members = [ api.user.get(username = ii) for ii in ids]
+        fullnames = [ mm.getProperty('fullname') for mm in members ]
+        return [{'id':id,'fullname':fullname} for (id,fullname) in zip(ids,fullnames)]
+
+    @property
+    def available(self):
+        return self.context.portal_type=='edeposit.user.producent'
 
 # NOTE: If this portlet does not have any configurable parameters, you can
 # inherit from NullAddForm and remove the form_fields variable.

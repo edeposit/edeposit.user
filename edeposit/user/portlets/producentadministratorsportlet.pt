@@ -3,21 +3,29 @@
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
-        <span>
-           Header
-        </span>
+        <span>Pracovníci</span>
         <span class="portletTopRight"></span>
     </dt>
 
     <dd class="portletItem odd">
-        Body text
+      <a href="@@update-roles">Správa rolí</a>
+      <h4>Správci</h4>
+      <ul>
+	<li tal:repeat="member here/administrators">
+	  <span tal:content="member/fullname">member</span>(<span tal:content="member/id">id</span>)
+	</li>
+      </ul>
+      <h4>Editoři</h4>
+      <ul>
+	<li tal:repeat="member here/editors">
+	  <span tal:content="member/fullname">member</span>(<span tal:content="member/id">id</span>)
+	</li>
+      </ul>
     </dd>
 
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>
-        <span>
-           Footer
-        </span>
+        <span></span>
         <span class="portletBottomRight"></span>
     </dd>
 
