@@ -452,7 +452,7 @@ class RegistrationAtOnceForm(form.SchemaForm):
         if bool(editorKeys):
             if frozenset(editorKeys) != frozenset(definedEditorKeys):
                 raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
-            if True in [ bool(data[key]) for key in editorKeys ]:
+            if False in [ bool(data[key]) for key in editorKeys ]:
                 raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
             pass
 
