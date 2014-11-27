@@ -43,7 +43,7 @@ class IProducent(model.Schema, IImageScaleTraversable):
         required = False )
 
     zastoupen = schema.TextLine (
-        title = u"Zastoupen",
+        title = u"Statutární zástupce organizace",
         required = False )
 
     agreement = NamedBlobFile(

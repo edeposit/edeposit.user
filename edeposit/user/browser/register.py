@@ -281,7 +281,7 @@ class RegistrationForm(ProducentAddForm):
 
 class IRegistrationAtOnce(form.Schema):
     producent_name = schema.TextLine (
-        title = u"Firma/Jméno, příjmení",
+        title = u"Firma / Jméno, příjmení",
         required = True)
 
     domicile = schema.TextLine (
@@ -297,7 +297,7 @@ class IRegistrationAtOnce(form.Schema):
         required = False )
 
     zastoupen = schema.TextLine (
-        title = u"Zastoupen",
+        title = u"Statutární zástupce organizace",
         required = False )
 
     form.fieldset('producent_administrator',
