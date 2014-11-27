@@ -4,19 +4,50 @@
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
         <span>
-           Header
+           Nápověda
         </span>
         <span class="portletTopRight"></span>
     </dt>
 
     <dd class="portletItem odd">
-        Body text
+
+
+<p>
+<b>PRODUCENT</b>
+</p>
+<p>
+Producentem se rozumí nakladatelství, vydavatelství, nebo i autor sám, v případě vydání vlastním nákladem.
+</p>
+
+
+
+<p>
+<b>SPRÁVCE PRODUCENTA</b>
+</p>
+
+<p>
+Správce je osoba s nejvyšším oprávněním za daného producenta. Může zakládat a rušit uživatelské účty dalším osobám pracujícím v systému (editoři), editovat údaje o producentovi a má přístup ke zpracovaným (archivovaným) publikacím.
+</p>
+
+
+
+
+
+
+<p>
+<b>EDITOR PRODUCENTA</b>
+</p>
+
+<p>
+Editoři mají práva pouze ke vkládání publikací do Edepositu. V případě potřeby se účastní procesu zpracování. Nemají práva k editaci údajů o producentovi a nemají přístup k již zpracovaným, archivovaným publikacím. Jejich účty zakládá a ruší správce producenta.
+</p>
+
     </dd>
 
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>
         <span>
-           Footer
+
         </span>
         <span class="portletBottomRight"></span>
     </dd>

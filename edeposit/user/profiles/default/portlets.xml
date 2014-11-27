@@ -88,7 +88,7 @@
         (see http://dev.plone.org/plone/ticket/9631 or
              http://dev.plone.org/plone/ticket/9090) for more information on 
         internationalization with portlets or in plone in general -->
-   <portlet
+  <portlet
      addview="edeposit.user.portlets.ProducentRegisteringHelp"
      title="Producent Registering Help"
      description=""
@@ -264,7 +264,6 @@
 
    <assignment
        category="content_type"
-       remove = "True"
        key="edeposit.content.originalfile"
        manager="plone.rightcolumn"
        type="edeposit.user.portlets.AssignSubjectReviewer"
