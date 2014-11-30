@@ -27,7 +27,7 @@
 	 <li><a target="_self" href="" 
 				 tal:attributes="href string:${producent/path}/eperiodicals/">ePeriodik</a>
 	 </li>
-	 <li> <a class="editprod" tal:attributes="href producent/path">Editace producenta</a></li>
+	 <li> <a class="editprod" tal:attributes="href producent/path">Náhled / editace profilu</a></li>
 	 
 
          <!-- <li tal:repeat="link producent/links"> -->
