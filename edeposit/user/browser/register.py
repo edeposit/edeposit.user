@@ -449,15 +449,17 @@ class RegistrationAtOnceForm(form.SchemaForm):
         editorKeys = [ key for key in data.keys() if key.startswith('editor_') ]
         definedEditorKeys = [ key for key in IRegistrationAtOnce.names() if key.startswith('editor_')]
 
-        if bool(editorKeys):
+        if True in [ bool(data[key]) for key in editorKeys]:
             if frozenset(editorKeys) != frozenset(definedEditorKeys):
                 raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
+
             if False in [ bool(data[key]) for key in editorKeys ]:
                 raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
             pass
 
         producentData = dict(zip( ('title','domicile','ico','dic', 'zastoupen'), map(data.__getitem__,('producent_name','domicile','ico','dic','zastoupen'))))
-        newProducent = createContentInContainer(self.context['producents'],'edeposit.user.producent',**producentData)
+        producents = api.portal.get()['producents']
+        newProducent = createContentInContainer(producents,'edeposit.user.producent',**producentData)
 
         # username, email, password, properties
         def createUser(data,prefix=""):
@@ -497,6 +499,10 @@ class RegistrationAtOnceForm(form.SchemaForm):
         
         wft = api.portal.get_tool('portal_workflow')
         wft.doActionFor(newProducent,'submit')
+        
+        with api.env.adopt_roles(roles=["E-Deposit: Acquisitor",]):
+            wft.doActionFor(newProducent,'approve')
+
         IStatusMessage(self.request).addStatusMessage(u"Registrace proběhla úspěšně", "info")
         url = "%s/%s" % (api.portal.getSite().absolute_url(), 'register-with-producent-successed')
         self.request.response.redirect(url)
