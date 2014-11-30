@@ -33,6 +33,8 @@ edeposit/user/browser/register.py
 edeposit/user/portlets/__init__.py
 edeposit/user/portlets/documentcontributing.py
 edeposit/user/portlets/preparecataloguing.py
+edeposit/user/portlets/producentadministratorsportlet.py
+edeposit/user/portlets/producentregisteringhelp.py
 edeposit/user/portlets/registeringofecontent.py
 edeposit/user/portlets/waitingforworkassignment.py
 edeposit/user/portlets/workplans.py
@@ -40,12 +42,16 @@ edeposit/user/tests/__init__.py
 edeposit/user/tests/base_cataloguingworkplans.py
 edeposit/user/tests/base_librarianworkplans.py
 edeposit/user/tests/base_preparecataloguing.py
+edeposit/user/tests/base_producentadministratorsportlet.py
+edeposit/user/tests/base_producentregisteringhelp.py
 edeposit/user/tests/base_registeringofecontent.py
 edeposit/user/tests/base_waitingforworkassignment.py
 edeposit/user/tests/base_workplans.py
 edeposit/user/tests/test_cataloguingworkplans.py
 edeposit/user/tests/test_librarianworkplans.py
 edeposit/user/tests/test_preparecataloguing.py
+edeposit/user/tests/test_producentadministratorsportlet.py
+edeposit/user/tests/test_producentregisteringhelp.py
 edeposit/user/tests/test_registeringofecontent.py
 edeposit/user/tests/test_waitingforworkassignment.py
 edeposit/user/tests/test_workplans.py
