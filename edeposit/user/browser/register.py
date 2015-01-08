@@ -409,13 +409,19 @@ class RegistrationAtOnceForm(form.SchemaForm):
             
         pwd1 = data.get('administrator_password')
         pwd2 = data.get('administrator_password_ctl')
-        if (pwd1 and pwd2) and (pwd1 != pwd2):
+        if len(pwd1) < 5:
+            errors += (getErrorView(widgets.get('administrator_password'), 
+                                    Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
+        if len(pwd2) < 5:
+            errors += (getErrorView(widgets.get('administrator_password_ctl'), 
+                                    Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
+        if (len(pwd1) >= 5 and len(pwd2) >= 5) and (pwd1 and pwd2) and (pwd1 != pwd2):
             errors += (getErrorView(widgets.get('administrator_password'),  Invalid(u"Hesla se neshodují.")),)
             errors += (getErrorView(widgets.get('administrator_password_ctl'),  Invalid(u"Hesla se neshodují.")),)
 
         email = data.get('administrator_email')
         if email and not reg_tool.isValidEmail(email):
-            errors += (getErrorView(widgets.get('administrator_email'),  Invalid(u"Chyba v emailu.")),)
+            errors += (getErrorView(widgets.get('administrator_email'),  Invalid(u"Toto není platný email.")),)
 
         widgets = self.groups[1].widgets
         username = data.get('editor_username')
@@ -427,13 +433,20 @@ class RegistrationAtOnceForm(form.SchemaForm):
             
         pwd1 = data.get('editor_password')
         pwd2 = data.get('editor_password_ctl')
-        if (pwd1 and pwd2) and (pwd1 != pwd2):
+        if len(pwd1) < 5:
+            errors += (getErrorView(widgets.get('editor_password'), 
+                                    Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
+        if len(pwd2) < 5:
+            errors += (getErrorView(widgets.get('editor_password_ctl'), 
+                                    Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
+
+        if (len(pwd1) >= 5 and len(pwd2) >= 5) and (pwd1 and pwd2) and (pwd1 != pwd2):
             errors += (getErrorView(widgets.get('editor_password'),  Invalid(u"Hesla se neshodují.")),)
             errors += (getErrorView(widgets.get('editor_password_ctl'),  Invalid(u"Hesla se neshodují.")),)
 
         email = data.get('editor_email')
         if email and not reg_tool.isValidEmail(email):
-            errors += (getErrorView(widgets.get('editor_email'),  Invalid(u"Chyba v emailu.")),)
+            errors += (getErrorView(widgets.get('editor_email'),  Invalid(u"Toto není platný email.")),)
 
         return (data,errors)
 
