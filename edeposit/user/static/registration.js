@@ -91,6 +91,26 @@ jQuery.fn.edepositFormLoadStyle = function(){
 	});
 };
 
+function checkAgreementAvailability(href, timeout, numOfRetries){
+        var handler = function(){
+                var jqxhr = jQuery.get(href + "/has_agreement")
+                        .done(function(data){
+                                if( data.has_agreement ){
+                                        document.location.reload();
+                                } else {
+                                        if( numOfRetries > 0 ){
+                                                checkAgreementAvailability(href, timeout, numOfRetries - 1);
+                                        };
+                                };
+                        });
+        };
+        setTimeout(handler, timeout*1000);
+};
+
+function getProducentPath(){
+        var href = jQuery('a.editprod').attr('href');
+        return href;
+};
 
 jQuery(document).ready(function() {
     $("#form").edepositFormLegends();

@@ -1,0 +1,15 @@
+<div class="downloadButton"
+     i18n:domain="plone"
+     tal:define="ploneview context/@@plone"
+     tal:condition="ploneview/showEditableBorder"
+     >
+
+    <tal:block>
+        <a href="agreement.pdf" 
+           class="agreement-download"
+           tal:condition="context/agreement">smlouva ke stažení</a>
+
+        <span class="agreement-generation"
+              tal:condition="not: context/agreement">smlouva se generuje</span>
+    </tal:block>
+</div>

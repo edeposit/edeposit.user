@@ -284,6 +284,10 @@ class IRegistrationAtOnce(form.Schema):
         title = u"Firma / Jméno, příjmení",
         required = True)
 
+    pravni_forma = schema.TextLine (
+        title = u"Právní forma",
+        required = True)
+
     domicile = schema.TextLine (
         title = u"Sídlo",
         required = False )
@@ -298,6 +302,10 @@ class IRegistrationAtOnce(form.Schema):
 
     zastoupen = schema.TextLine (
         title = u"Statutární zástupce organizace",
+        required = False )
+
+    jednajici = schema.TextLine (
+        title = u"Jednající",
         required = False )
 
     form.fieldset('producent_administrator',
@@ -409,13 +417,13 @@ class RegistrationAtOnceForm(form.SchemaForm):
             
         pwd1 = data.get('administrator_password')
         pwd2 = data.get('administrator_password_ctl')
-        if len(pwd1) < 5:
+        if pwd1 and len(pwd1) < 5:
             errors += (getErrorView(widgets.get('administrator_password'), 
                                     Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
-        if len(pwd2) < 5:
+        if pwd2 and len(pwd2) < 5:
             errors += (getErrorView(widgets.get('administrator_password_ctl'), 
                                     Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
-        if (len(pwd1) >= 5 and len(pwd2) >= 5) and (pwd1 and pwd2) and (pwd1 != pwd2):
+        if (pwd1 and pwd2) and (len(pwd1) >= 5 and len(pwd2) >= 5) and  (pwd1 != pwd2):
             errors += (getErrorView(widgets.get('administrator_password'),  Invalid(u"Hesla se neshodují.")),)
             errors += (getErrorView(widgets.get('administrator_password_ctl'),  Invalid(u"Hesla se neshodují.")),)
 
@@ -433,14 +441,14 @@ class RegistrationAtOnceForm(form.SchemaForm):
             
         pwd1 = data.get('editor_password')
         pwd2 = data.get('editor_password_ctl')
-        if len(pwd1) < 5:
+        if pwd1 and len(pwd1) < 5:
             errors += (getErrorView(widgets.get('editor_password'), 
                                     Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
-        if len(pwd2) < 5:
+        if pwd2 and len(pwd2) < 5:
             errors += (getErrorView(widgets.get('editor_password_ctl'), 
                                     Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
 
-        if (len(pwd1) >= 5 and len(pwd2) >= 5) and (pwd1 and pwd2) and (pwd1 != pwd2):
+        if (pwd1 and pwd2) and (len(pwd1) >= 5 and len(pwd2) >= 5) and (pwd1 != pwd2):
             errors += (getErrorView(widgets.get('editor_password'),  Invalid(u"Hesla se neshodují.")),)
             errors += (getErrorView(widgets.get('editor_password_ctl'),  Invalid(u"Hesla se neshodují.")),)
 
@@ -470,7 +478,8 @@ class RegistrationAtOnceForm(form.SchemaForm):
                 raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
             pass
 
-        producentData = dict(zip( ('title','domicile','ico','dic', 'zastoupen'), map(data.__getitem__,('producent_name','domicile','ico','dic','zastoupen'))))
+        producentData = dict(zip( ('title','jednajici','pravni_forma','domicile','ico','dic', 'zastoupen'), 
+                                  map(data.__getitem__,('producent_name','jednajici','pravni_forma','domicile','ico','dic','zastoupen'))))
         producents = api.portal.get()['producents']
         newProducent = createContentInContainer(producents,'edeposit.user.producent',**producentData)
 
@@ -515,6 +524,7 @@ class RegistrationAtOnceForm(form.SchemaForm):
         
         with api.env.adopt_roles(roles=["E-Deposit: Acquisitor",]):
             wft.doActionFor(newProducent,'approve')
+            wft.doActionFor(newProducent,'generateAgreement')
 
         IStatusMessage(self.request).addStatusMessage(u"Registrace proběhla úspěšně", "info")
         url = "%s/%s" % (api.portal.getSite().absolute_url(), 'register-with-producent-successed')

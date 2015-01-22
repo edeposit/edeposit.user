@@ -1,0 +1,44 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml">
+
+    <!-- <browser:viewlet -->
+    <!--     name="edeposit.downloadbutton" -->
+    <!--     manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle" -->
+    <!--     class=".download.DownloadButton" -->
+    <!--     for="edeposit.user.producent.IProducent" -->
+    <!--     permission="zope2.View" -->
+    <!--     /> -->
+
+    <!-- <browser:viewlet -->
+    <!--     name="edeposit.downloadbutton" -->
+    <!--     manager="plone.app.layout.viewlets.interfaces.IContentViews" -->
+    <!--     class=".download.DownloadButton" -->
+    <!--     for="edeposit.user.producent.IProducent" -->
+    <!--     permission="zope2.View" -->
+    <!--     /> -->
+
+    <browser:page
+        name="smlouva.pdf"
+        for="edeposit.user.producent.IProducent"
+        class=".download.AgreementDownload"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        name="has_agreement"
+        for="edeposit.user.producent.IProducent"
+        class=".download.HasAgreement"
+        permission="zope2.View"
+        />
+
+    <!-- <browser:viewlet -->
+    <!--     name="edeposit.downloadpdf" -->
+    <!--     manager="plone.app.layout.viewlets.interfaces.IContentViews" -->
+    <!--     template="downloadbutton.pt" -->
+    <!--     permission="zope2.View" -->
+    <!--     for="edeposit.user.producent.IProducent" -->
+    <!--     /> -->
+
+</configure>

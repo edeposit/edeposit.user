@@ -2,6 +2,7 @@
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
   <column value="getAssignedProducentEditors"/>
   <column value="getAssignedProducentAdministrators"/>
+  <column value="hasAgreement"/>
   <index name="getAssignedProducentAdministrators" meta_type="KeywordIndex">
     <indexed_attr value="getAssignedProducentAdministrators"/>
   </index>

@@ -23,13 +23,28 @@ from z3c.relationfield.schema import RelationChoice, RelationList
 from zope.interface import implements
 from zope.component import adapts
 from Products.statusmessages.interfaces import IStatusMessage
+from .widgets.interfaces import IAgreementFileWidget
+
+from plone.namedfile.interfaces import INamedBlobFileField, INamedBlobImageField
+from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
 
 # Interface class; used to define content-type schema.
+
+class IAgreementFileField(INamedBlobFileField):
+    pass
+
+class AgreementFile(NamedBlobFile):
+    implements(IAgreementFileField)
 
 class IProducent(model.Schema, IImageScaleTraversable):
     """
     E-Deposit Producent
     """
+    pravni_forma = schema.TextLine(
+        title = u"Právní forma",
+        required = False,
+    )
+
     domicile = schema.TextLine(
         title = u"Sídlo",
         required = False,  )
@@ -46,7 +61,11 @@ class IProducent(model.Schema, IImageScaleTraversable):
         title = u"Statutární zástupce organizace",
         required = False )
 
-    agreement = NamedBlobFile(
+    jednajici = schema.TextLine (
+        title = u"Jednající",
+        required = False )
+
+    agreement = AgreementFile (
         title=_(u'Agreement'),
         description = _(u'Upload file with agreement between National Library and you.'),
         required = False,
@@ -58,7 +77,9 @@ class IProducent(model.Schema, IImageScaleTraversable):
     
 class Producent(Container):
     # Add your class methods and properties here
-    pass
+    def hasAgreement(self):
+        return bool(self.agreement)
+
 
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):

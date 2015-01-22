@@ -27,9 +27,22 @@
 	 <li><a target="_self" href="" 
 				 tal:attributes="href string:${context/portal_url}/stranka-se-pripravuje">ePeriodik</a>
 	 </li>
+	 <li><h4 class="linky">ostatní</h4></li>
 	 <li> <a class="editprod" tal:attributes="href producent/path">Náhled / editace profilu</a></li>
-	 
-
+	 <li> 
+           <a class="agreement-link" 
+              tal:attributes="href producent/agreementpath"
+              tal:condition="producent/hasagreement"
+              >smlouva s Národní knihovnou</a>
+           <span class="no-agreement"
+              tal:condition="not: producent/hasagreement"
+              >smlouva se generuje</span>
+           <img tal:condition="not: producent/hasagreement" src="spinner.gif"/>
+           <script type="text/javascript" tal:condition="not: producent/hasagreement">
+             jQuery(document).ready(function(){ checkAgreementAvailability(getProducentPath(),2,20); });
+           </script>
+         </li>
+         
          <!-- <li tal:repeat="link producent/links"> -->
          <!--    <a class="" title="" tal:attributes="href link/href" tal:content="link/desc">link</a> -->
          <!--  </li> -->

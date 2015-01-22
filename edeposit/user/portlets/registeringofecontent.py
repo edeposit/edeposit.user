@@ -77,8 +77,12 @@ class Renderer(base.Renderer):
                 or 'E-Deposit: Producent Editor' in user_local_roles \
                 or 'E-Deposit: Producent Contributor' in user_local_roles
 
-        producentInfos = [ {'path': brain.getPath(), 'UID': brain['UID'] , 'title': brain['Title'] } 
-                           for brain in (brains or []) if userIsAssigned(brain)
+        producentInfos = [ {'path': brain.getPath(), 
+                            'UID': brain['UID'] , 
+                            'title': brain['Title'],
+                            'agreementpath': brain.getPath() + "/smlouva.pdf",
+                            'hasagreement': brain['hasAgreement'],
+                        } for brain in (brains or []) if userIsAssigned(brain)
                            ]
         
         #/edeposit/producenti/jeste-jeden-od-anonyma/epublications/++add++edeposit.content.epublication
@@ -105,6 +109,8 @@ class Renderer(base.Renderer):
             
         return [ {'name': producentInfo['title'],         
                   'path': producentInfo['path'],
+                  'agreementpath': producentInfo['agreementpath'],
+                  'hasagreement': producentInfo['hasagreement'],
                   'links': getRegisteringPaths(producentInfo['path']) +\
                   getOriginalFileContributingPath(producentInfo['path'])} for
                  producentInfo in (producentInfos or [])]

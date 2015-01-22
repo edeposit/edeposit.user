@@ -11,6 +11,7 @@
 
   <include package="Products.CMFPlone.exportimport"/>
   <include package="z3c.unconfigure" file="meta.zcml" />
+  <include package=".viewlets" />
 
   <five:registerPackage package="." initialize=".initialize" />
   <include package=".browser" />
@@ -197,6 +198,7 @@
 
     
   <include package=".portlets" />
+  <include package=".widgets" />
 
   <adapter  for="Products.CMFCore.interfaces.IFolderish
                  Products.CMFDefault.interfaces.ICMFDefaultSkin
@@ -213,7 +215,6 @@
             factory=".producenteditor.ProducentEditorAddView"
             name="edeposit.user.producenteditor"
             />
-
 
   <!-- <unconfigure> -->
   <!--   <genericsetup:importStep -->

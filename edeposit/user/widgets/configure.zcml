@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="plone.formwidget.namedfile">
+
+    <adapter factory=".agreement.AgreementFileFieldWidget" />
+
+    <z3c:widgetTemplate
+        mode="display"
+        widget="edeposit.user.widgets.interfaces.IAgreementFileWidget"
+        layer="z3c.form.interfaces.IFormLayer"
+        template="agreement_display.pt"
+        />
+
+</configure>
