@@ -98,6 +98,7 @@ class WorklistCSV(BrowserView):
 
         results = map(result, self.context[self.collection_name].results(batch=False))
         csvData = "\n".join([header,] + results)
+        self.numOfRows = len(results)
         return csvData
 
 class WorklistWaitingForUserView(WorklistCSV):
