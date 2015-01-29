@@ -65,6 +65,9 @@ class RendererForDescriptiveCataloguing(base.Renderer):
     def email01Path(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToDescriptiveCataloguingReviewPreparing'))
 
+    def groupsAdministrationPath(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','descriptive-cataloguing-groups-administration'))
+
 class RendererForSubjectCataloguing(base.Renderer):
     render = ViewPageTemplateFile('preparecataloguing.pt')
 
@@ -88,6 +91,9 @@ class RendererForSubjectCataloguing(base.Renderer):
 
     def email01Path(self):
         return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToSubjectCataloguingReviewPreparing'))
+
+    def groupsAdministrationPath(self):
+        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','subject-cataloguing-groups-administration'))
         
 
 class AddFormForDescriptiveCataloguing(base.AddForm):

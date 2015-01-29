@@ -35,6 +35,8 @@
                target="_self">CSV s přehledem</a></li>
 	<li><a href=""  tal:attributes="href string:${context/email01Path}">Poslat email</a></li>
       </ul>
+      <h4>ostatní</h4>
+      <a tal:attributes="href string:${context/groupsAdministrationPath}">správa uživatelů</a>
     </dd>
     <dd class="portletFooter">
         <span class="portletBottomLeft"></span>

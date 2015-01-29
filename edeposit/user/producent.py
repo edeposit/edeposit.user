@@ -23,7 +23,6 @@ from z3c.relationfield.schema import RelationChoice, RelationList
 from zope.interface import implements
 from zope.component import adapts
 from Products.statusmessages.interfaces import IStatusMessage
-from .widgets.interfaces import IAgreementFileWidget
 
 from plone.namedfile.interfaces import INamedBlobFileField, INamedBlobImageField
 from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage

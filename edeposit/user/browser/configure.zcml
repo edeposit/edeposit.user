@@ -28,6 +28,20 @@
         permission="zope2.View"
         />
 
+    <browser:page
+        for="edeposit.user.producentfolder.IProducentFolder"
+        name="subject-cataloguing-groups-administration"
+        class=".cataloguing.SubjectCataloguingGroupsAdministrationForm"
+        permission="zope2.View"
+        />
+
+    <browser:page
+        for="edeposit.user.producentfolder.IProducentFolder"
+        name="descriptive-cataloguing-groups-administration"
+        class=".cataloguing.DescriptiveCataloguingGroupsAdministrationForm"
+        permission="zope2.View"
+        />
+
     <!-- <browser:page -->
     <!--     for="*" -->
     <!--     name="register-with-producent" -->

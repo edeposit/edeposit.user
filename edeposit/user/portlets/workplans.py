@@ -37,7 +37,7 @@ class Renderer(base.Renderer):
     def numOfOriginalFilesWaitingForUser(self, user):
         collName =  "/producents/originalfiles-waiting-for-user-" + user.id
         collection = api.content.get(path=collName)
-        return len(collection.results(batch=False))
+        return collection and len(collection.results(batch=False)) or 0
 
     def linkText(self,user):
         return "%s (%d)" % (self.userFullname(user), self.numOfOriginalFilesWaitingForUser(user))
