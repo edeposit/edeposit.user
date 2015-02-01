@@ -61,14 +61,14 @@ class Renderer(base.Renderer):
 
     @property
     def administrators(self):
-        ids = self.context.getAssignedProducentAdministrators()
+        ids = self.context.getAssignedProducentAdministrators() or []
         members = [ api.user.get(username = ii) for ii in ids]
         fullnames = [ mm.getProperty('fullname') for mm in members ]
         return [{'id':id,'fullname':fullname} for (id,fullname) in zip(ids,fullnames)]
 
     @property
     def editors(self):
-        ids = self.context.getAssignedProducentEditors()
+        ids = self.context.getAssignedProducentEditors() or []
         members = [ api.user.get(username = ii) for ii in ids]
         fullnames = [ mm.getProperty('fullname') for mm in members ]
         return [{'id':id,'fullname':fullname} for (id,fullname) in zip(ids,fullnames)]

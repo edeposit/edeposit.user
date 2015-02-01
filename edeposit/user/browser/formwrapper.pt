@@ -1,0 +1,3 @@
+<div class="">
+   <div tal:replace="structure view/contents" />
+</div>

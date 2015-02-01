@@ -10,6 +10,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 import re
 from plone import api
 import os.path
+from lxml import html
 
 from edeposit.user import MessageFactory as _
 import itertools
@@ -44,6 +45,7 @@ class Assignment(base.Assignment):
         """
         return _(u"E-Deposit: Registering of any eContent")
 
+from edeposit.user.browser.agreement import ProducentFormView, ProducentDisplayForm
 
 class Renderer(base.Renderer):
     """Portlet renderer.
@@ -65,6 +67,18 @@ class Renderer(base.Renderer):
     def member(self):
         return api.user.get_current()
 
+    def agreementWidget(self,producent):
+        view = ProducentFormView(producent, self.request)
+        view = view.__of__(producent)
+        view.form_instance = ProducentDisplayForm(producent, self.request)
+        root = html.fromstring(view())
+        widget = root.get_element_by_id('formfield-form-widgets-agreement')
+        out = html.tostring(widget)
+        widgetHTML = re.sub(r'[^\"]+(\/\+\+widget\+\+form\.widgets\.agreement)', 
+                            r'%s/view\1' %(producent.absolute_url(),), out)
+        print widgetHTML
+        return widgetHTML
+
     def assignedProducents(self):
         user = api.user.get_current()
         username = user.getUserName()
@@ -82,8 +96,8 @@ class Renderer(base.Renderer):
                             'title': brain['Title'],
                             'agreementpath': brain.getPath() + "/smlouva.pdf",
                             'hasagreement': brain['hasAgreement'],
-                        } for brain in (brains or []) if userIsAssigned(brain)
-                           ]
+                            'agreementWidget': self.agreementWidget(brain.getObject()),
+                        } for brain in (brains or []) if userIsAssigned(brain) ]
         
         #/edeposit/producenti/jeste-jeden-od-anonyma/epublications/++add++edeposit.content.epublication
         def getRegisteringPaths(producentPath):
@@ -106,11 +120,12 @@ class Renderer(base.Renderer):
                                "contribute"
             )
             return [{'desc': _("Contribute Original file"), 'href': url}]
-            
+
         return [ {'name': producentInfo['title'],         
                   'path': producentInfo['path'],
                   'agreementpath': producentInfo['agreementpath'],
                   'hasagreement': producentInfo['hasagreement'],
+                  'agreementWidget': producentInfo['agreementWidget'],
                   'links': getRegisteringPaths(producentInfo['path']) +\
                   getOriginalFileContributingPath(producentInfo['path'])} for
                  producentInfo in (producentInfos or [])]

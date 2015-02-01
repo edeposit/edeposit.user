@@ -21,7 +21,8 @@
                       filename view/filename;
                       filename_encoded view/filename_encoded;"
             tal:condition="python: exists and fieldname">
-        <a tal:content="filename"
+        <a class="agreement-download"
+           tal:content="filename"
            tal:omit-tag="not:exists:context/absolute_url"
            tal:attributes="href view/download_url">Filename</a>
         <span class="discreet"> &mdash; <span tal:define="sizekb view/file_size" tal:replace="sizekb">100</span> KB</span>
@@ -29,6 +30,11 @@
     <span tal:condition="not:exists" class="discreet" i18n:translate="no_file">
       No file
     </span>
-    <span tal:condition="not:exists" class="generating">smlouva se generuje</span>
-    <img tal:condition="not:exists" src="spinner.gif"/>
+    <span tal:condition="not:exists" class="generating">
+      <a class="generate-agreement" tal:attributes="href string:${context/absolute_url}/generate-agreement">vygenerovat</a>
+    </span>
+    <span tal:condition="not:exists"   style="display:none"
+          class="agreement-is-generating">Smlouva se generuje</span>
+    <img class="not-agreement-spinner" style="display:none"  src="spinner.gif"
+         tal:condition="not:exists"/>
 </span>

@@ -14,6 +14,27 @@
         name="edeposit.user.producent"
         />
 
+  <browser:page
+      name="smlouva-s-narodni-knihovnou.pdf"
+      for="edeposit.user.producent.IProducent"
+      class=".agreement.AgreementDownload"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="generate-agreement"
+      for="edeposit.user.producent.IProducent"
+      class=".agreement.GenerateAgreement"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="has-agreement"
+      for="edeposit.user.producent.IProducent"
+      class=".agreement.HasAgreement"
+      permission="zope2.View"
+      />
+
     <browser:page
         for="*"
         name="register-with-producent"
