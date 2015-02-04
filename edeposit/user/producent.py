@@ -45,23 +45,19 @@ class IProducent(model.Schema, IImageScaleTraversable):
     )
 
     domicile = schema.TextLine(
-        title = u"Sídlo",
-        required = False,  )
+        title = u"Sídlo (celá adresa)",
+        required = False, )
 
-    ico = schema.TextLine (
+    ico = schema.ASCIILine (
         title = u"IČ",
         required = False )
 
-    dic = schema.TextLine (
+    dic = schema.ASCIILine (
         title = u"DIČ",
         required = False )
 
     zastoupen = schema.TextLine (
         title = u"Statutární zástupce organizace",
-        required = False )
-
-    jednajici = schema.TextLine (
-        title = u"Jednající",
         required = False )
 
     agreement = AgreementFile (
