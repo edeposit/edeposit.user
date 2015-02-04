@@ -38,6 +38,7 @@ from Products.CMFDefault.exceptions import EmailAddressInvalid
 from zope.interface import invariant, Invalid
 from itertools import chain
 from five import grok
+import re
 
 # Logger output for this module
 logger = logging.getLogger(__name__)
@@ -63,10 +64,15 @@ class IAdministrator(model.Schema):
 def checkEmailAddress(value):
     reg_tool = api.portal.get_tool(name='portal_registration')
     if value and reg_tool.isValidEmail(value):
-        pass
+        return True
     else:
-        raise EmailAddressInvalid
-    return True
+        raise EmailAddressInvalid()
+    return False
+
+def checkForRegularTextFactory(regex):
+    def validator(value):
+        return re.search(regex,value)
+    return validator
 
 # Interface class; used to define content-type schema.
 class IEditor(model.Schema):
@@ -91,14 +97,16 @@ class IEditor(model.Schema):
     email = schema.ASCIILine(
         title=_(u'label_email', default=u'E-mail'),
         description=u'',
+        constraint = checkEmailAddress,
         required=False,
     )
 
-    phone = schema.TextLine(
+    phone = schema.ASCIILine(
         title=_(u'label_phone', default=u'Telephone number'),
         description=_(u'help_phone',
                       default=u"Leave your phone number so we can reach you."),
         required=False,
+        constraint = checkForRegularTextFactory(r'^[ 0-9\+]*$')
     )
     
     username = schema.ASCIILine(
@@ -111,6 +119,7 @@ class IEditor(model.Schema):
                       "make sure the caps lock key is not enabled. "
                       "This is the name used to log in."),
         required=False,
+        constraint = checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]*$')
     )
     
     password = schema.Password(
@@ -289,23 +298,21 @@ class IRegistrationAtOnce(form.Schema):
         required = True)
 
     domicile = schema.TextLine (
-        title = u"Sídlo",
+        title = u"Sídlo (celá adresa)",
         required = False )
 
-    ico = schema.TextLine (
+    ico = schema.ASCIILine (
         title = u"IČ",
+        constraint = checkForRegularTextFactory(r'^[a-zA-Z 0-9\+]*$'),
         required = False )
 
-    dic = schema.TextLine (
+    dic = schema.ASCIILine (
         title = u"DIČ",
+        constraint = checkForRegularTextFactory(r'^[a-zA-Z 0-9\+]*$'),
         required = False )
 
     zastoupen = schema.TextLine (
         title = u"Statutární zástupce organizace",
-        required = False )
-
-    jednajici = schema.TextLine (
-        title = u"Jednající",
         required = False )
 
     form.fieldset('producent_administrator',
@@ -325,10 +332,12 @@ class IRegistrationAtOnce(form.Schema):
 
     administrator_email = schema.ASCIILine (
         title = u"email",
+        constraint = checkEmailAddress,
         required = True )
 
     administrator_phone = schema.ASCIILine (
         title = u"Telefonní číslo",
+        constraint = checkForRegularTextFactory(r'^[ 0-9\+]*$'),
         required = True )
 
     administrator_username = schema.ASCIILine (
@@ -360,10 +369,12 @@ class IRegistrationAtOnce(form.Schema):
 
     editor_email = schema.ASCIILine (
         title = u"email",
+        constraint = checkEmailAddress,
         required = False )
 
     editor_phone = schema.ASCIILine (
         title = u"Telefonní číslo",
+        constraint = checkForRegularTextFactory(r'^[ 0-9\+]*$'),
         required = False )
 
     editor_username = schema.ASCIILine (
@@ -478,8 +489,8 @@ class RegistrationAtOnceForm(form.SchemaForm):
                 raise ActionExecutionError(Invalid(u"Pokud chcete editora, vyplňte všechna jeho políčka."))
             pass
 
-        producentData = dict(zip( ('title','jednajici','pravni_forma','domicile','ico','dic', 'zastoupen'), 
-                                  map(data.__getitem__,('producent_name','jednajici','pravni_forma','domicile','ico','dic','zastoupen'))))
+        producentData = dict(zip( ('title','pravni_forma','domicile','ico','dic', 'zastoupen'), 
+                                  map(data.__getitem__,('producent_name','pravni_forma','domicile','ico','dic','zastoupen'))))
         producents = api.portal.get()['producents']
         newProducent = createContentInContainer(producents,'edeposit.user.producent',**producentData)
 
@@ -524,7 +535,7 @@ class RegistrationAtOnceForm(form.SchemaForm):
         
         with api.env.adopt_roles(roles=["E-Deposit: Acquisitor",]):
             wft.doActionFor(newProducent,'approve')
-            wft.doActionFor(newProducent,'generateAgreement')
+            #wft.doActionFor(newProducent,'generateAgreement')
 
         IStatusMessage(self.request).addStatusMessage(u"Registrace proběhla úspěšně", "info")
         url = "%s/%s" % (api.portal.getSite().absolute_url(), 'register-with-producent-successed')
