@@ -48,25 +48,25 @@ class RendererForDescriptiveCataloguing(base.Renderer):
         return _(u"Descriptive Cataloguing Preparing")
         
     def collectionPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-descriptive-cataloguing-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','originalfiles-waiting-for-descriptive-cataloguing-preparing'])
 
     def worklistPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-descriptive-cataloguing-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','worklist-waiting-for-descriptive-cataloguing-preparing'])
 
     def emailPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToDescriptiveCataloguingPreparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','content_status_comment?workflow_action=sendEmailToDescriptiveCataloguingPreparing'])
 
     def collection01Path(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-descriptive-cataloguing-review-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','originalfiles-waiting-for-descriptive-cataloguing-review-preparing'])
 
     def worklist01Path(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-descriptive-cataloguing-review-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','worklist-waiting-for-descriptive-cataloguing-review-preparing'])
 
     def email01Path(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToDescriptiveCataloguingReviewPreparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','content_status_comment?workflow_action=sendEmailToDescriptiveCataloguingReviewPreparing'])
 
     def groupsAdministrationPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','descriptive-cataloguing-groups-administration'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','descriptive-cataloguing-groups-administration'])
 
 class RendererForSubjectCataloguing(base.Renderer):
     render = ViewPageTemplateFile('preparecataloguing.pt')
@@ -75,25 +75,25 @@ class RendererForSubjectCataloguing(base.Renderer):
         return _(u"Subject Cataloguing Preparing")
         
     def collectionPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-subject-cataloguing-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','originalfiles-waiting-for-subject-cataloguing-preparing'])
 
     def worklistPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-subject-cataloguing-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','worklist-waiting-for-subject-cataloguing-preparing'])
 
     def emailPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToSubjectCataloguingPreparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','content_status_comment?workflow_action=sendEmailToSubjectCataloguingPreparing'])
 
     def collection01Path(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','originalfiles-waiting-for-subject-cataloguing-review-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','originalfiles-waiting-for-subject-cataloguing-review-preparing'])
 
     def worklist01Path(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','worklist-waiting-for-subject-cataloguing-review-preparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','worklist-waiting-for-subject-cataloguing-review-preparing'])
 
     def email01Path(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','content_status_comment?workflow_action=sendEmailToSubjectCataloguingReviewPreparing'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','content_status_comment?workflow_action=sendEmailToSubjectCataloguingReviewPreparing'])
 
     def groupsAdministrationPath(self):
-        return '/'.join(api.portal.get().getPhysicalPath() + ('producents','subject-cataloguing-groups-administration'))
+        return '/'.join([api.portal.get().absolute_url(),'producents','subject-cataloguing-groups-administration'])
         
 
 class AddFormForDescriptiveCataloguing(base.AddForm):

@@ -116,7 +116,7 @@ class ISubjectCataloguingGroups(form.Schema):
 class SubjectCataloguingGroupsAdministrationForm(form.SchemaForm):
     schema = ISubjectCataloguingGroups
     ignoreContext = True
-    label = u"Správa členů jmenného popisu"
+    label = u"Správa členů věcného popisu"
 
     def actualCataloguers(self):
         ids =  lambda groupname: set([mm.id for mm in get_users(groupname=groupname)])
@@ -169,7 +169,7 @@ class IDescriptiveCataloguingGroups(form.Schema):
 class DescriptiveCataloguingGroupsAdministrationForm(form.SchemaForm):
     schema = IDescriptiveCataloguingGroups
     ignoreContext = True
-    label = u"Správa členů věcného popisu"
+    label = u"Správa členů jmenného popisu"
 
     def actualCataloguers(self):
         ids = lambda groupname: set([mm.id for mm in get_users(groupname=groupname)])
