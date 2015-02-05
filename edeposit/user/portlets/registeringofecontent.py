@@ -76,7 +76,6 @@ class Renderer(base.Renderer):
         out = html.tostring(widget)
         widgetHTML = re.sub(r'[^\"]+(\/\+\+widget\+\+form\.widgets\.agreement)', 
                             r'%s/view\1' %(producent.absolute_url(),), out)
-        print widgetHTML
         return widgetHTML
 
     def assignedProducents(self):
