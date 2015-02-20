@@ -28,7 +28,9 @@ edeposit/user/testing.py
 edeposit/user/tests.py
 edeposit/user/userdataschema.py
 edeposit/user/browser/__init__.py
+edeposit/user/browser/agreement.py
 edeposit/user/browser/ajax.py
+edeposit/user/browser/cataloguing.py
 edeposit/user/browser/register.py
 edeposit/user/portlets/__init__.py
 edeposit/user/portlets/documentcontributing.py

@@ -120,6 +120,10 @@ jQuery(document).ready(function() {
     	}
     });
     
+    if( document.location.pathname.indexOf('/epublications/add-at-once') != -1 ){
+        jQuery('#form-buttons-clean').prependTo('#form')
+    };
+
     /*        .edepositRegistrationFormTabsHandler()
               .edepositFormLoadStyle();
     */
