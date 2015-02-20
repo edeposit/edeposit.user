@@ -23,6 +23,18 @@ from plone.dexterity.utils import createContentInContainer, addContentToContaine
 from edeposit.user import MessageFactory as _
 from plone import api
 
+def queryForStates(*args):
+    return [ {'i': 'portal_type',
+              'o': 'plone.app.querystring.operation.selection.is',
+              'v': ['edeposit.content.originalfile']},
+             {'i': 'review_state',
+              'o': 'plone.app.querystring.operation.selection.is',
+              'v': args},
+             {'i': 'path', 
+              'o': 'plone.app.querystring.operation.string.relativePath', 
+              'v': '../'}
+         ]
+
 # Interface class; used to define content-type schema.
 
 class IProducentFolder(model.Schema, IImageScaleTraversable):
@@ -69,6 +81,26 @@ class ProducentFolder(Container):
         newEPublication = createContentInContainer(epublicationFolder,'edeposit.content.epublication',**dict([ (ii[0],kwargs.get(ii[1])) for ii in pairs] + valuesPairs))
         pass
     pass
+
+    def createUserCollection(self, username, indexName, state, readerGroup):
+        collectionName = 'originalfiles-waiting-for-user-' + username
+        if collectionName not in self.keys():
+            title = u"Originály čekající na: " + username
+            print "create ", title
+            query = queryForStates(state)
+            queryForUser = [{ 'i': indexName,                     
+                              'o': 'plone.app.querystring.operation.string.is',
+                              'v': username }]
+            collection = api.content.create( id=collectionName, 
+                                             container=self, 
+                                             type='Collection',
+                                             title=title, 
+                                             query = query + queryForUser)
+            api.user.grant_roles(username=username, roles=['Reader',], obj=collection)
+            api.group.grant_roles(groupname=readerGroup, roles=['Reader',],  obj=collection)
+            return collection
+            
+        return None
 
 
 class WorklistCSV(BrowserView):
