@@ -74,8 +74,6 @@ class ProducentFolder(Container):
         path="/".join(["",'producents',kwargs['nakladatel']])
         producent = api.content.get(path=path)
         epublicationFolder = producent['epublications']
-        kwargs.keys()
-        import pdb; pdb.set_trace()
         valuesPairs = [('vazba','online'),('nakladatel_vydavatel',producent.title),('zpracovatel_zaznamu',currentUser.id),('cena',kwargs['cena-v-kc'] and Decimal(kwargs['cena-v-kc']))]
         pairs = [('title','nazev-publikace'),('podnazev','podnazev'),('isbn_souboru_publikaci','isbn-souboru-publikaci'),('cast','cast-dil'),('nazev_casti','nazev-casti-dilu'),('rok_vydani','rok-vydani'),('poradi_vydani','poradi-vydani'),('misto_vydani','misto-vydani'),('vydano_v_koedici_s','vydano-v-koedici'),('is_public','publikace-je-verejna'),('offer_to_riv','zpristupnit-pro-riv'),]
         newEPublication = createContentInContainer(epublicationFolder,'edeposit.content.epublication',**dict([ (ii[0],kwargs.get(ii[1])) for ii in pairs] + valuesPairs))
