@@ -105,11 +105,11 @@ jQuery(document).ready(function() {
     });
     $("#form-widgets-libraries_accessing-1").change(function() {
         $("#formfield-form-widgets-libraries_that_can_access").fadeOut('slow');
-	$("#form-widgets-is_public-0").prop('checked',true);
+	//$("#form-widgets-is_public-0").prop('checked',false);
     });
     $("#form-widgets-libraries_accessing-2").change(function() {
         $("#formfield-form-widgets-libraries_that_can_access").fadeIn('slow');
-	$("#form-widgets-is_public-0").prop('checked',false);
+	//$("#form-widgets-is_public-0").prop('checked',false);
     });
     $("#form-widgets-is_public-0").change(function(){
     	var ePublicationIsPublic = $(this).attr('checked');
