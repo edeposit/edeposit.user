@@ -7,7 +7,7 @@ from plone.portlets.interfaces import IPortletDataProvider
 from plone import api
 from zope import schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from Acquisition import aq_inner, aq_parent
 from edeposit.user import MessageFactory as _
 
 from zope.schema.interfaces import IContextSourceBinder
@@ -95,19 +95,23 @@ class AssignedWorkerForm(form.SchemaForm):
             return
 
         if data.get(self.fieldName,None):
+            username = data[self.fieldName]
             local_roles = self.context.get_local_roles()
             remove = filter(lambda pair: self.roleName in pair[1], local_roles)
             users = map(lambda pair: pair[0], remove)
             for userid in users:
-                api.user.revoke_roles(username=userid, 
-                                      obj=self.context, 
-                                      roles=[self.roleName,])
-            api.user.grant_roles(username=data[self.fieldName],
-                                 obj=self.context, 
-                                 roles=[self.roleName,])
+                api.user.revoke_roles(username=userid, obj=self.context, roles=[self.roleName,])
+
+            api.user.grant_roles(username=username, obj=self.context, roles=[self.roleName,])
+
             modified(self.context)
             wft = api.portal.get_tool('portal_workflow')
             wft.doActionFor(self.context, self.submitAction)
+
+            # change local roles "Reader" for detail of an originalfile
+            epublication = aq_parent(aq_inner(self.context))
+            api.user.grant_roles(username=username, obj=epublication, roles=['Reader',])
+
             self.status = u"Hotovo!"
 
         return self.context.REQUEST.response.redirect( self.context.absolute_url() )
