@@ -120,7 +120,6 @@ jQuery(document).ready(function() {
     	        }
         });
         function selectNarodniKnihovna(){
-                console.log('set narodni knihovna');
                 $('option[value="narodni-knihovna-ceske-republiky"]').attr('selected','True');                
         };
         $("#form-widgets-libraries_that_can_access option").on("click", selectNarodniKnihovna);
