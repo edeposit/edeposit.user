@@ -155,6 +155,10 @@ class WorklistWaitingForAcquisitionView(WorklistCSV):
     filename = "worklist-waiting-for-acquisition"
     collection_name = "originalfiles-waiting-for-acquisition"
 
+class WorklistWaitingForProperAlephRecordChoosingView(WorklistCSV):
+    filename = "worklist-waiting-for-proper-aleph-record-choosing"
+    collection_name = "originalfiles-waiting-for-proper-aleph-record-choosing"
+
 class WorklistWaitingForISBNSubjectValidationView(WorklistCSV):
     filename = "worklist-waiting-for-isbn-subject-validation"
     collection_name = "originalfiles-waiting-for-isbn-subject-validation"

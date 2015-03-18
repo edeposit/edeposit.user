@@ -18,6 +18,13 @@
       purge="True"
       manager="plone.leftcolumn"
       category="group"
+      key="Subject Cataloguing Administrators"
+      />
+
+  <assignment
+      purge="True"
+      manager="plone.leftcolumn"
+      category="group"
       key="Producent Administrators"
       />
   
@@ -167,15 +174,17 @@
    <assignment
        category="group"
        key="Descriptive Cataloguing Administrators"
-       manager="plone.leftcolumn"
+       manager="plone.rightcolumn"
        type="edeposit.user.portlets.PrepareDescriptiveCataloguing"
+       insert-before="*"
        />
 
    <assignment
        category="group"
        key="Subject Cataloguing Administrators"
-       manager="plone.leftcolumn"
+       manager="plone.rightcolumn"
        type="edeposit.user.portlets.PrepareSubjectCataloguing"
+       insert-before="*"
        />
 
    <portlet

@@ -88,6 +88,13 @@
 
   <browser:page
       for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-proper-aleph-record-choosing"
+      class=".producentfolder.WorklistWaitingForProperAlephRecordChoosingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
       name="worklist-waiting-for-descriptive-cataloguing-preparing"
       class=".producentfolder.WorklistWaitingForDescriptiveCataloguingPreparingView"
       permission="cmf.ReviewPortalContent"
