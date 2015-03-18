@@ -97,45 +97,51 @@ function getProducentPath(){
 };
 
 jQuery(document).ready(function() {
-    $("#form").edepositFormLegends();
-    $("#formfield-form-widgets-libraries_that_can_access").show();
-    $("#form-widgets-libraries_accessing-0").change(function() {
-        $("#formfield-form-widgets-libraries_that_can_access").fadeOut('slow');
-	$("#form-widgets-is_public-0").prop('checked',false);
-    });
-    $("#form-widgets-libraries_accessing-1").change(function() {
-        $("#formfield-form-widgets-libraries_that_can_access").fadeOut('slow');
-	//$("#form-widgets-is_public-0").prop('checked',false);
-    });
-    $("#form-widgets-libraries_accessing-2").change(function() {
-        $("#formfield-form-widgets-libraries_that_can_access").fadeIn('slow');
-	//$("#form-widgets-is_public-0").prop('checked',false);
-    });
-    $("#form-widgets-is_public-0").change(function(){
-    	var ePublicationIsPublic = $(this).attr('checked');
-    	if ( ePublicationIsPublic ){
-    	    $("#form-widgets-libraries_accessing-1").click();
-    	} else {
-    	    $("#form-widgets-libraries_accessing-2").click();
-    	}
-    });
-    
-    if( document.location.pathname.indexOf('/epublications/add-at-once') != -1 ){
-        jQuery('#form-buttons-clean').prependTo('#form')
-    };
-
-    /*        .edepositRegistrationFormTabsHandler()
-              .edepositFormLoadStyle();
-    */
+        $("#form").edepositFormLegends();
+        $("#formfield-form-widgets-libraries_that_can_access").show();
+        $("#form-widgets-libraries_accessing-0").change(function() {
+                $("#formfield-form-widgets-libraries_that_can_access").fadeOut('slow');
+	        $("#form-widgets-is_public-0").prop('checked',false);
+        });
+        $("#form-widgets-libraries_accessing-1").change(function() {
+                $("#formfield-form-widgets-libraries_that_can_access").fadeOut('slow');
+	        //$("#form-widgets-is_public-0").prop('checked',false);
+        });
+        $("#form-widgets-libraries_accessing-2").change(function() {
+                $("#formfield-form-widgets-libraries_that_can_access").fadeIn('slow');
+	        //$("#form-widgets-is_public-0").prop('checked',false);
+        });
+        $("#form-widgets-is_public-0").change(function(){
+    	        var ePublicationIsPublic = $(this).attr('checked');
+    	        if ( ePublicationIsPublic ){
+    	                $("#form-widgets-libraries_accessing-1").click();
+    	        } else {
+    	                $("#form-widgets-libraries_accessing-2").click();
+    	        }
+        });
+        function selectNarodniKnihovna(){
+                console.log('set narodni knihovna');
+                $('option[value="narodni-knihovna-ceske-republiky"]').attr('selected','True');                
+        };
+        $("#form-widgets-libraries_that_can_access option").on("click", selectNarodniKnihovna);
+        $("#form-widgets-libraries_that_can_access option").on("change", selectNarodniKnihovna);
         
-    // No overlays for IE6
-    // if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
-    // 	// Set up overlays
-    // 	$("a#personaltools-join").prepOverlay({
-    // 		subtype: 'ajax',
-    // 		filter: 'div.edeposit-user-registration',
-    // 		formselector: 'form',
-    // 		noform: 'close',
-    // 	});
-    // }
+        if( document.location.pathname.indexOf('/epublications/add-at-once') != -1 ){
+                jQuery('#form-buttons-clean').prependTo('#form')
+        };
+        
+        /*        .edepositRegistrationFormTabsHandler()
+                  .edepositFormLoadStyle();
+        */
+        
+        // No overlays for IE6
+        // if (!jQuery.browser.msie || parseInt(jQuery.browser.version, 10) >= 7) {
+        // 	// Set up overlays
+        // 	$("a#personaltools-join").prepOverlay({
+        // 		subtype: 'ajax',
+        // 		filter: 'div.edeposit-user-registration',
+        // 		formselector: 'form',
+        // 		noform: 'close',
+        // 	});
+        // }
 });
