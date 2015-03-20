@@ -8,7 +8,7 @@ from plone import api
 from zope import schema
 from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from edeposit.content.originalfile import IOriginalFile
 from edeposit.user import MessageFactory as _
 
 class IPrepareDescriptiveCataloguing(IPortletDataProvider):
@@ -68,6 +68,10 @@ class RendererForDescriptiveCataloguing(base.Renderer):
     def groupsAdministrationPath(self):
         return '/'.join([api.portal.get().absolute_url(),'producents','descriptive-cataloguing-groups-administration'])
 
+    @property
+    def available(self):
+        return not IOriginalFile.providedBy(self.context)
+
 class RendererForSubjectCataloguing(base.Renderer):
     render = ViewPageTemplateFile('preparecataloguing.pt')
 
@@ -95,6 +99,9 @@ class RendererForSubjectCataloguing(base.Renderer):
     def groupsAdministrationPath(self):
         return '/'.join([api.portal.get().absolute_url(),'producents','subject-cataloguing-groups-administration'])
         
+    @property
+    def available(self):
+        return not IOriginalFile.providedBy(self.context)
 
 class AddFormForDescriptiveCataloguing(base.AddForm):
     form_fields = form.Fields(IPrepareDescriptiveCataloguing)

@@ -106,7 +106,7 @@ class IEditor(model.Schema):
         description=_(u'help_phone',
                       default=u"Leave your phone number so we can reach you."),
         required=False,
-        constraint = checkForRegularTextFactory(r'^[ 0-9\+]*$')
+        constraint = checkForRegularTextFactory(r'^[ 0-9\+]*$'),
     )
     
     username = schema.ASCIILine(
@@ -119,7 +119,7 @@ class IEditor(model.Schema):
                       "make sure the caps lock key is not enabled. "
                       "This is the name used to log in."),
         required=False,
-        constraint = checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]*$')
+        constraint = checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]{5,32}$'),
     )
     
     password = schema.Password(
@@ -342,6 +342,7 @@ class IRegistrationAtOnce(form.Schema):
 
     administrator_username = schema.ASCIILine (
         title = u"Uživatelské jméno",
+        constraint = checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]{5,32}$'),
         required = True )
 
     administrator_password = schema.Password (
@@ -379,6 +380,7 @@ class IRegistrationAtOnce(form.Schema):
 
     editor_username = schema.ASCIILine (
         title = u"Uživatelské jméno",
+        constraint = checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]{5,32}$'),
         required = False )
 
     editor_password = schema.Password (

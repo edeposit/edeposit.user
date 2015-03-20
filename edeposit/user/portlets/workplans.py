@@ -10,7 +10,7 @@ from zope.formlib import form
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from plone import api
-
+from edeposit.content.originalfile import IOriginalFile
 from edeposit.user import MessageFactory as _
 
 class Renderer(base.Renderer):
@@ -44,6 +44,10 @@ class Renderer(base.Renderer):
 
     def header(self):
         return self.portalHeader
+
+    @property
+    def available(self):
+        return not IOriginalFile.providedBy(self.context)
 
 class RendererForDescriptiveCataloguers(Renderer):
     groupName = "Descriptive Cataloguers"
