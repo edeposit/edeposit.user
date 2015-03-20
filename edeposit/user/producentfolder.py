@@ -77,11 +77,24 @@ class ProducentFolder(Container):
         pass
     pass
 
+    def recreateUserCollectionIfEmpty(self, username, indexName, state, readerGroup):
+        collectionName = 'originalfiles-waiting-for-user-' + username
+        if collectionName not in self.keys():
+            self.createUserCollection(username, indexName, state, readerGroup)
+        else:
+            collection = self[collectionName]
+            results = collection.results()
+            if not results:
+                print "... deleting: ", collectionName
+                api.content.delete(obj=collection)
+                self.createUserCollection(username, indexName, state, readerGroup)
+        pass
+
     def createUserCollection(self, username, indexName, state, readerGroup):
         collectionName = 'originalfiles-waiting-for-user-' + username
         if collectionName not in self.keys():
             title = u"Originály čekající na: " + username
-            print "create ", title
+            print "... create ", title
             query = queryForStates(state)
             queryForUser = [{ 'i': indexName,                     
                               'o': 'plone.app.querystring.operation.string.is',
