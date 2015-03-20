@@ -30,9 +30,6 @@ def queryForStates(*args):
              {'i': 'review_state',
               'o': 'plone.app.querystring.operation.selection.is',
               'v': args},
-             {'i': 'path', 
-              'o': 'plone.app.querystring.operation.string.relativePath', 
-              'v': '../'}
          ]
 
 # Interface class; used to define content-type schema.
