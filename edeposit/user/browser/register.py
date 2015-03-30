@@ -512,12 +512,13 @@ class RegistrationAtOnceForm(form.SchemaForm):
         api.group.add_user(groupname="Producent Administrators", username=newUser.id )
 
         api.user.grant_roles(username=newUser.id,  obj=newProducent,
-                             roles=('E-Deposit: Producent Editor',
+                             roles=('E-Deposit: Producent Member',
+                                    'E-Deposit: Producent Editor',
                                     'E-Deposit: Producent Administrator',
-                                    'Editor','Reader')
-                             )
+                                    'Editor','Reader'))
         api.user.grant_roles(username=newUser.id,  obj = newProducent['epublications'],
-                             roles=('E-Deposit: Producent Editor',
+                             roles=('E-Deposit: Producent Member',
+                                    'E-Deposit: Producent Editor',
                                     'E-Deposit: Producent Administrator',
                                     'Contributor'))
         

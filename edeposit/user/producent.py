@@ -12,7 +12,8 @@ from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
 from plone.formwidget.autocomplete import AutocompleteFieldWidget, AutocompleteMultiFieldWidget
-
+from z3c.form.browser.checkbox import CheckBoxFieldWidget
+from plone.app.form.widgets import MultiCheckBoxWidget
 from plone.supermodel import model
 from Products.Five import BrowserView
 from five import grok
@@ -21,11 +22,12 @@ from edeposit.user import MessageFactory as _
 from plone import api
 from z3c.relationfield.schema import RelationChoice, RelationList
 from zope.interface import implements
-from zope.component import adapts
+from zope.component import adapts, getMultiAdapter
 from Products.statusmessages.interfaces import IStatusMessage
 
 from plone.namedfile.interfaces import INamedBlobFileField, INamedBlobImageField
 from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
+from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 
 # Interface class; used to define content-type schema.
 
@@ -75,6 +77,14 @@ class Producent(Container):
     def hasAgreement(self):
         return bool(self.agreement)
 
+    def ensureConsistency(self):
+        # check roles consistency
+        # - each administrator/editor has to have 'producent member'
+        # local role.
+        # - each administrator has to have "Manage users" permission
+        # to remove users
+        import pdb; pdb.set_trace()
+        pass
 
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
@@ -86,17 +96,8 @@ def getAssignedPersonFactory(roleName):
 
 Producent.getAssignedProducentAdministrators = getAssignedPersonFactory('E-Deposit: Producent Administrator')
 Producent.getAssignedProducentEditors = getAssignedPersonFactory('E-Deposit: Producent Editor')
+Producent.getAssignedProducentMembers = getAssignedPersonFactory('E-Deposit: Producent Member')
 
-
-# View class
-# The view is configured in configure.zcml. Edit there to change
-# its public name. Unless changed, the view will be available
-# TTW at content/@@sampleview
-
-class SampleView(BrowserView):
-    """ sample view class """
-    # Add view methods here
-    pass
 
 def getTermFromMember(member):
     return SimpleVocabulary.createTerm(member.id, member.id, "%s (%s)" % (member.getProperty('fullname'),member.id))
@@ -115,18 +116,22 @@ def allProducentEditors(context):
     members = api.user.get_users(groupname="Producent Editors")
     return SearchSimpleVocabulary(map(getTermFromMember, members))
 
-
+@grok.provider(IContextSourceBinder)
+def allProducentMembers(context):
+    members = filter(lambda item: item is not None, map(api.user.get,context.getAssignedProducentMembers()))
+    return SearchSimpleVocabulary(map(getTermFromMember, members))
+    
 class IProducentUsersForm(form.Schema):
     form.widget(administrators=AutocompleteMultiFieldWidget)    
     administrators = schema.Set (
         title = u"Správci",
-        value_type = schema.Choice(source = allProducentAdministrators )
+        value_type = schema.Choice(source = allProducentMembers)
         )
 
     form.widget(editors=AutocompleteMultiFieldWidget)    
     editors = schema.Set (
         title = u"Editoři",
-        value_type = schema.Choice(source = allProducentEditors )
+        value_type = schema.Choice(source = allProducentMembers)
         )
 
 class ProducentToProducentUsers(object):
@@ -191,3 +196,196 @@ class ProducentUsersForm(form.SchemaForm):
         self.context.reindexObject()
     pass
     
+from edeposit.user.browser import register
+
+class IProducentMember(model.Schema):
+    """ a few fields from IProducentAdministrator """
+    fullname = schema.TextLine(
+        title=u"Příjmení a jméno",
+        description=_(u'help_full_name_creation',
+                      default=u"Enter full name, e.g. John Smith."),
+        required=True)
+
+    email = schema.ASCIILine(
+        title=_(u'label_email', default=u'E-mail'),
+        description=u'',
+        constraint = register.checkEmailAddress,
+        required=True,
+    )
+
+    phone = schema.ASCIILine(
+        title=_(u'label_phone', default=u'Telephone number'),
+        description=_(u'help_phone',
+                      default=u"Leave your phone number so we can reach you."),
+        required=True,
+        constraint = register.checkForRegularTextFactory(r'^[ 0-9\+]*$'),
+    )
+    
+    username = schema.ASCIILine(
+        title=_(u'label_user_name', default=u'User Name'),
+        description=_(u'help_user_name_creation_casesensitive',
+                      default=u"Enter a user name, usually something "
+                      "like 'jsmith'. "
+                      "No spaces or special characters. "
+                      "Usernames and passwords are case sensitive, "
+                      "make sure the caps lock key is not enabled. "
+                      "This is the name used to log in."),
+        required=True,
+        constraint = register.checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]{4,32}$'),
+    )
+    
+    password = schema.Password(
+        title=_(u'label_password', default=u'Password'),
+        description=_(u'help_password_creation',
+                      default=u'Enter your new password.'),
+        required=True,
+    )
+    
+    password_ctl = schema.Password(
+        title=_(u'label_confirm_password',
+                default=u'Confirm password'),
+        description=_(u'help_confirm_password',
+                      default=u"Re-enter the password. "
+                      "Make sure the passwords are identical."),
+        required=True,
+    )
+
+
+class ProducentAddEditorForm(form.SchemaForm):
+    schema = IProducentMember
+    ignoreContext = True
+    enableCSRFProtection = True
+    enable_form_tabbing = False
+    label = u"Nový editor"
+
+    def extractData(self):
+        def getErrorView(widget,error):
+            view = getMultiAdapter( (error, 
+                                     self.request, 
+                                     widget, 
+                                     widget.field, 
+                                     widget.form, 
+                                     self.context), 
+                                    IErrorViewSnippet)
+            view.update()
+            widget.error = view
+            return view
+
+        reg_tool = api.portal.get_tool(name='portal_registration')
+        widgets = self.widgets
+
+        data,errors = super(ProducentAddEditorForm,self).extractData()
+
+        username = data.get('username')
+        if username and api.user.get(username = username):
+            errors += (getErrorView(widgets.get('username'),
+                                    Invalid(u"Uživatelské jméno je již použito. Vyplňte jiné.")),)
+            pass
+            
+        pwd1 = data.get('password')
+        pwd2 = data.get('password_ctl')
+        if pwd1 and len(pwd1) < 5:
+            errors += (getErrorView(widgets.get('password'), 
+                                    Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
+        if pwd2 and len(pwd2) < 5:
+            errors += (getErrorView(widgets.get('password_ctl'), 
+                                    Invalid(u"Heslo je krátké. Nejméně 5 znaků.")),)
+        if (pwd1 and pwd2) and (len(pwd1) >= 5 and len(pwd2) >= 5) and  (pwd1 != pwd2):
+            errors += (getErrorView(widgets.get('password'),  Invalid(u"Hesla se neshodují.")),)
+            errors += (getErrorView(widgets.get('password_ctl'),  Invalid(u"Hesla se neshodují.")),)
+
+        email = data.get('email')
+        if email and not reg_tool.isValidEmail(email):
+            errors += (getErrorView(widgets.get('email'),  Invalid(u"Toto není platný email.")),)
+
+        return data,errors
+
+    def setMemberRoles(self, member):
+        api.group.add_user(groupname="Producent Editors", username=member.id)
+        api.group.add_user(groupname="Producent Contributors", username=member.id)
+        api.user.grant_roles(username=member.id,  obj=self.context,
+                             roles=('E-Deposit: Producent Member',
+                                    'E-Deposit: Producent Editor',
+                                    'Reader'))
+        pass
+
+    def setStatusMessage(self):
+        IStatusMessage(self.request).addStatusMessage(u"Vytvořen nový editor.", "info")
+        
+    @button.buttonAndHandler(u"Vytvořit",name="save")
+    def handleSave(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        userFields = ('username','password','email')
+        propertyFields = ('fullname','phone')
+        kwargs = dict(zip(userFields, map(data.__getitem__, userFields)))
+        properties = dict(zip(propertyFields, map(data.__getitem__, propertyFields)))
+        member = api.user.create(properties = properties, **kwargs)
+
+        self.setMemberRoles(member)
+        self.setStatusMessage()
+
+        url = self.context.absolute_url()
+        self.request.response.redirect(url)
+        self.context.reindexObject()
+    pass
+    
+class ProducentAdministratorAddForm(ProducentAddEditorForm):
+    label = u"Nový správce"
+    
+    def setMemberRoles(self, member):
+        api.group.add_user(groupname="Producent Editors", username=member.id)
+        api.group.add_user(groupname="Producent Administrators", username=member.id)
+        api.group.add_user(groupname="Producent Contributors", username=member.id)
+
+        api.user.grant_roles(username=member.id,  obj=self.context,
+                             roles=('E-Deposit: Producent Member',
+                                    'E-Deposit: Producent Administrator',
+                                    'E-Deposit: Producent Editor',
+                                    'Editor','Reader'))
+        
+    def setStatusMessage(self):
+        IStatusMessage(self.request).addStatusMessage(u"Vytvořen nový správce.", "info")
+
+
+class IProducentRemoveUsersForm(form.Schema):
+    #form.widget(users=AutocompleteMultiFieldWidget)
+    form.widget(users=CheckBoxFieldWidget)
+    users = schema.Set (
+        title = u"Členové ke zrušení",
+        value_type = schema.Choice(source = allProducentMembers)
+    )
+
+class ProducentRemoveUsersForm(form.SchemaForm):
+    schema = IProducentRemoveUsersForm
+    ignoreContext = True
+    enableCSRFProtection = True
+    enable_form_tabbing = False
+    label = u"Zrušit uživatele"
+
+    @button.buttonAndHandler(u"Vymazat vybrané uživatele",name="remove")
+    def handleRemove(self, action):
+        data, errors = self.extractData()
+        if errors:
+            self.status = self.formErrorsMessage
+            return
+
+        users = [ii for ii in data['users']]
+        for user in users:
+            api.group.remove_user(groupname="Producent Editors", username=user)
+            api.group.remove_user(groupname="Producent Administrators", username=user)
+            api.user.revoke_roles(username=user,  obj=self.context,
+                                  roles=('E-Deposit: Producent Member',
+                                         'E-Deposit: Producent Administrator',
+                                         'E-Deposit: Producent Editor',
+                                         'Editor','Reader'))
+            # api.user.delete(user)
+
+        IStatusMessage(self.request).addStatusMessage(u"Vybraní uživatelé byli vymazáni.", "info")
+
+        url = self.context.absolute_url()
+        self.request.response.redirect(url)
+        self.context.reindexObject()

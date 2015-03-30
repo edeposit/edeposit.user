@@ -59,6 +59,27 @@
         />
 
   <browser:page
+      for=".producent.IProducent"
+      name="new-editor"
+      class=".producent.ProducentAddEditorForm"
+      permission="plone.DelegateRoles"
+      />
+
+  <browser:page
+      for=".producent.IProducent"
+      name="new-administrator"
+      class=".producent.ProducentAdministratorAddForm"
+      permission="plone.DelegateRoles"
+      />
+
+  <browser:page
+      for=".producent.IProducent"
+      name="remove-selected-users"
+      class=".producent.ProducentRemoveUsersForm"
+      permission="plone.DelegateRoles"
+      />
+
+  <browser:page
         for=".producentfolder.IProducentFolder"
         name="worklist-waiting-for-isbn-generation"
         class=".producentfolder.WorklistWaitingForISBNGenerationView"
