@@ -213,7 +213,7 @@ from edeposit.user.browser import register
 class IProducentMember(model.Schema):
     """ a few fields from IProducentAdministrator """
     fullname = schema.TextLine(
-        title=u"Příjmení a jméno",
+        title=u"Jméno a příjmení",
         description=_(u'help_full_name_creation',
                       default=u"Enter full name, e.g. John Smith."),
         required=True)
@@ -243,7 +243,7 @@ class IProducentMember(model.Schema):
                       "make sure the caps lock key is not enabled. "
                       "This is the name used to log in."),
         required=True,
-        constraint = register.checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]{4,32}$'),
+        constraint = register.checkForRegularTextFactory(r'^[a-z0-9_\.A-Z]{5,32}$'),
     )
     
     password = schema.Password(
@@ -376,7 +376,7 @@ class ProducentRemoveUsersForm(form.SchemaForm):
     ignoreContext = True
     enableCSRFProtection = True
     enable_form_tabbing = False
-    label = u"Zrušit uživatele (kromě sebe samého)"
+    label = u"Zrušit uživatele"
 
     @button.buttonAndHandler(u"Vymazat vybrané uživatele",name="remove")
     def handleRemove(self, action):
