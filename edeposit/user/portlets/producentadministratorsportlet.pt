@@ -1,3 +1,8 @@
+<style type="text/css">
+#producent-administrator-actions dt.actionMenuHeader a:after {
+    content: " ▼";
+}
+</style>
 <dl class="portlet portletProducentAdministratorsPortlet"
     i18n:domain="edeposit.user">
 
@@ -8,7 +13,18 @@
     </dt>
 
     <dd class="portletItem odd">
-      <!-- <a href="@@update-roles">Správa rolí</a> -->
+      <dl class="actionMenu" id="producent-administrator-actions">
+        <dt class="actionMenuHeader"><a href="#">Práce s uživateli</a></dt>
+        <dd class="actionMenuContent">
+          <ul>
+            <li><a href="@@update-roles" class="update-roles">Správa rolí</a></li>
+            <li><a href="@@new-editor" class="new-editor">Nový editor</a></li>
+            <li><a href="@@new-administrator" class="new-administrator">Nový správce</a></li>
+            <li><a href="@@remove-selected-users" class="remove-selected-users">Zrušit vybrané uživatele</a></li>
+          </ul>
+        </dd>
+      </dl>
+
       <h4>Správci</h4>
       <ul>
 	<li tal:repeat="member here/administrators">

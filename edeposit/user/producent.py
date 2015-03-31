@@ -28,6 +28,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from plone.namedfile.interfaces import INamedBlobFileField, INamedBlobImageField
 from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
+from operator import ne, is_not
+from functools import partial
 
 # Interface class; used to define content-type schema.
 
@@ -119,6 +121,16 @@ def allProducentEditors(context):
 @grok.provider(IContextSourceBinder)
 def allProducentMembers(context):
     members = filter(lambda item: item is not None, map(api.user.get,context.getAssignedProducentMembers()))
+    return SearchSimpleVocabulary(map(getTermFromMember, members))
+
+@grok.provider(IContextSourceBinder)
+def allProducentMembersWithoutCurrent(context):
+    current_user = api.user.get_current()
+    members =  filter(partial(is_not,None),
+                      map(api.user.get,
+                          filter(partial(ne, current_user.id),
+                                 context.getAssignedProducentMembers())))
+
     return SearchSimpleVocabulary(map(getTermFromMember, members))
     
 class IProducentUsersForm(form.Schema):
@@ -356,7 +368,7 @@ class IProducentRemoveUsersForm(form.Schema):
     form.widget(users=CheckBoxFieldWidget)
     users = schema.Set (
         title = u"Členové ke zrušení",
-        value_type = schema.Choice(source = allProducentMembers)
+        value_type = schema.Choice(source = allProducentMembersWithoutCurrent)
     )
 
 class ProducentRemoveUsersForm(form.SchemaForm):
@@ -364,7 +376,7 @@ class ProducentRemoveUsersForm(form.SchemaForm):
     ignoreContext = True
     enableCSRFProtection = True
     enable_form_tabbing = False
-    label = u"Zrušit uživatele"
+    label = u"Zrušit uživatele (kromě sebe samého)"
 
     @button.buttonAndHandler(u"Vymazat vybrané uživatele",name="remove")
     def handleRemove(self, action):
@@ -377,13 +389,15 @@ class ProducentRemoveUsersForm(form.SchemaForm):
         for user in users:
             api.group.remove_user(groupname="Producent Editors", username=user)
             api.group.remove_user(groupname="Producent Administrators", username=user)
-            api.user.revoke_roles(username=user,  obj=self.context,
-                                  roles=('E-Deposit: Producent Member',
-                                         'E-Deposit: Producent Administrator',
-                                         'E-Deposit: Producent Editor',
-                                         'Editor','Reader'))
+            # api.user.revoke_roles(username=user,  obj=self.context,
+            #                       roles=('E-Deposit: Producent Member',
+            #                              'E-Deposit: Producent Administrator',
+            #                              'E-Deposit: Producent Editor',
+            #                              'Editor','Reader'))
             # api.user.delete(user)
 
+        mtool = api.portal.get_tool('portal_membership')
+        mtool.deleteLocalRoles(self.context, users, recursive=True)
         IStatusMessage(self.request).addStatusMessage(u"Vybraní uživatelé byli vymazáni.", "info")
 
         url = self.context.absolute_url()
