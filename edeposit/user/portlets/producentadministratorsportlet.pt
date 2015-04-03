@@ -2,9 +2,14 @@
 #producent-administrator-actions dt.actionMenuHeader a:after {
     content: " ▼";
 }
+#producent-administrator-actions dd {
+    background-color: #ddd;
+    position: absolute;
+    top: 2.1em;
+    margin-left: -0.5em;
+}
 </style>
-<dl class="portlet portletProducentAdministratorsPortlet"
-    i18n:domain="edeposit.user">
+<dl class="portlet portletProducentAdministratorsPortlet" i18n:domain="edeposit.user">
 
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
