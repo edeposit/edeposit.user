@@ -11,7 +11,6 @@ from plone.directives import dexterity, form
 from plone.namedfile.field import NamedImage, NamedFile
 from plone.namedfile.field import NamedBlobImage, NamedBlobFile
 from plone.namedfile.interfaces import IImageScaleTraversable
-from plone.formwidget.autocomplete import AutocompleteFieldWidget, AutocompleteMultiFieldWidget
 from z3c.form.browser.checkbox import CheckBoxFieldWidget
 from plone.app.form.widgets import MultiCheckBoxWidget
 from plone.supermodel import model
@@ -134,13 +133,13 @@ def allProducentMembersWithoutCurrent(context):
     return SearchSimpleVocabulary(map(getTermFromMember, members))
     
 class IProducentUsersForm(form.Schema):
-    form.widget(administrators=AutocompleteMultiFieldWidget)    
+    form.widget(administrators=CheckBoxFieldWidget)    
     administrators = schema.Set (
         title = u"Správci",
         value_type = schema.Choice(source = allProducentMembers)
         )
 
-    form.widget(editors=AutocompleteMultiFieldWidget)    
+    form.widget(editors=CheckBoxFieldWidget)    
     editors = schema.Set (
         title = u"Editoři",
         value_type = schema.Choice(source = allProducentMembers)
@@ -364,7 +363,6 @@ class ProducentAdministratorAddForm(ProducentAddEditorForm):
 
 
 class IProducentRemoveUsersForm(form.Schema):
-    #form.widget(users=AutocompleteMultiFieldWidget)
     form.widget(users=CheckBoxFieldWidget)
     users = schema.Set (
         title = u"Členové ke zrušení",
