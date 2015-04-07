@@ -78,13 +78,12 @@ class Producent(Container):
     def hasAgreement(self):
         return bool(self.agreement)
 
-    def ensureConsistency(self):
-        # check roles consistency
-        # - each administrator/editor has to have 'producent member'
-        # local role.
-        # - each administrator has to have "Manage users" permission
-        # to remove users
-        import pdb; pdb.set_trace()
+    def ensureRolesConsistency(self):
+        assigned_members = frozenset(self.getAssignedProducentAdministrators() + self.getAssignedProducentEditors())
+        members = frozenset(self.getAssignedProducentMembers())
+        extra_assigned_members = assigned_members - members
+        for userid in extra_assigned_members:
+            api.user.grant_roles(username=userid, obj=self,roles = ('E-Deposit: Producent Member',))
         pass
 
 def getAssignedPersonFactory(roleName):
