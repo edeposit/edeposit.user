@@ -528,10 +528,13 @@ class RegistrationAtOnceForm(form.SchemaForm):
             api.group.add_user(groupname="Producent Contributors", username=newUser.id )
             api.user.grant_roles(username=newUser.id,
                                  obj = newProducent['epublications'],
-                                 roles=('E-Deposit: Producent Editor','Contributor'))
+                                 roles=('E-Deposit: Producent Member',
+                                        'E-Deposit: Producent Editor',
+                                        'Contributor'))
             api.user.grant_roles(username=newUser.id, obj=newProducent,
-                                 roles=('E-Deposit: Producent Editor', 'Reader'))
-
+                                 roles=('E-Deposit: Producent Member',
+                                        'E-Deposit: Producent Editor', 
+                                        'Reader'))
         
         wft = api.portal.get_tool('portal_workflow')
         wft.doActionFor(newProducent,'submit')
