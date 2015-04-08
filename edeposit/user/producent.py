@@ -381,7 +381,7 @@ class ProducentRemoveUsersForm(form.SchemaForm):
     enable_form_tabbing = False
     label = u"Zrušit uživatele"
 
-    @button.buttonAndHandler(u"Vymazat vybrané uživatele",name="remove")
+    @button.buttonAndHandler(u"Zrušit vybrané uživatele",name="remove")
     def handleRemove(self, action):
         data, errors = self.extractData()
         if errors:
