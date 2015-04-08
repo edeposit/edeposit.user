@@ -89,7 +89,7 @@ class IEditor(model.Schema):
     )
 
     fullname = schema.TextLine(
-        title=u"Příjmení a jméno",
+        title=u"Jméno a příjmení",
         description=_(u'help_full_name_creation',
                       default=u"Enter full name, e.g. John Smith."),
         required=False)
