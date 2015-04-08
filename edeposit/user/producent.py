@@ -79,11 +79,15 @@ class Producent(Container):
         return bool(self.agreement)
 
     def ensureRolesConsistency(self):
-        assigned_members = frozenset(self.getAssignedProducentAdministrators() + self.getAssignedProducentEditors())
-        members = frozenset(self.getAssignedProducentMembers())
+        assigned_members = frozenset((self.getAssignedProducentAdministrators() or [])\
+                                         + (self.getAssignedProducentEditors() or []))
+        members = frozenset(self.getAssignedProducentMembers() or [])
         extra_assigned_members = assigned_members - members
         for userid in extra_assigned_members:
             api.user.grant_roles(username=userid, obj=self,roles = ('E-Deposit: Producent Member',))
+        pass
+
+    def createSummaryFolder(self):
         pass
 
 def getAssignedPersonFactory(roleName):
@@ -186,11 +190,13 @@ class ProducentUsersForm(form.SchemaForm):
 
         for userid in data['administrators']:
             api.user.grant_roles(username=userid, obj=self.context,
-                                 roles = ('E-Deposit: Producent Editor',
+                                 roles = ('E-Deposit: Producent Member',
+                                          'E-Deposit: Producent Editor',
                                           'E-Deposit: Producent Administrator',
                                           'Editor', 'Reader'))
             api.user.grant_roles(username=userid, obj=self.context['epublications'],
-                                 roles = ('E-Deposit: Producent Editor',
+                                 roles = ('E-Deposit: Producent Member',
+                                          'E-Deposit: Producent Editor',
                                           'E-Deposit: Producent Administrator',
                                           'Contributor'))
         for userid in data['editors']:
@@ -382,7 +388,7 @@ class ProducentRemoveUsersForm(form.SchemaForm):
             self.status = self.formErrorsMessage
             return
 
-        users = [ii for ii in data['users']]
+        users = frozenset([ii for ii in data['users']])
         for user in users:
             api.group.remove_user(groupname="Producent Editors", username=user)
             api.group.remove_user(groupname="Producent Administrators", username=user)
