@@ -80,6 +80,13 @@
       />
 
   <browser:page
+      for=".producent.IProducent"
+      name="epublications-with-error-worklist"
+      class=".producent.EPublicationsWithErrorWorklist"
+      permission="zope2.View"
+      />
+
+  <browser:page
         for=".producentfolder.IProducentFolder"
         name="worklist-waiting-for-isbn-generation"
         class=".producentfolder.WorklistWaitingForISBNGenerationView"

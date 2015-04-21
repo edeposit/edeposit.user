@@ -90,6 +90,10 @@ class Producent(Container):
     def createSummaryFolder(self):
         pass
 
+    def notifyProducentAboutEPublicationsWithError(self):
+        print "notify producent about ePublications with Error"
+        pass
+
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
         local_roles = self.get_local_roles()
@@ -406,3 +410,36 @@ class ProducentRemoveUsersForm(form.SchemaForm):
         url = self.context.absolute_url()
         self.request.response.redirect(url)
         self.context.reindexObject()
+
+class EPublicationsWithErrorWorklist(BrowserView):
+    """Export the worklist to CSV as a one-off
+    """
+    
+    filename = "originaly-co-cekaji-na-opravu"
+    collection_name = ""
+    separator = "\t"
+    titles = [u"Název", 
+              u"Název části",
+              u"Linka v E-Deposit"]
+
+    def getRowValues(self,obj):
+        row =  [obj.getParentTitle or "", 
+                obj.getNazevCasti or "",
+                obj.getURL() or ""]
+        return row
+
+    def __call__(self):
+        self.request.response.setHeader("Content-type","text/csv")
+        self.request.response.setHeader("Content-disposition","attachment;filename=%s.csv" % self.filename)
+        header = self.separator.join(self.titles)
+
+        def result(brain):
+            return self.separator.join(self.getRowValues(brain))
+
+        pcatalog = self.context.portal_catalog
+        folder_path = '/'.join(self.context.epublications.getPhysicalPath())
+        brains = pcatalog(portal_type="edeposit.content.originalfile",                 review_state="declarationWithError", path={'query': folder_path, 'depth': 1 })
+        results = map(result, brains)
+        csvData = "\n".join([header,] + results)
+        self.numOfRows = len(results)
+        return csvData
