@@ -29,6 +29,8 @@ from plone.namedfile.interfaces import INamedBlobFile, INamedBlobImage
 from z3c.form.interfaces import WidgetActionExecutionError, ActionExecutionError, IObjectFactory, IValidator, IErrorViewSnippet
 from operator import ne, is_not
 from functools import partial
+from string import Template
+from collections import defaultdict
 
 # Interface class; used to define content-type schema.
 
@@ -91,8 +93,52 @@ class Producent(Container):
         pass
 
     def notifyProducentAboutEPublicationsWithError(self):
-        print "notify producent about ePublications with Error"
-        pass
+        view = api.content.get_view(name='epublications-with-error-worklist',
+                                    context = self,
+                                    request = self.REQUEST)
+        body = view()
+        subject = "EDeposit: ePublikace s chybou"
+        if view.numOfRows:
+            def getOwners(brain):
+                owners = [ii[0] for ii in brain.get_local_roles() if 'Owner' in ii[1]]
+                return owners
+
+            def hasEmail(userid):
+                return api.user.get(userid).getProperty('email')
+                
+            producentAdministrators = filter(hasEmail,self.getAssignedProducentAdministrators() or [])
+            producentMembers = filter(hasEmail,self.getAssignedProducentMembers() or [])
+            
+            def usersToNotify(brain):
+                owners = filter(hasEmail,getOwners(brain))
+                if owners:
+                    return owners
+                if producentAdministrators:
+                    return producentAdministrators
+                if producentMembers:
+                    return producentMembers
+                return []
+
+            def iterateUsers(brains):
+                for brain in brains:
+                    users = usersToNotify(brain)
+                    for user in users:
+                        yield (user, brain)
+
+            brainsByUser = defaultdict(list)
+            for userid, brain in iterateUsers(view.brains):
+                brainsByUser[userid].append(brain)
+
+            print "... rozesleme emaily producentovi"
+            #user,brains = brainsByUser.items()[0]
+            for user, brains in brainsByUser.items():
+                recipient = api.user.get(user).getProperty('email')
+                print "... posilam email: ", subject,"->", recipient
+                body = view.tmpl.substitute(csvData = view.getCSVData(brains))
+                api.portal.send_email(recipient = recipient, subject=subject, body=body)
+
+        else:
+            print "... zadny email jsem neposlal, prazdno. ", subject
 
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
@@ -120,7 +166,7 @@ def allProducentAdministrators(context):
     return SearchSimpleVocabulary(map(getTermFromMember, members))
     
 @grok.provider(IContextSourceBinder)
-def allProducentEditors(context):
+def allProducentEdidtors(context):
     members = api.user.get_users(groupname="Producent Editors")
     return SearchSimpleVocabulary(map(getTermFromMember, members))
 
@@ -370,7 +416,6 @@ class ProducentAdministratorAddForm(ProducentAddEditorForm):
     def setStatusMessage(self):
         IStatusMessage(self.request).addStatusMessage(u"Vytvořen nový správce.", "info")
 
-
 class IProducentRemoveUsersForm(form.Schema):
     form.widget(users=CheckBoxFieldWidget)
     users = schema.Set (
@@ -414,7 +459,18 @@ class ProducentRemoveUsersForm(form.SchemaForm):
 class EPublicationsWithErrorWorklist(BrowserView):
     """Export the worklist to CSV as a one-off
     """
-    
+    tmpl = Template(u"""Dobrý den, posíláme Vám přehled ohlášených ePublikací, co čekají na Vaši opravu.
+
+$csvData
+
+ePublikaci do linky můžete odeslat tak, že:
+- vyměníte, nebo opět vložíte přiložený soubor
+
+S pozdravem,
+tým E-Deposit
+Národní Knihovna České Republiky
+""")
+
     filename = "originaly-co-cekaji-na-opravu"
     collection_name = ""
     separator = "\t"
@@ -428,18 +484,24 @@ class EPublicationsWithErrorWorklist(BrowserView):
                 obj.getURL() or ""]
         return row
 
-    def __call__(self):
-        self.request.response.setHeader("Content-type","text/csv")
-        self.request.response.setHeader("Content-disposition","attachment;filename=%s.csv" % self.filename)
-        header = self.separator.join(self.titles)
-
+    def getCSVData(self, brains):
         def result(brain):
             return self.separator.join(self.getRowValues(brain))
 
+        results = map(result, brains)
+        header = self.separator.join(self.titles)
+        csvData = "\n".join([header,] + results)
+        return csvData
+
+    def __call__(self):
+        #self.request.response.setHeader("Content-type","text/plain")
+        #self.request.response.setHeader("Content-disposition","attachment;filename=%s.txt" % self.filename)
         pcatalog = self.context.portal_catalog
         folder_path = '/'.join(self.context.epublications.getPhysicalPath())
-        brains = pcatalog(portal_type="edeposit.content.originalfile",                 review_state="declarationWithError", path={'query': folder_path, 'depth': 1 })
-        results = map(result, brains)
-        csvData = "\n".join([header,] + results)
-        self.numOfRows = len(results)
-        return csvData
+        pathQuery = dict(query=folder_path, depth=2)
+        self.brains = pcatalog(portal_type="edeposit.content.originalfile", 
+                               path=pathQuery, 
+                               review_state='declarationWithError')
+        self.numOfRows = len(self.brains)
+        csvData = self.getCSVData(self.brains)
+        return EPublicationsWithErrorWorklist.tmpl.substitute(csvData = csvData)
