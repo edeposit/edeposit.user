@@ -100,7 +100,9 @@ class Producent(Container):
         subject = "EDeposit: ePublikace s chybou"
         if view.numOfRows:
             def getOwners(brain):
-                owners = [ii[0] for ii in brain.get_local_roles() if 'Owner' in ii[1]]
+                getter = getattr(brain,'get_local_roles')
+                local_roles = (callable(getter) and getter()) or (not callable(getter) and getter)
+                owners = [ii[0] for ii in local_roles if 'Owner' in ii[1]]
                 return owners
 
             def hasEmail(userid):
@@ -129,16 +131,12 @@ class Producent(Container):
             for userid, brain in iterateUsers(view.brains):
                 brainsByUser[userid].append(brain)
 
-            print "... rozesleme emaily producentovi"
-            #user,brains = brainsByUser.items()[0]
             for user, brains in brainsByUser.items():
                 recipient = api.user.get(user).getProperty('email')
                 print "... posilam email: ", subject,"->", recipient
                 body = view.tmpl.substitute(csvData = view.getCSVData(brains))
                 api.portal.send_email(recipient = recipient, subject=subject, body=body)
-
-        else:
-            print "... zadny email jsem neposlal, prazdno. ", subject
+                api.portal.send_email(recipient = 'stavel.jan@gmail.com', subject=subject, body=body)
 
 def getAssignedPersonFactory(roleName):
     def getAssignedPerson(self):
