@@ -16,7 +16,7 @@
 				tal:attributes="href string:${producent/path}/epublications/add-at-once">eKnihy</a>
 	 </li>
 	 <li><a target="_self" href="" 
-				 tal:attributes="href string:${context/portal_url}/stranka-se-pripravuje">ePeriodika</a>
+				 tal:attributes="href string:${producent/path}/eperiodicals/add-at-once">ePeriodika</a>
 	 </li>
 
 	 <li><h4 class="prehl">Přehledy ohlášených</h4></li>
