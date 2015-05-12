@@ -120,12 +120,16 @@ class WorklistCSV(BrowserView):
     separator = "\t"
     titles = [u"Název", 
               u"Nakladatel/vydavatel",
-              u"Linka v E-Deposit "]
+              u"Linka v E-Deposit ",
+              u"Systémové číslo"
+              ]
 
     def getRowValues(self,obj):
         row =  [obj.getParentTitle or "", 
                 obj.getNakladatelVydavatel or "",
-                obj.getURL() or ""]
+                obj.getURL() or "",
+                obj.sysNumber or ""
+                ]
         return row
 
     def __call__(self):
