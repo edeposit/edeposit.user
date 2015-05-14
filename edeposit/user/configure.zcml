@@ -52,6 +52,13 @@
         />
 
   <browser:page
+        for=".producentfolder.IProducentFolder"
+        name="worklist-by-state-waiting-for-user"
+        class=".producentfolder.WorklistByStateWaitingForUser"
+        permission="cmf.ReviewPortalContent"
+        />
+
+  <browser:page
         for=".producent.IProducent"
         name="update-roles"
         class=".producent.ProducentUsersForm"

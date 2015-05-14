@@ -22,6 +22,7 @@ from plone.dexterity.utils import createContentInContainer, addContentToContaine
 
 from edeposit.user import MessageFactory as _
 from plone import api
+from functools import partial
 
 def queryForStates(*args):
     return [ {'i': 'portal_type',
@@ -132,19 +133,39 @@ class WorklistCSV(BrowserView):
                 ]
         return row
 
+    def getResult(self, brain):
+        return self.separator.join(self.getRowValues(brain))        
+
+    def getResults(self):
+        results = map(self.getResult, self.context[self.collection_name].results(batch=False))
+        return results
+
     def __call__(self):
         self.request.response.setHeader("Content-type","text/csv")
         self.request.response.setHeader("Content-disposition","attachment;filename=%s.csv" % self.filename)
         header = self.separator.join(self.titles)
-
-        def result(brain):
-            return self.separator.join(self.getRowValues(brain))
-
-        results = map(result, self.context[self.collection_name].results(batch=False))
+        results = self.getResults()
         csvData = "\n".join([header,] + results)
         self.numOfRows = len(results)
         return csvData
 
+class WorklistByStateWaitingForUser(WorklistCSV):
+    filename = "worklist-by-state-waiting-for-user"
+
+    def getResults(self):
+        pcatalog = self.context.portal_catalog
+
+        userid= self.request.get('userid',"")
+        review_state = self.request.get('review_state',"")
+        assigned_person_index = self.request.get('assigned_person_index',"")
+
+        pairs=[('review_state',review_state), (assigned_person_index, userid) ]
+
+        brains = pcatalog(portal_type='edeposit.content.originalfile', **dict(pairs))
+        results = map(self.getResult, brains)
+        return results
+        
+    
 class WorklistWaitingForUserView(WorklistCSV):
     """ this view takes userid from request and specializes collection name this way:
     originalfiles-waiting-for-user-USER_ID"""
