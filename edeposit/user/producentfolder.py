@@ -206,6 +206,14 @@ class WorklistWaitingForDescriptiveCataloguingReviewPreparingView(WorklistCSV):
     filename = "worklist-waiting-for-descriptive-cataloguing-review-preparing"
     collection_name = "originalfiles-waiting-for-descriptive-cataloguing-review-preparing"
 
+class WorklistWaitingForClosedDescriptiveCataloguingPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-closed-descriptive-cataloguing-preparing"
+    collection_name = "originalfiles-waiting-for-closed-descriptive-cataloguing-preparing"
+
+class WorklistWaitingForClosedDescriptiveCataloguingReviewPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-closed-descriptive-cataloguing-review-preparing"
+    collection_name = "originalfiles-waiting-for-closed-descriptive-cataloguing-review-preparing"
+
 class WorklistWaitingForSubjectCataloguingPreparingView(WorklistCSV):
     filename = "worklist-waiting-for-subject-cataloguing-preparing"
     collection_name = "originalfiles-waiting-for-subject-cataloguing-preparing"
@@ -213,6 +221,14 @@ class WorklistWaitingForSubjectCataloguingPreparingView(WorklistCSV):
 class WorklistWaitingForSubjectCataloguingReviewPreparingView(WorklistCSV):
     filename = "worklist-waiting-for-subject-cataloguing-review-preparing"
     collection_name = "originalfiles-waiting-for-subject-cataloguing-review-preparing"
+
+class WorklistWaitingForClosedSubjectCataloguingPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-closed-subject-cataloguing-preparing"
+    collection_name = "originalfiles-waiting-for-closed-subject-cataloguing-preparing"
+
+class WorklistWaitingForClosedSubjectCataloguingReviewPreparingView(WorklistCSV):
+    filename = "worklist-waiting-for-closed-subject-cataloguing-review-preparing"
+    collection_name = "originalfiles-waiting-for-closed-subject-cataloguing-review-preparing"
 
 
 from edeposit.content.originalfile import IOriginalFile

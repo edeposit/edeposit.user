@@ -144,6 +144,20 @@
 
   <browser:page
       for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-closeddescriptive-cataloguing-preparing"
+      class=".producentfolder.WorklistWaitingForClosedDescriptiveCataloguingPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-closed-descriptive-cataloguing-review-preparing"
+      class=".producentfolder.WorklistWaitingForClosedDescriptiveCataloguingReviewPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
       name="worklist-waiting-for-subject-cataloguing-preparing"
       class=".producentfolder.WorklistWaitingForSubjectCataloguingPreparingView"
       permission="cmf.ReviewPortalContent"
@@ -153,6 +167,20 @@
       for=".producentfolder.IProducentFolder"
       name="worklist-waiting-for-subject-cataloguing-review-preparing"
       class=".producentfolder.WorklistWaitingForSubjectCataloguingReviewPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-closed-subject-cataloguing-preparing"
+      class=".producentfolder.WorklistWaitingForClosedSubjectCataloguingPreparingView"
+      permission="cmf.ReviewPortalContent"
+      />
+
+  <browser:page
+      for=".producentfolder.IProducentFolder"
+      name="worklist-waiting-for-closed-subject-cataloguing-review-preparing"
+      class=".producentfolder.WorklistWaitingForClosedSubjectCataloguingReviewPreparingView"
       permission="cmf.ReviewPortalContent"
       />
   
