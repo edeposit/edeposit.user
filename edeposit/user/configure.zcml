@@ -144,7 +144,7 @@
 
   <browser:page
       for=".producentfolder.IProducentFolder"
-      name="worklist-waiting-for-closeddescriptive-cataloguing-preparing"
+      name="worklist-waiting-for-closed-descriptive-cataloguing-preparing"
       class=".producentfolder.WorklistWaitingForClosedDescriptiveCataloguingPreparingView"
       permission="cmf.ReviewPortalContent"
       />
