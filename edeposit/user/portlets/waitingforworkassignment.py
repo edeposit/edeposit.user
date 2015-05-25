@@ -76,7 +76,7 @@ class AssignedWorkerForm(form.SchemaForm):
     ignoreContext = True
     label = u""
     description = u""
-    submitAction = 'submitDescriptiveCataloguingPreparing'
+    submitAction = lambda self: 'submitDescriptiveCataloguingPreparing'
     fieldName = 'cataloguer'
     roleName = 'E-Deposit: Descriptive Cataloguer'
     fieldValueFromContext = lambda self: self.context.getAssignedDescriptiveCataloguer()
@@ -106,7 +106,7 @@ class AssignedWorkerForm(form.SchemaForm):
 
             modified(self.context)
             wft = api.portal.get_tool('portal_workflow')
-            wft.doActionFor(self.context, self.submitAction)
+            wft.doActionFor(self.context, callable(self.submitAction) and self.submitAction() or self.submitAction)
 
             # change local roles "Reader" for detail of an originalfile
             epublication = aq_parent(aq_inner(self.context))
@@ -120,6 +120,20 @@ class AssignedWorkerForm(form.SchemaForm):
 # def default_cataloguer(data):
 #     pass
 
+def submitClosedOrNotClosedFactory(stateSuffix = ""):
+    """ if state is 'closedXXX' so it return state name:
+    submitClosed + stateSuffix
+    else:
+    submit + stateSuffix
+    """
+    
+    def submitClosedOrNotClosed(self):
+        if api.content.get_state(self.context).startswith('closed'):
+            return 'submitClosed' + stateSuffix
+        return 'submit' + stateSuffix
+
+    return submitClosedOrNotClosed
+
 class AssignedDescriptiveCataloguerForm(AssignedWorkerForm):
     schema = IAssignedDescriptiveCataloguer
     submitAction = 'submitDescriptiveCataloguingPreparing'
@@ -129,7 +143,7 @@ class AssignedDescriptiveCataloguerForm(AssignedWorkerForm):
 
 class AssignedDescriptiveReviewerForm(AssignedWorkerForm):
     schema = IAssignedDescriptiveReviewer
-    submitAction = 'submitDescriptiveCataloguingReviewPreparing'
+    submitAction = submitClosedOrNotClosedFactory(stateSuffix = 'DescriptiveCataloguingReviewPreparing')
     fieldName = 'reviewer'
     roleName = 'E-Deposit: Descriptive Cataloguing Reviewer'
     fieldValueFromContext = lambda self: self.context.getAssignedDescriptiveCataloguingReviewer()
@@ -241,16 +255,24 @@ class AssignDescriptiveCataloguerRenderer(Renderer):
     @property
     def available(self):
         state = api.content.get_state(self.context)
-        return 'descriptiveCataloguingPreparing' in state or 'descriptiveCataloguing' in state
+        return 'descriptiveCataloguingPreparing' in state \
+            or 'descriptiveCataloguing' in state \
+            or 'closedDescriptiveCataloguingPreparing' in state \
+            or 'closedDescriptiveCataloguing' in state
+            
 
 class AssignDescriptiveReviewerRenderer(Renderer):
     formClass = AssignedDescriptiveReviewerForm
-    title = u"Jmenný popis"
+    title = u"Revize jmenného popisu"
 
     @property
     def available(self):
         state = api.content.get_state(self.context)
-        return 'descriptiveCataloguingReviewPreparing' in state or 'descriptiveCataloguingReview' in state
+        return 'descriptiveCataloguingReviewPreparing' in state \
+            or 'descriptiveCataloguingReview' in state \
+            or 'closedDescriptiveCataloguingReviewPreparing' in state \
+            or 'closedDescriptiveCataloguingReview' in state \
+            
 
 class AssignSubjectCataloguerRenderer(Renderer):
     formClass = AssignedSubjectCataloguerForm
