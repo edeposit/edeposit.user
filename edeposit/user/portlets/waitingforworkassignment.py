@@ -150,14 +150,14 @@ class AssignedDescriptiveReviewerForm(AssignedWorkerForm):
                                  
 class AssignedSubjectCataloguerForm(AssignedWorkerForm):
     schema = IAssignedSubjectCataloguer
-    submitAction = 'submitSubjectCataloguingPreparing'
+    submitAction = submitClosedOrNotClosedFactory(stateSuffix = 'SubjectCataloguingPreparing')
     fieldName = 'cataloguer'
     roleName = 'E-Deposit: Subject Cataloguer'
     fieldValueFromContext = lambda self: self.context.getAssignedSubjectCataloguer()
 
 class AssignedSubjectReviewerForm(AssignedWorkerForm):
     schema = IAssignedSubjectReviewer
-    submitAction = 'submitSubjectCataloguingReviewPreparing'
+    submitAction = submitClosedOrNotClosedFactory(stateSuffix = 'SubjectCataloguingReviewPreparing')
     fieldName = 'reviewer'
     roleName = 'E-Deposit: Subject Cataloguing Reviewer'
     fieldValueFromContext = lambda self: self.context.getAssignedSubjectCataloguingReviewer()
@@ -271,7 +271,7 @@ class AssignDescriptiveReviewerRenderer(Renderer):
         return 'descriptiveCataloguingReviewPreparing' in state \
             or 'descriptiveCataloguingReview' in state \
             or 'closedDescriptiveCataloguingReviewPreparing' in state \
-            or 'closedDescriptiveCataloguingReview' in state \
+            or 'closedDescriptiveCataloguingReview' in state
             
 
 class AssignSubjectCataloguerRenderer(Renderer):
