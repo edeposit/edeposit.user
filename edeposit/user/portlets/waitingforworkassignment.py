@@ -281,18 +281,23 @@ class AssignSubjectCataloguerRenderer(Renderer):
     @property
     def available(self):
         state = api.content.get_state(self.context)
-        return 'subjectCataloguingPreparing' in state or 'subjectCataloguing' in state
+        return 'subjectCataloguingPreparing' in state \
+            or 'subjectCataloguing' in state \
+            or 'closedSubjectCataloguingPreparing' in state \
+            or 'closedSubjectCataloguing' in state
 
 class AssignSubjectReviewerRenderer(Renderer):
     formClass = AssignedSubjectReviewerForm
-    title = u"Věcný popis"
+    title = u"Revize věcného popisu"
 
     @property
     def available(self):
         state = api.content.get_state(self.context)
-        return 'subjectCataloguingReviewPreparing' in state or 'subjectCataloguingReview' in state
+        return 'subjectCataloguingReviewPreparing' in state \
+            or 'subjectCataloguingReview' in state \
+            or 'closedSubjectCataloguingReviewPreparing' in state \
+            or 'closedSubjectCataloguingReview' in state
     
-
 # NOTE: If this portlet does not have any configurable parameters, you can
 # inherit from NullAddForm and remove the form_fields variable.
 
