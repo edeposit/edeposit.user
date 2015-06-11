@@ -23,7 +23,10 @@ from plone.dexterity.utils import createContentInContainer, addContentToContaine
 from edeposit.user import MessageFactory as _
 from plone import api
 from functools import partial
-
+"""
+(occur-1 "class " nil (list (current-buffer)) "*producentfolder: class *")
+(occur-1 "def " nil (list (current-buffer)) "*producentfolder: def *")
+"""
 def queryForStates(*args):
     return [ {'i': 'portal_type',
               'o': 'plone.app.querystring.operation.selection.is',
@@ -122,14 +125,16 @@ class WorklistCSV(BrowserView):
     titles = [u"Název", 
               u"Nakladatel/vydavatel",
               u"Linka v E-Deposit ",
-              u"Systémové číslo"
+              u"Systémové číslo",
+              u"Souborný záznam"
               ]
 
     def getRowValues(self,obj):
         row =  [obj.getParentTitle or "", 
                 obj.getNakladatelVydavatel or "",
                 obj.getURL() or "",
-                obj.sysNumber or ""
+                obj.sysNumber or "",
+                obj.summary_record_id_number or obj.summary_record_aleph_sys_number or ""
                 ]
         return row
 
