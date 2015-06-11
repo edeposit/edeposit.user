@@ -150,14 +150,14 @@ class AssignedDescriptiveReviewerForm(AssignedWorkerForm):
                                  
 class AssignedSubjectCataloguerForm(AssignedWorkerForm):
     schema = IAssignedSubjectCataloguer
-    submitAction = 'submitSubjectCataloguingPreparing'
+    submitAction = submitClosedOrNotClosedFactory(stateSuffix = 'SubjectCataloguingPreparing')
     fieldName = 'cataloguer'
     roleName = 'E-Deposit: Subject Cataloguer'
     fieldValueFromContext = lambda self: self.context.getAssignedSubjectCataloguer()
 
 class AssignedSubjectReviewerForm(AssignedWorkerForm):
     schema = IAssignedSubjectReviewer
-    submitAction = 'submitSubjectCataloguingReviewPreparing'
+    submitAction = submitClosedOrNotClosedFactory(stateSuffix = 'SubjectCataloguingReviewPreparing')
     fieldName = 'reviewer'
     roleName = 'E-Deposit: Subject Cataloguing Reviewer'
     fieldValueFromContext = lambda self: self.context.getAssignedSubjectCataloguingReviewer()
@@ -271,7 +271,7 @@ class AssignDescriptiveReviewerRenderer(Renderer):
         return 'descriptiveCataloguingReviewPreparing' in state \
             or 'descriptiveCataloguingReview' in state \
             or 'closedDescriptiveCataloguingReviewPreparing' in state \
-            or 'closedDescriptiveCataloguingReview' in state \
+            or 'closedDescriptiveCataloguingReview' in state
             
 
 class AssignSubjectCataloguerRenderer(Renderer):
@@ -281,18 +281,23 @@ class AssignSubjectCataloguerRenderer(Renderer):
     @property
     def available(self):
         state = api.content.get_state(self.context)
-        return 'subjectCataloguingPreparing' in state or 'subjectCataloguing' in state
+        return 'subjectCataloguingPreparing' in state \
+            or 'subjectCataloguing' in state \
+            or 'closedSubjectCataloguingPreparing' in state \
+            or 'closedSubjectCataloguing' in state
 
 class AssignSubjectReviewerRenderer(Renderer):
     formClass = AssignedSubjectReviewerForm
-    title = u"Věcný popis"
+    title = u"Revize věcného popisu"
 
     @property
     def available(self):
         state = api.content.get_state(self.context)
-        return 'subjectCataloguingReviewPreparing' in state or 'subjectCataloguingReview' in state
+        return 'subjectCataloguingReviewPreparing' in state \
+            or 'subjectCataloguingReview' in state \
+            or 'closedSubjectCataloguingReviewPreparing' in state \
+            or 'closedSubjectCataloguingReview' in state
     
-
 # NOTE: If this portlet does not have any configurable parameters, you can
 # inherit from NullAddForm and remove the form_fields variable.
 
