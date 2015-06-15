@@ -13,6 +13,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from edeposit.content.originalfile import IOriginalFile
 from edeposit.user import MessageFactory as _
+from itertools import repeat
 
 class Renderer(base.Renderer):
     groupName = "Administrators"
@@ -34,9 +35,10 @@ class Renderer(base.Renderer):
         #collName =  "/producents/originalfiles-waiting-for-user-" + user.id
         #return '/'.join(api.portal.get().getPhysicalPath() + ('producents',collName))
         worklistName = "worklist-by-state-waiting-for-user"
-        urlArgs = dict(review_state = self.review_state,
-                    assigned_person_index = self.assigned_person_index,
-                    userid = user.id)
+
+        urlArgs = zip(repeat('review_state'), 
+                      isinstance(self.review_state,str) and [self.review_state] or self.review_state) \
+                      +  [('assigned_person_index',self.assigned_person_index),('userid', user.id)]
 
         url = '/'.join(api.portal.get().getPhysicalPath() + ('producents', worklistName)) + "?" + urllib.urlencode(urlArgs)
         return url
@@ -75,28 +77,28 @@ class RendererForDescriptiveCataloguers(Renderer):
     groupName = "Descriptive Cataloguers"
     portalHeader = u"Práce pro jmenný popis"
     groupEmailTransition = "sendEmailToGroupDescriptiveCataloguers"
-    review_state = "descriptiveCataloguing"
+    review_state = ("descriptiveCataloguing","closedDescriptiveCataloguing")
     assigned_person_index = 'getAssignedDescriptiveCataloguer'
 
 class RendererForDescriptiveReviewers(Renderer):
     groupName = "Descriptive Cataloguing Reviewers"
     portalHeader = u"Práce pro revizi jmenného popisu"
     groupEmailTransition = "sendEmailToGroupDescriptiveCataloguingReviewers"
-    review_state = "descriptiveCataloguingReview"
+    review_state = ("descriptiveCataloguingReview","closedDescriptiveCataloguingReview")
     assigned_person_index = 'getAssignedDescriptiveCataloguingReviewer'
 
 class RendererForSubjectCataloguers(Renderer):
     groupName = "Subject Cataloguers"
     portalHeader = u"Práce pro věcný popis"
     groupEmailTransition = "sendEmailToGroupSubjectCataloguers"
-    review_state = "subjectCataloguing"
+    review_state = ("subjectCataloguing","closedSubjectCataloguing")
     assigned_person_index = 'getAssignedSubjectCataloguer'
 
 class RendererForSubjectReviewers(Renderer):
     groupName = "Subject Cataloguing Reviewers"
     portalHeader = u"Práce pro revizi věcného popisu"
     groupEmailTransition = "sendEmailToGroupSubjectCataloguingReviewers"
-    review_state = "subjectCataloguingReview"
+    review_state = ("subjectCataloguingReview","closedSubjectCataloguingReview")
     assigned_person_index = 'getAssignedSubjectCataloguingReviewer'
 
 class IWorkPlansForDescriptiveCataloguers(IPortletDataProvider):
