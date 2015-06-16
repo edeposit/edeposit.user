@@ -1,6 +1,6 @@
 Introduction
 ============
 
+This package contains content that relates users of an eDeposit application.
 
-
-This product may contain traces of nuts.
+It offers UX for producents and internal users.
