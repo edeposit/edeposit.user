@@ -46,6 +46,13 @@
 
   <browser:page
         for=".producentfolder.IProducentFolder"
+        name="all-amqp-errors-by-originalfile"
+        class=".producentfolder.AllAMQPErrors"
+        permission="cmf.ReviewPortalContent"
+        />
+
+  <browser:page
+        for=".producentfolder.IProducentFolder"
         name="worklist-waiting-for-user"
         class=".producentfolder.WorklistWaitingForUserView"
         permission="cmf.ReviewPortalContent"

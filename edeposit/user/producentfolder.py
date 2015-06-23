@@ -307,3 +307,32 @@ class DescriptiveCatalogizationAssignForm(form.SchemaForm):
         
     pass
 
+class AllAMQPErrors(BrowserView):
+    def getAllAMQPErrors(self):
+        from operator import methodcaller
+        from itertools import imap, izip, ifilter
+
+        originalfiles = self.context.prehledy.originaly.vsechny
+        objs = imap(methodcaller('getObject'), originalfiles.results(batch=False))
+        amqpErrors = imap(methodcaller('getAMQPErrors'), objs)
+        amqpErrorsWithObj = ifilter(lambda ii: len(ii[1]), izip(objs,amqpErrors))
+        result = map(lambda ii: (ii[0].absolute_url(),ii[1]), amqpErrorsWithObj)
+        return result
+
+    def __call__(self):
+        import json
+        from datetime import datetime
+        from DateTime import DateTime
+
+        def json_serial(obj):
+            """JSON serializer for objects not serializable by default json code"""
+            if isinstance(obj, datetime):
+                serial = obj.isoformat()
+                return serial
+            if isinstance(obj, DateTime):
+                return obj.utcdatetime().isoformat()
+            raise TypeError ("Type not serializable")
+
+        results = json.dumps(self.getAllAMQPErrors(), default=json_serial)
+        self.request.response.setHeader('Content-Type', 'application/json')
+        return results
