@@ -62,7 +62,11 @@ class Renderer(base.Renderer):
         if api.user.is_anonymous():
             return False
         userGroups = api.group.get_groups(username=api.user.get_current().id)
-        return 'Producent Editors' in [ gg.id for gg in userGroups ]
+        """
+        - viditelne je jen na prvni urovni zanoreni
+        """
+        return 'Producent Editors' in [ gg.id for gg in userGroups ] \
+                    and len(self.context.getPhysicalPath()) <= 3
 
     def member(self):
         return api.user.get_current()
