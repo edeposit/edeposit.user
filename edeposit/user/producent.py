@@ -92,6 +92,14 @@ class Producent(Container):
     def createSummaryFolder(self):
         pass
 
+    def getProducentMembers(self):
+        def hasEmail(userid):
+            return api.user.get(userid).getProperty('email')
+
+        producentAdministrators = filter(hasEmail,self.getAssignedProducentAdministrators() or [])
+        producentMembers = filter(hasEmail,self.getAssignedProducentMembers() or [])
+        return frozenset(producentAdministrators + producentMembers)
+
     def notifyProducentAboutEPublicationsWithError(self):
         view = api.content.get_view(name='epublications-with-error-worklist',
                                     context = self,
