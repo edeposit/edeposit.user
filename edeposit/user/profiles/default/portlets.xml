@@ -247,7 +247,7 @@
    <assignment
        category="context"
        key="/"
-       manager="plone.rightcolumn"
+       manager="plone.leftcolumn"
        type="edeposit.user.portlets.ProducentRegisteringHelp"
        insert-before="*"
        />
