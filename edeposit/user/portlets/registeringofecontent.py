@@ -67,7 +67,9 @@ class Renderer(base.Renderer):
         """
         physicalPath = self.context.getPhysicalPath()
         return 'Producent Editors' in [ gg.id for gg in userGroups ] \
-                    and (len(physicalPath) <= 3 or physicalPath[-1] in ['my-epublications','my-books'])
+                    and (len(physicalPath) <= 3 or physicalPath[-1] in ['my-epublications',
+                                                                        'my-books',
+                                                                        'my-eperiodicals'])
 
     def member(self):
         return api.user.get_current()

@@ -18,7 +18,7 @@
 
 	 <li><h4 class="prehl">Přehledy ohlášených</h4></li>
 	 <li><a target="_self" href="/producents/my-epublications" tal:attributes="href string:${context/portal_url}/producents/my-epublications">eKnih</a></li>
-	 <li><a target="_self" href="" tal:attributes="href string:${context/portal_url}/stranka-se-pripravuje">ePeriodik</a></li>
+	 <li><a target="_self" href="" tal:attributes="href string:${context/portal_url}/my-eperiodicals">ePeriodik</a></li>
 	 <li><a target="_self" href="" tal:attributes="href string:${context/portal_url}/producents/my-books">knih/preprintů</a></li>
 
 	 <li><h4 class="linky">ostatní</h4></li>
