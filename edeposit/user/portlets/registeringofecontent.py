@@ -65,8 +65,9 @@ class Renderer(base.Renderer):
         """
         - viditelne je jen na prvni urovni zanoreni
         """
+        physicalPath = self.context.getPhysicalPath()
         return 'Producent Editors' in [ gg.id for gg in userGroups ] \
-                    and len(self.context.getPhysicalPath()) <= 3
+                    and (len(physicalPath) <= 3 or physicalPath[-1] in ['my-epublications','my-books'])
 
     def member(self):
         return api.user.get_current()
