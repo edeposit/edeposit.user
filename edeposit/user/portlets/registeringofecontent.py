@@ -66,10 +66,13 @@ class Renderer(base.Renderer):
         - viditelne je jen na prvni urovni zanoreni
         """
         physicalPath = self.context.getPhysicalPath()
-        return 'Producent Editors' in [ gg.id for gg in userGroups ] \
-                    and (len(physicalPath) <= 3 or physicalPath[-1] in ['my-epublications',
-                                                                        'my-books',
-                                                                        'my-eperiodicals'])
+        atDetail = self.context.portal_type in ['edeposit.content.originalfile',
+                                                'edeposit.content.book',
+                                                'edeposit.content.eperiodical']
+        return atDetail or ('Producent Editors' in [ gg.id for gg in userGroups ] \
+                                and (len(physicalPath) <= 3 or physicalPath[-1] in ['my-epublications',
+                                                                                    'my-books',
+                                                                                    'my-eperiodicals']))
 
     def member(self):
         return api.user.get_current()

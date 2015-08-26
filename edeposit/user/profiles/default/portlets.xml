@@ -83,6 +83,13 @@
       category="context"
       key="/"
       />
+
+  <assignment
+      purge="True"
+      manager="plone.leftcolumn"
+      category="context"
+      key="/"
+      />
   
   <!-- -*- extra stuff goes here -*- -->
 
@@ -233,13 +240,13 @@
        addview="edeposit.user.portlets.registeringOfEContent"
        title="E-Deposit: Registering of any eContent"
        description="Portlet helps producents to register ePublications, eBooks and ePeriodical"
-     i18n:attributes="title; description"
+       i18n:attributes="title; description"
      />
    
    <assignment
        category="context"
        key="/"
-       manager="plone.rightcolumn"
+       manager="plone.leftcolumn"
        type="edeposit.user.portlets.registeringOfEContent"
        insert-before="*"
        />
