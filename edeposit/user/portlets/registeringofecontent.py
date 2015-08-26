@@ -69,10 +69,14 @@ class Renderer(base.Renderer):
         atDetail = self.context.portal_type in ['edeposit.content.originalfile',
                                                 'edeposit.content.book',
                                                 'edeposit.content.eperiodical']
-        return atDetail or ('Producent Editors' in [ gg.id for gg in userGroups ] \
-                                and (len(physicalPath) <= 3 or physicalPath[-1] in ['my-epublications',
-                                                                                    'my-books',
-                                                                                    'my-eperiodicals']))
+        return ('Producent Editors' in [ gg.id for gg in userGroups ] \
+                    and ( atDetail \
+                              or len(physicalPath) <= 3 \
+                              or physicalPath[-1] in ['my-epublications',
+                                                      'my-books',
+                                                      'my-eperiodicals']
+                          )
+                )
 
     def member(self):
         return api.user.get_current()

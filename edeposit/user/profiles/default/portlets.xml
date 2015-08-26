@@ -276,6 +276,22 @@
        />
 
    <assignment
+       category="content_type"
+       key="edeposit.content.pdfboxvalidationresponse"
+       manager="plone.leftcolumn"
+       type="edeposit.user.portlets.registeringOfEContent"
+       insert-before="*"
+       />
+
+   <assignment
+       category="content_type"
+       key="edeposit.content.epubcheckvalidationresponse"
+       manager="plone.leftcolumn"
+       type="edeposit.user.portlets.registeringOfEContent"
+       insert-before="*"
+       />
+
+   <assignment
        category="context"
        key="/"
        manager="plone.leftcolumn"
