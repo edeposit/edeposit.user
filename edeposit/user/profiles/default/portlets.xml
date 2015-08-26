@@ -252,6 +252,30 @@
        />
 
    <assignment
+       category="content_type"
+       key="edeposit.content.originalfile"
+       manager="plone.leftcolumn"
+       type="edeposit.user.portlets.registeringOfEContent"
+       insert-before="*"
+       />
+
+   <assignment
+       category="content_type"
+       key="edeposit.content.eperiodical"
+       manager="plone.leftcolumn"
+       type="edeposit.user.portlets.registeringOfEContent"
+       insert-before="*"
+       />
+
+   <assignment
+       category="content_type"
+       key="edeposit.content.book"
+       manager="plone.leftcolumn"
+       type="edeposit.user.portlets.registeringOfEContent"
+       insert-before="*"
+       />
+
+   <assignment
        category="context"
        key="/"
        manager="plone.leftcolumn"
