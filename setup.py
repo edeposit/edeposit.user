@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
 import os
 
@@ -5,7 +6,7 @@ version = '1.0.0'
 
 setup(name='edeposit.user',
       version=version,
-      description="User Metadata for project E-Deposit",
+      description="User Metadata for project eDeposit",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
@@ -13,11 +14,12 @@ setup(name='edeposit.user',
       classifiers=[
         "Framework :: Plone",
         "Programming Language :: Python",
+          "Topic :: Software Development :: Libraries :: Python Modules",
         ],
       keywords='',
-      author='Jan Stavel',
+      author=u'Jan Stavěl',
       author_email='stavel.jan@gmail.com',
-      url='https://github.com/jstavel/edeposit.user',
+      url='https://github.com/edeposit/edeposit.user',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
       namespace_packages=['edeposit'],
