@@ -6,7 +6,7 @@ version = '1.0.0'
 
 setup(name='edeposit.user',
       version=version,
-      description="User Metadata for project eDeposit",
+      description="User Metadata and UX for project eDeposit",
       long_description=open("README.txt").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.txt")).read(),
       # Get more strings from
